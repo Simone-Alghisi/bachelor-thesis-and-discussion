@@ -40,33 +40,12 @@ with the different lockdown and de-escalation stages, in different areas.
 
 \section{Dataset and tweets preprocessing}
 
-\begin{frame}{Dataset}
+\begin{frame}{Dataset description and stats}
 
-	The tweets to analyse were retrieved from echen102/COVID-19-TweetIDs GitHub repository\autocite{chen2020tracking}. The content of the repository along with their data collection strategy is described as follows:
+	The tweets to analyze were retrieved from \textbf{echen102/COVID-19-TweetIDs} GitHub repository\autocite{chen2020tracking} and relate to the period \textbf{from January 2020 to March 2021}. 
 	
-	\textit{The repository contains an ongoing collection of tweets IDs associated with the novel coronavirus COVID-19 (SARS-CoV-2), which commenced on January 28, 2020.} [\ldots] 
-	\textit{We leveraged Twitter’s streaming API to follow \textbf{specified accounts} and also collect in \textbf{real-time tweets that mention specific keywords}.}
-
-\end{frame}
-
-\begin{frame}{Valid Tweets}
-
-	The analyzed period was \textbf{from January 2020 to March 2021}, for a total of 
+	Below, some general statistics
 	
-	\begin{center}
-	    \large\textbf{1 055 843 481 tweets}
-	\end{center}
-	
-	To avoid bias, we have considered each tweet only once, discarding \textbf{retweets}. This reduced the dataset to
-	
-	\begin{center}
-	    \large\textbf{323 504 667 tweets}
-	\end{center}
-
-\end{frame}
-
-\begin{frame}{Dateset stats}
-
 	\begin{table}[h]
         \centering
         \begin{tabularx}{\textwidth}{lXr}
@@ -74,19 +53,31 @@ with the different lockdown and de-escalation stages, in different areas.
             \\ \lightrule
             Number of identified languages & & \textbf{65}
             \\ \lightrule
+            Number of tweets & & \textbf{1 055 843 481}
+            \\ \lightrule
+            Number of unique tweets (no retweets) & & \textbf{323 504 667}
+            \\ \lightrule
             Dataset compressed size & & \textbf{865GB}
             \\ \lightrule
             Dataset estimated uncompressed size & & \textbf{6.252TB}
         \end{tabularx}
-        \caption{General statistics regarding the dataset}
-        \label{tab:dataset_stast}
     \end{table}
+
+\end{frame}
+
+\begin{frame}{Languages with the most tweets}
+    
+    % TODO substitute it with real data
+	\begin{figure}
+	    \centering
+	    \includegraphics[scale=.5]{assets/img/dataset_most_prevalent_languages.jpg}
+	\end{figure}
 
 \end{frame}
 
 \begin{frame}[fragile]{Tweet Structure}
 
-	Thanks to Twarc, it was possible to retrieve a tweet given its id. After some reasoning, it was decided that only a subset of the fields of the json object needed to be actually saved.
+	We retrieved tweets given their id thanks to Twarc and we kept the most relevant information.
 	
 	\begin{block}{Final JSON object}
     	\begin{lstlisting}[language=json]
@@ -117,15 +108,15 @@ with the different lockdown and de-escalation stages, in different areas.
 
 \begin{frame}{Partitioning}
 
-	To access directly to a specific category of tweets (e.g. the tweets written in English on the 3rd of June 2020), we decided to group them 
+	To access directly to a specific category of tweets (e.g. the tweets written in English on the 3rd of June 2020), we grouped them 
 	
 	\begin{itemize}
-	    \item first according to the \textbf{language}, using the \texttt{lang} field in the json file returned from Twitter
+	    \item first according to the \textbf{language}, using the \texttt{lang} field from Twitter
 	    \item secondly by \textbf{year-month}
 	    \item and finally by \textbf{day}
 	\end{itemize}
 	
-    Later on, we have also decided to \textbf{group them in weekly batches} for better data visualization and to average the results.
+    Later on, we decided to \textbf{aggregate them in weekly batches} for better data visualization and to average the results.
 
 \end{frame}
 
@@ -133,14 +124,14 @@ with the different lockdown and de-escalation stages, in different areas.
 
 \begin{frame}{Lexicon}
 
-	For the sentimental analysis the NRC Word-Emotion Association Lexicon (aka EmoLex) \autocite{ncrwebsite} was used, which can be defined as \textit{" \ldots a list of English words and their associations with \textbf{eight basic emotions} (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and \textbf{two sentiments} (negative and positive)."}
+	We used the NRC Word-Emotion Association Lexicon (aka EmoLex) \autocite{ncrwebsite} for sentiment analysis. EmoLex consists of \textit{" \ldots a list of English words and their associations with \textbf{eight basic emotions} (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and \textbf{two sentiments} (negative and positive)."}
 	
 	\begin{figure}
 	    \centering
 	    \includegraphics[scale=0.26]{assets/img/NRC Emotion Lexicon.png}
 	\end{figure}
 	
-	We have chosen this lexicon because it has been translated in over one hundred languages and could easily fit our problem with \textbf{65 identified languages}.
+	We have chosen this lexicon because it \textbf{has been translated in over one hundred languages}.
 
 \end{frame}
 
@@ -169,9 +160,9 @@ with the different lockdown and de-escalation stages, in different areas.
 
 \begin{frame}{Methodology}
 
-    However, sentiment analysis could not be performed using the tweets as they are: in fact, our statistics could end up biased because of \textbf{particularly active} (or emotional) \textbf{users}.
-	
-	Following one of the approaches discussed by Aiello et al.\autocite{aiello2020epidemic}, we decided to consider
+    However, our statistics could end up biased because of \textbf{particularly active} (or emotional) \textbf{users}.
+    
+    Given that, we decided to follow one of the approaches discussed by Aiello et al.\autocite{aiello2020epidemic}, in particular we have considered
 	
 	\begin{itemize}
 	    \item \textbf{emotions in a binary way} (e.g. whether in a given week the user expressed joy or not)
@@ -279,13 +270,13 @@ with the different lockdown and de-escalation stages, in different areas.
     \end{figure}
 	
 \end{frame}
-
+\section{Sentiment analysis over time - by gender}
 \subsection{m3inference}
 \begin{frame}[fragile]{Users inference}
 
-	To infer data about the users, we used m3inference\autocite{wang2019demographic}. m3inference is a \textbf{deep learning system for demographic inference} (gender, age, and person/organization) available on Python.
+	To infer data about the users, we used m3inference\autocite{wang2019demographic}, a \textbf{deep learning system for demographic inference} (gender, age, and person/organization) available on Python.
 	
-	m3inference bases its results on the analysis of the user
+	m3inference bases its results on the analysis of the user's
 	
 	\begin{itemize}
 	    \item description
@@ -315,26 +306,23 @@ with the different lockdown and de-escalation stages, in different areas.
 	    \includegraphics[scale=0.165]{assets/img/pull_request.png}
 	\end{figure}
 	
-	The Pull Request was accepted almost immediately, while the version of m3inference on the packet manager was updated when the same issue was notified by another user\footnote{issue: \href{https://github.com/euagendas/m3inference/issues/21}{Error fetching images will fail the infer method \#21}}.
+	The version of m3inference on the packet manager was updated when the same issue was notified by another user\footnote{issue: \href{https://github.com/euagendas/m3inference/issues/21}{Error fetching images will fail the infer method \#21}}.
 	
 \end{frame}
 
 \begin{frame}{Prediction confidence}
 
-    We decided to consider valid all the users that respected the following definition:
-
     \begin{definition}
         A user \(u\) belongs to the category \(c \in C\) iif their prediction confidence \(pc\) is greater or equal than 0.95, i.e.
-	    
 	    \[u \in c \Longleftrightarrow pc(u) \geq 0.95\]
 	\end{definition}
 	
-	In particular, the following methodology was applied to select valid users:
+	In particular, the following methodology was applied
 	
 	\begin{itemize}
-	    \item check if the user account belongs to an organization by comparing the results obtained from m3inference, otherwise
-	    \item check if the user is male (or female) by comparing the results obtained from m3inference, otherwise
-	    \item if none of the previous constraints were satisfied, we do not consider this user
+	    \item we first check if the user's account belongs to an organization
+	    \item then, if the user is male (or female)
+	    \item finally, if none of the previous constraints were satisfied, we do not consider this user
 	\end{itemize}
 	
 \end{frame}
