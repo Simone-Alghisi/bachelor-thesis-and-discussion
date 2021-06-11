@@ -19,9 +19,20 @@
 
 \addcontentsline{toc}{chapter}{Abstract} % da aggiungere comunque all'indice
 
-During this year, everyone daily life changed significantly and we had to adapt to restrictive measures in order to stop the disease: whether we liked it or not. For this reason, I immediately thought that the research proposed by Eurecat could be very interesting: the possibility to study how people perceived all of this situation, and better understand which measures were more welcomed than others, seemed really fascinating and, above all, may be useful in the case of some other unfortunate event. Moreover, I never had the chance to explore the field of Data Science, to use tools such as Lexicon to perform an analysis of the emotions based on the text, or worked with such an impressive amount of data to obtain valid results.
+During this year, everyone daily life changed significantly and we had to adapt to restrictive measures in order to stop the disease: whether we liked it or not. 
+
+For this reason, I immediately thought that the research proposed by the Big Data Department of Eurecat - Centro Tecnológico de Catalunya, and supervised by \textit{Cristian Consonni} and \textit{David Laniado}, could be very interesting: the possibility to study, during my traineeship, how people perceived all of this situation, and better understand which measures were more welcomed than others, seemed really fascinating and, above all, may be useful in the case of some other unfortunate event. Moreover, I never had the chance to explore the field of Data Science, to use tools such as Lexicon to perform an analysis of the emotions based on the text, or worked with such an impressive amount of data to obtain valid results.
 
 The purpose of the project was to analyze the emotions emerging from Twitter messages during the pandemic, in order to understand how people felt over the whole period. Based on the result obtained from this research, it may be possible to determine which counter measures better handled the situation while offering the best possible trade off between people's satisfaction and reducing the spread of the disease.
+
+In general, my contribution to the research mostly regarded:
+
+\begin{itemize}
+	\item retrieving and organizing the data
+	\item processing the tweets to understand users' emotions
+	\item inferring demographic information about the users
+	\item geocoding the location of the user
+\end{itemize}
 
 The dataset used for the project is the echen102/COVID-19-TweetIDs, a collection of over 1 billion tweet IDs available on GitHub. The selected tweets are either
 
@@ -55,12 +66,12 @@ To understand how differently men and women perceived the pandemic, we decided t
 
 Finally, we used Twitter location field to analyze users from the same place. To overcome the absence of constraints to specify a location, we retrieved the position of the users using address geocoding, the process of taking a text-based description of a location and returning its geographic coordinates. In particular, we used Nominatim to access the data made available by OpenStreetMap(OSM).
 
-During the course of the project I had the possibility to personally contribute to m3inference improvement on GitHub, by opening a pull request to solve some issues while downloading images from Twitter.
-
 %TODO go back and add more results
 
 \textbf{Questa ultima sezione ha bisogno di essere rivista successivamente, una volta deciso se usare i risultati di LWIC o di Emolex}
 
 The analysis of the English datatset revealed some first interesting results: it seems that females are more inclined to express joy and sadness; males instead, more anger.
+
+During the course of the project I had the possibility to personally contribute to m3inference improvement on GitHub, by opening a pull request to solve some issues while downloading images from Twitter.
 
 In the end, I was only able to scratch the surface of this research field, because the amount of data to analyze was really impressive. In any case, I hope that my contribution could be a good starting point for further studies and I would really like to continue researching about this topic in the future.
