@@ -1,90 +1,15 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% Template per Elaborato di Laurea
-% DISI - Dipartimento di Ingegneria e Scienza dell’Informazione
-%
-% update 2015-09-10
-%
-% Per la generazione corretta del 
-% pdflatex nome_file.tex
-% bibtex nome_file.aux
-% pdflatex nome_file.tex
-% pdflatex nome_file.tex
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 % formato FRONTE RETRO
 \documentclass[epsfig,a4paper,11pt,titlepage,twoside,openany]{book}
-\usepackage{epsfig}
-\usepackage{plain}
-\usepackage{setspace}
-\usepackage[paperheight=29.7cm,paperwidth=21cm,outer=1.5cm,inner=1.5cm,top=2cm,bottom=2cm]{geometry} % per definizione layout
-\usepackage{titlesec} % per formato custom dei titoli dei capitoli
-
-%%%%%%%%%%%%%%
-% supporto lettere accentate
-%
-%\usepackage[latin1]{inputenc} % per Windows;
-\usepackage[utf8x]{inputenc} % per Linux (richiede il pacchetto unicode);
-%\usepackage[applemac]{inputenc} % per Mac.
-
-\singlespacing
-
-\usepackage[english]{babel}
-
-
-%% My packages
-%% Tables 
-
-\usepackage{tabularx}
-\usepackage[table]{xcolor}
-\usepackage{amsmath}
-\usepackage{booktabs}
-
-\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
-\setlength\lightrulewidth{0.1pt}
-\providecommand\lightrule{%
-	\arrayrulecolor{black!30}%
-	\midrule[\lightrulewidth]%
-	\arrayrulecolor{black}}
-	
-%% Listings
-\usepackage{listings}
-\usepackage{xcolor}
-
-\colorlet{punct}{red!60!black}
-\definecolor{background}{HTML}{EEEEEE}
-\definecolor{delim}{RGB}{20,105,176}
-\colorlet{field}{magenta!60!black}
-
-\lstdefinelanguage{json}{
-    basicstyle=\small\tt,
-    numberstyle=\scriptsize,
-    showstringspaces=false,
-    breaklines=true,
-    frame=none,
-    literate=
-      {,}{{{\color{punct}{,}}}}{1}
-      {\{}{{{\color{delim}{\{}}}}{1}
-      {\}}{{{\color{delim}{\}}}}}{1}
-      {[}{{{\color{delim}{[}}}}{1}
-      {]}{{{\color{delim}{]}}}}{1},
-    string=[s]{"}{"},
-    stringstyle=\color{field},
-    comment=[l]{:},
-    commentstyle=\color{black},
-}
+\usepackage{style/thesis_style}
 
 %% BEGIN DOCUMENT
 
 \begin{document}
+\def\biblio{}
 
   % nessuna numerazione
   \pagenumbering{gobble} 
-  \input{pagina_iniziale}
+  \input{first_page/first_page}
 
   \clearpage
 
@@ -96,11 +21,11 @@
 %% Sezione Ringraziamenti opzionale
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \input{ringraziamenti}
+  \input{special_thanks}
   \clearpage
   \pagestyle{plain} % nessuna intestazione e pie pagina con numero al centro
 
-  
+
   % inizio numerazione pagine in numeri arabi
   \mainmatter
 
@@ -124,9 +49,9 @@
     % indice
     \tableofcontents
     \clearpage
-    
-    
-          
+
+
+
     % gruppo per definizone di successione capitoli senza interruzione di pagina
     \begingroup
       % nessuna interruzione di pagina tra capitoli
@@ -148,40 +73,24 @@
       \titlespacing*{\subsection}{0pt}{0.10in}{0.02in}
       
       % sommario
-      \input{sommario}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Nota
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Sommario e' un breve riassunto del lavoro svolto dove si descrive 
-%% l’obiettivo, l’oggetto della tesi, le metodologie e 
-%% le tecniche usate, i dati elaborati e la spiegazione delle conclusioni 
-%% alle quali siete arrivati.
-%% Il sommario dell’elaborato consiste al massimo di 3 pagine e deve contenere le seguenti informazioni: 
-%%   contesto e motivazioni
-%%   breve riassunto del problema affrontato
-%%   tecniche utilizzate e/o sviluppate
-%%   risultati raggiunti, sottolineando il contributo personale del laureando/a
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      
-      
+      \input{abstract}
+
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       % lista dei capitoli
       %
       % \input oppure \include
       %
-      \input{capitolo1}
-      \input{capitolo2}
-      \input{capitolo3}
-      %\input{capitolo4}
-      
-      
+      \input{chapters/chapter1}
+      \input{chapters/chapter2}
+      \input{chapters/chapter3}
+
+
     \endgroup
-	
+
     % bibliografia in formato bibtex
     %
     % aggiunta del capitolo nell'indice
-    \addcontentsline{toc}{chapter}{Bibliografia}
+    \addcontentsline{toc}{chapter}{Bibliography}
     % stile con ordinamento alfabetico in funzione degli autori
     \bibliographystyle{plain}
     \bibliography{biblio}
@@ -215,9 +124,9 @@
     
 
     \titleformat{\chapter}
-        {\normalfont\Huge\bfseries}{Allegato \thechapter}{1em}{}
+        {\normalfont\Huge\bfseries}{Attachment \thechapter}{1em}{}
     % sezione Allegati - opzionale
     \appendix
-    \input{allegati}
+    \input{attachments}
 
 \end{document}

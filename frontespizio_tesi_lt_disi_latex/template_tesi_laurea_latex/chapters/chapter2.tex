@@ -1,0 +1,91 @@
+\chapter{Data collection}
+\label{cha:data}
+The dataset used for the project is the \textbf{echen102/COVID-19-TweetIDs} GitHub repository\cite{chen2020tracking}. The repository contains an ongoing collection of tweets IDs, starting on the 28th of January 2020, from specified accounts and also real-time tweets that mention specific keywords.
+
+\begin{table}[H]
+    \centering
+    \ra{1.2}
+    \begin{tabularx}{\columnwidth}{@{}Xr@{}}
+        Number of files & 10 402
+        \\
+        Number of identified languages & 65
+        \\
+        Number of tweets & 1 055 843 481
+        \\
+        Number of unique tweets (no retweets) & 323 504 667
+        \\
+        Dataset compressed size & 865 GB
+        \\
+        Dataset estimated uncompressed size & 6.252 TB
+    \end{tabularx}
+    \caption{Dataset general statistics}
+    \label{tab:dataset-stats}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \ra{1.2}
+    \begin{tabularx}{\columnwidth}{@{}XXrrrr@{}}
+    		\textbf{language} & \textbf{ISO} & \textbf{unique tweets} & \textbf{retweets} & \textbf{total} & \textbf{percentage} \\
+    		\midrule
+        English & en & 195 645 826 & 473 950 322 & 669 596 148 & 63.41\% 
+        \\
+		Spanish & es & 35 533 886 & 111 464 189 & 146 998 075 & 13.92\% 
+		\\
+		Portuguese & pt & 15 459 760 & 29 912 427 & 45 372 187 & 4.30\% 
+		\\
+		French & fr & 9 547 251 & 23 635 273 & 33 182 524 & 3.14\% 
+		\\
+		Undefined & und & 20 560 392 & 8 590 707 & 29 151 099 & 2.76\%
+		\\
+		Indonesian & in & 9 029 012 & 16 479 537 & 25 508 549 & 2.41\%
+		\\
+		German & de & 8 091 516 & 11 447 554 & 19 539 070 & 1.85\%
+		\\
+		Japanese & ja & 3 228 542 & 10 220 609 & 13 449 151 & 1.27\%
+		\\
+		Italian & it & 5 256 748 & 7 173 234 & 12 429 982 & 1.18\%
+		\\
+		Turkish & tr & 3 347 597 & 6 698 252 & 10 045 849 & 0.95\%
+		\\
+		\bottomrule
+    \end{tabularx}
+    \caption{Top 10 languages with the most tweets}
+    \label{tab:dataset-language-stats}
+\end{table}
+
+\section{Tweets}
+
+To comply with Twitter's Term of Service, tweets cannot be released publicly: the repository is in fact a collection of tweets IDs. The original tweets can be retrieved, or hydrated, using the Python library Twarc with a Twitter Developer Account. Given an id, Twarc simply uses the token of the associated developer account to contact the API, and returns the corresponding tweet as a json object.
+
+The original structure of the tweets was changed, in order to consider only the relevant fields:
+
+\begin{lstlisting}[language=json]
+{
+  "id": 1307025659294674945,
+  "full_text": "Here's an article that highlights the updates...",
+  "lang": "en",
+  "created_at": "Fri Sep 18 18:36:15 +0000 2020",
+  "retweet_count": 11,
+  "favorite_count": 70,
+  "user": {
+    "id": 2244994945,
+    "id_str": "2244994945",
+    "screen_name": "TwitterDev",
+    "name": "Twitter Dev",
+    "description": "The voice of the #TwitterDev team and your official...",
+    "location": "127.0.0.1",
+    "followers_count": 513958,
+    "statuses_count": 3635,
+    "default_profile_image": false,
+    "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/1283786620521652229\/lEODkLTh_normal.jpg"
+  }
+}
+\end{lstlisting}
+
+\section{Analyzed period and languages}
+
+We have decided to consider the period from January 2020 to March 2021
+
+
+

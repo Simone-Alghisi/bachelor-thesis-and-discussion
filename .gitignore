@@ -1,6 +1,10 @@
+*.log
+*.lof
+*.out
+*.synctex.gz
 *.aux
 *.bbl
+*.lot
 *.blg
-*.log
-*.synctex.gz
+*.tdo
 *.toc
