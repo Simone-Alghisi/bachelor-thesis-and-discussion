@@ -1,6 +1,32 @@
 \chapter{Data collection}
 \label{cha:data}
-The dataset used for the project is the \textbf{echen102/COVID-19-TweetIDs} GitHub repository\cite{chen2020tracking}. The repository contains an ongoing collection of tweets IDs, starting on the 28th of January 2020, from specified accounts and also real-time tweets that mention specific keywords.
+The dataset used for the project is the echen102/COVID-19-TweetIDs GitHub repository~\cite{chen2020tracking}. The repository contains an ongoing collection of tweets IDs, starting on the 28th of January 2020.
+
+The tweets in the dataset are either
+\begin{itemize}
+	\item related to specified accounts
+	\item real-time, because they mention specific keywords
+\end{itemize}
+
+\section{Dataset structure}
+\label{sec:dataset_struct}
+
+
+\section{Analyze period}
+\label{sec:period}
+COVID-19 was declared a Public Health Emergency of International Concern on 30 January 2020, and a pandemic on 11 March 2020. However, depending on the considered country, restrictive measure were first applied on different dates and for different periods of time. 
+
+For this reason, we decided to consider tweets from January 2020 to March 2021. In this way, we were able to
+
+\begin{itemize}
+	\item consider more countries
+	\item better understand when people expressed more negative (or positive) emotions w.r.t the whole period
+\end{itemize}
+
+\subsection{Dataset statistics for the analyzed period}
+\label{subsec:dataset_stats}
+
+The following statistics were obtained considering the dataset structure expressed in \cref{sec:dataset_struct} and the period discussed in \cref{sec:period}
 
 \begin{table}[H]
     \centering
@@ -36,8 +62,6 @@ The dataset used for the project is the \textbf{echen102/COVID-19-TweetIDs} GitH
 		\\
 		French & fr & 9 547 251 & 23 635 273 & 33 182 524 & 3.14\% 
 		\\
-		Undefined & und & 20 560 392 & 8 590 707 & 29 151 099 & 2.76\%
-		\\
 		Indonesian & in & 9 029 012 & 16 479 537 & 25 508 549 & 2.41\%
 		\\
 		German & de & 8 091 516 & 11 447 554 & 19 539 070 & 1.85\%
@@ -48,6 +72,8 @@ The dataset used for the project is the \textbf{echen102/COVID-19-TweetIDs} GitH
 		\\
 		Turkish & tr & 3 347 597 & 6 698 252 & 10 045 849 & 0.95\%
 		\\
+		Thai & th & 350 268 & 9 028 730 & 9 378 998 & 0.89\%
+		\\
 		\bottomrule
     \end{tabularx}
     \caption{Top 10 languages with the most tweets}
@@ -55,12 +81,36 @@ The dataset used for the project is the \textbf{echen102/COVID-19-TweetIDs} GitH
 \end{table}
 
 \section{Tweets}
-
+\label{sec:tweets}
 To comply with Twitter's Term of Service, tweets cannot be released publicly: the repository is in fact a collection of tweets IDs. The original tweets can be retrieved, or hydrated, using the Python library Twarc with a Twitter Developer Account. Given an id, Twarc simply uses the token of the associated developer account to contact the API, and returns the corresponding tweet as a json object.
 
-The original structure of the tweets was changed, in order to consider only the relevant fields:
+The structure of the json objects depends on the version of the API used: for this project, we have used Standard v1.1 to hydrate the tweets. 
 
-\begin{lstlisting}[language=json]
+The response returned from Twitter can vary, because some of the fields are optional.\footnote{\url{https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet}} In general, a tweet is described by the following fields:
+
+\begin{itemize}
+	\item \texttt{id}, the integer representation of the unique identifier for this Tweet
+	\item \texttt{created\_at}, UTC time when this Tweet was created
+	\item \texttt{full\_text}, the actual UTF-8 text of the status update (not truncated)
+	\item \texttt{user}, the user who posted this Tweet
+	\item \texttt{retweeted\_status}, the presence of this attribute distinguishes Retweets from typical Tweets
+	\item \texttt{lang}, indicates a BCP 47 language identifier corresponding to the machine-detected language of the Tweet text, or und if no language could be detected
+\end{itemize}
+
+Further information about the user that posted the tweet are available in the \texttt{user} field, such as:
+
+\begin{itemize}
+	\item \texttt{id}, the integer representation of the unique identifier for this User
+	\item \texttt{name}, the name of the user, as they have defined it
+	\item \texttt{screen\_name}, the screen name, handle, or alias that this user identifies themselves with
+	\item \texttt{location}, the user-defined location for this account's profile. Not necessarily a location, nor machine-parseable
+	\item \texttt{description}, the user-defined UTF-8 string describing their account
+	\item \texttt{profile\_image\_url\_https}, a HTTPS-based URL pointing to the user's profile image
+\end{itemize}
+
+For the scope of the project, we decided to keep a simpler representation of the json object with only the most relevant fields:
+
+\begin{lstlisting}[language=json, caption={Final json object for a Tweet}, captionpos=b, label={lst:tweet_json}]
 {
   "id": 1307025659294674945,
   "full_text": "Here's an article that highlights the updates...",
@@ -82,10 +132,6 @@ The original structure of the tweets was changed, in order to consider only the 
   }
 }
 \end{lstlisting}
-
-\section{Analyzed period and languages}
-
-We have decided to consider the period from January 2020 to March 2021
 
 
 

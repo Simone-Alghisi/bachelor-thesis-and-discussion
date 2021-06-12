@@ -18,3 +18,37 @@ Lexicon-based sentiment analysis tools have been employed to characterize emotio
 
 This could allow us to contrast the emotional reaction with the evolution of contagions and deaths, and with the different lockdown and de-escalation stages, in different areas.
 
+\section{Twitter}
+\label{sec:twitter}
+
+Twitter is an American microblogging and social networking service on which users post and interact with messages known as "tweets". Registered users can post, like, and retweet tweets, but unregistered users can only read them. 
+
+Tweets were originally restricted to 140 characters, but the limit was doubled to 280 for non-CJK languages.
+
+As of Q1 2019, Twitter had more than 330 million monthly active users. Twitter is a some-to-many microblogging service, given that the vast majority of tweets are written by a small minority of users~\cite{enwiki:1027840990}.
+
+\subsection{Why did we use Twitter?}
+\label{subsec:why_twitter}
+
+The main and only reason behind this critical choice, is the fact that it was the only possibility. Obviously, the data from other platforms (e.g. Facebook) could have been interesting. However, it is either too difficult to get the data (due to particular limitations) or get enough data. For this reason, Twitter was the only option.
+
+Nonetheless, Twitter remains a very interesting social network where, in the majority of the case, posts are public and everyone can see them (i.e. there are less privacy related issues), and it is particularly easy to have access to a considerable amount of data.
+
+On the other hand, Twitter maximum number of characters per tweets limits the possibilities of the users to express their feelings: this could have a negative impact on the performance of sentiment analysis. However, with a sufficient amount of data, is possible to reduce this to a bare minimum. 
+
+\section{Sentiment analysis}
+\label{sec:sentiment-analysis}
+
+Sentiment analysis (also known as opinion mining or emotion AI) is the use of natural language processing, text analysis, computational linguistics, and biometrics to systematically identify, extract, quantify, and study affective states and subjective information. Sentiment analysis is widely applied to voice of the customer materials such as reviews and survey responses, online and social media, and healthcare materials for applications that range from marketing to customer service to clinical medicine.
+
+The objective and challenges of sentiment analysis can be shown through some simple examples:
+\begin{itemize}
+	\item I do not dislike carrots. (Negation handling)
+	\item There are times when I regret not being a cat (Adverbial modifies the sentiment)
+	\item It's all day that I was waiting to clean my room! (Possibly sarcastic)
+	\item I think that the best part of the movie is when the villain dies. (Negative term used in a positive sense in certain domains).
+	\item \ldots
+\end{itemize}
+
+A basic task in sentiment analysis is classifying the polarity of a given text at the document, sentence, or feature/aspect level—whether the expressed opinion in a document, a sentence or an entity feature/aspect is positive, negative, or neutral. Advanced, "beyond polarity" sentiment classification looks, for instance, at emotional states such as enjoyment, anger, disgust, sadness, fear, and surprise~\cite{enwiki:1024880646}.
+
