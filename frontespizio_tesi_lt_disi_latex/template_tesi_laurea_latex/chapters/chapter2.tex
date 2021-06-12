@@ -1,22 +1,49 @@
 \chapter{Data collection}
 \label{cha:data}
-The dataset used for the project is the echen102/COVID-19-TweetIDs GitHub repository~\cite{chen2020tracking}. The repository contains an ongoing collection of tweets IDs, starting on the 28th of January 2020.
+The dataset used for the project is the echen102/COVID-19-TweetIDs GitHub repository~\cite{chen2020tracking}. The repository contains an ongoing collection of tweet IDs starting on the 28th of January 2020.
 
-The tweets in the dataset are either
+The IDs in the dataset are either tweets
 \begin{itemize}
-	\item related to specified accounts
-	\item real-time, because they mention specific keywords
+	\item from one of the following accounts
+	\begin{itemize}
+		\item PneumoniaWuhan
+		\item CoronaVirusInfo
+		\item V2019N
+		\item CDCemergency
+		\item CDCgov
+		\item WHO
+		\item HHSGov
+		\item NIAIDNews
+		\item drtedros
+	\end{itemize}
+	\item sampled real-time, because they mention specific keywords, such as
+	\begin{itemize}
+		\item Coronavirus
+		\item Epidemic
+		\item covid-19
+		\item Social Distancing
+		\item panic buy
+		\item lockdown
+		\item \ldots
+	\end{itemize}
 \end{itemize}
 
 \section{Dataset structure}
-\label{sec:dataset_struct}
+\label{sec:dataset-struct}
+
+Tweet-IDs are organized in the following way inside of the dataset:
+
+\begin{itemize}
+	\item at the top layer, the IDs are sorted into YEAR-MONTH folders
+	\item then, in each folder, tweet-IDs are grouped into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-DATE-HOUR
+\end{itemize}
 
 
-\section{Analyze period}
+\section{Analyzed period}
 \label{sec:period}
-COVID-19 was declared a Public Health Emergency of International Concern on 30 January 2020, and a pandemic on 11 March 2020. However, depending on the considered country, restrictive measure were first applied on different dates and for different periods of time. 
+COVID-19 was declared a Public Health Emergency of International Concern on 30 January 2020, and a pandemic on 11 March 2020. However, depending on the considered country, restrictive measures were applied on different dates and for different periods of time. 
 
-For this reason, we decided to consider tweets from January 2020 to March 2021. In this way, we were able to
+For this reason, we decided to analyze tweets from January 2020 to March 2021. In this way, we were able to
 
 \begin{itemize}
 	\item consider more countries
@@ -24,9 +51,9 @@ For this reason, we decided to consider tweets from January 2020 to March 2021. 
 \end{itemize}
 
 \subsection{Dataset statistics for the analyzed period}
-\label{subsec:dataset_stats}
+\label{subsec:dataset-stats}
 
-The following statistics were obtained considering the dataset structure expressed in \cref{sec:dataset_struct} and the period discussed in \cref{sec:period}
+The following statistics were obtained considering the dataset structure expressed in \cref{sec:dataset-struct} and the period discussed in \cref{sec:period}
 
 \begin{table}[H]
     \centering
@@ -80,13 +107,23 @@ The following statistics were obtained considering the dataset structure express
     \label{tab:dataset-language-stats}
 \end{table}
 
+\section{Terms of service}
+\label{sec:tos}
+
+To comply with Twitter's Term of Service,\footnote{\url{https://developer.twitter.com/en/developer-terms/agreement-and-policy}} tweets cannot be released publicly: the repository is in fact a collection of Tweet-IDs. Moreover, data is released for non-commercial research use.
+
+\subsection{How to retrieve the data}
+\label{subsec:retrieve-data}
+
+The original tweets can be retrieved, or hydrated, using the Python library Twarc with a Twitter developer account. In fact, to be able to use the Twitter API, it is mandatory to apply to Twitter Developer\footnote{\url{https://developer.twitter.com/en/apply-for-access}}. When the application has been accepted, the developer will be entitled to access the API using tokens. 
+
+Given the id of a tweet, Twarc uses the tokens of the associated developer account to contact the API, and returns the corresponding information as a json object. However, Twarc also tries to maximize the number of possible IDs per request and, at the same time, makes sure to be compliant with the API usage limits.
+
 \section{Tweets}
 \label{sec:tweets}
-To comply with Twitter's Term of Service, tweets cannot be released publicly: the repository is in fact a collection of tweets IDs. The original tweets can be retrieved, or hydrated, using the Python library Twarc with a Twitter Developer Account. Given an id, Twarc simply uses the token of the associated developer account to contact the API, and returns the corresponding tweet as a json object.
+The structure of the json object for the associated tweet depends on the version of the API used: for this project, we have used Standard v1.1 to hydrate the tweet. \footnote{\url{https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet}}
 
-The structure of the json objects depends on the version of the API used: for this project, we have used Standard v1.1 to hydrate the tweets. 
-
-The response returned from Twitter can vary, because some of the fields are optional.\footnote{\url{https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet}} In general, a tweet is described by the following fields:
+In general, a tweet is described by the following fields:
 
 \begin{itemize}
 	\item \texttt{id}, the integer representation of the unique identifier for this Tweet
@@ -108,7 +145,7 @@ Further information about the user that posted the tweet are available in the \t
 	\item \texttt{profile\_image\_url\_https}, a HTTPS-based URL pointing to the user's profile image
 \end{itemize}
 
-For the scope of the project, we decided to keep a simpler representation of the json object with only the most relevant fields:
+For the scope of the project, we decided to keep a simpler representation of the original json object, with only the most relevant fields:
 
 \begin{lstlisting}[language=json, caption={Final json object for a Tweet}, captionpos=b, label={lst:tweet_json}]
 {
