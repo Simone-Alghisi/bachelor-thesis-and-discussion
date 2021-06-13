@@ -1,4 +1,107 @@
-\chapter{Conclusioni}
-\label{cha:conclusioni}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Aliquam nec nisl vitae sapien pulvinar dictum quis non urna. Suspendisse at dui a erat aliquam vestibulum. Quisque ultrices pellentesque pellentesque. Pellentesque egestas quam sed blandit tempus. Sed congue nec risus posuere euismod. Maecenas ut lacus id mauris sagittis egestas a eu dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque at ultrices tellus. Ut eu purus eget sem iaculis ultricies sed non lorem. Curabitur gravida dui eget ex vestibulum venenatis. Phasellus gravida tellus velit, non eleifend justo lobortis eget. 
+\chapter{Methods}
+\label{cha:methods}
+
+This chapter aims to describe all the different methodologies used to analyze the data collected during the previous phase and explained in \autoref{cha:data}. 
+
+The scope of the project is to understand and measure the emotions of the users through sentiment analysis. In particular, we would like to identify, given a certain set of tweets scattered across our considered period of time, when the users conveyed more feelings and which was the emotion expressed the most (e.g. from the Italian tweets it is possible to notice a peak of anger on 21st of February 2020).
+
+Given the heterogeneity of the tweets, we would also like to conduct a more in-dept analysis, by considering the users, over the whole time frame, based on their gender and also on their location.
+
+\section{Lexicons}
+\label{lexicons}
+
+Until now we have discussed that we would like to identify and quantify the emotions expressed in the tweets, but we still lack a way to achieve this result. During the project I have used \textit{Lexicons} for this particular task.
+
+The idea behind lexicons is quite simple: we take a particular word in our dictionary, and we assign zero or more emotions or sentiments to it.
+\begin{figure}
+	\begin{tikzpicture}
+		\filldraw (-2,3) node[RectObject, inner xsep=1cm, dashed](pandemic){pandemic};
+		\draw (-2,5) node[RectObject, inner xsep=1cm, draw=gray](hospital){hospital};
+		\filldraw (8,1) node[RectObject, inner xsep=1cm, line width=0.3mm](negative){negative};
+	\filldraw (8,3) node[RectObject, inner xsep=1cm, draw=purple, line width=0.3mm](fear){fear};
+		\filldraw (8,5) node[RectObject, inner xsep=1cm, draw=blue, line width=0.3mm](sadness){sadness};
+		\filldraw (8,7) node[RectObject, inner xsep=1cm, draw=green, line width=0.3mm](trust){trust};
+		\draw[arrow, dashed] (pandemic.east)--(negative.west);
+		\draw[arrow, dashed] (pandemic.east)--(fear.west);
+		\draw[arrow, dashed] (pandemic.east)--(sadness.west);
+		\draw[arrow, draw=gray] (hospital.east)--(trust.west);
+		\draw[arrow, draw=gray] (hospital.east)--(fear.west);
+		\draw[arrow, draw=gray] (hospital.east)--(sadness.west);
+	\end{tikzpicture}
+	\caption{Word-emotions/sentiments association}
+	\label{fig:word-association}
+\end{figure}
+
+However, if we look at \autoref{fig:word-association}, we can notice that, while the word pandemic is associated with only negative emotions/sentiments, the word hospital is associated with fear and sadness but, at the same time, with trust. While this is technically correct, because our lexicon does not know in which context the word is used (i.e. it must consider all the possible meanings), it also introduces a bias.
+
+To simplify even more, even a simple negation can totally change the meaning of a particular quote:
+
+\begin{center}
+	I am fine / I am \underline{not} fine
+\end{center}
+
+For this reason, results obtained should be checked and contextualized to get a clear understanding of the situation. 
+
+\paragraph{EmoLex}
+
+For the research, I have used the NRC Word-Emotion Association Lexicon (aka EmoLex) for sentiment analysis~\cite{ncrwebsite}. EmoLex is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive).
+
+The peculiarity of this lexicon is the fact that, even if it has been designed for the analysis of English words, it has been translated in over one hundred languages using Google Translates. Given that, the number of different languages identified in the dataset is more than 60, this particular dictionary could perfectly fit our problem.
+
+\section{Data organization}
+\label{sub:data-org}
+
+Before performing sentiment analysis on our tweets, we decided to define a new data organization strategy. In particular,
+
+\begin{itemize}
+	\item at the top layer, we sorted the tweets into LANGUAGE folders using the \texttt{lang} field of the json object
+	\item then, into YEAR-MONTH folders
+	\item finally, we grouped the tweets into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-DAY
+\end{itemize}
+
+The idea behind this partition, aside from considering tweets of the same language, was to get rid of the per hour aggregation: for the purpose of the project, this kind of granularity is simply too much. Given that, we have preferred to aggregate in a single file the tweets posted on the same day.
+
+\autoref{fig:tweet-org-1} shows a visual representation of the new data organization: now it is possible to access directly to tweets of the same language posted on a particular date.
+
+\begin{figure}[H]
+	\dirtree{%
+		.1 / .
+		.2 en.
+		.3 2020-01.
+		.4 coronavirus-tweet-2020-01-21.json.gz .
+		.4 coronavirus-tweet-2020-01-22.json.gz .
+		.4 \ldots .
+		.4 coronavirus-tweet-2020-01-30.json.gz .
+		.4 coronavirus-tweet-2020-01-31.json.gz .
+		.3 \ldots .
+		.3 2021-03 .
+		.4 coronavirus-tweet-2021-03-01.json.gz .
+		.4 \ldots .
+		.4 coronavirus-tweet-2021-03-31.json.gz .
+		.2 it .
+		.2 \ldots .
+	}
+	\caption{First tweets organization}
+	\label{fig:tweet-org-1}
+\end{figure}
+
+However, this first data organization strategy led to very noisy results: this happened because, depending on the language considered, the number of tweets can drastically change. To solve this problem, we thought about grouping together tweets of the same week: in this way, we were able to average the results more, get stabler data for languages with fewer tweets, and obtain a clearer visualization.
+
+\begin{figure}[H]
+	\dirtree{%
+		.1 / .
+		.2 en.
+		.3 coronavirus-tweet-2020-01-20.json.gz .
+		.3 coronavirus-tweet-2020-01-27.json.gz .
+		.3 \ldots .
+		.3 coronavirus-tweet-2021-03-22.json.gz .
+		.3 coronavirus-tweet-2021-03-29.json.gz .
+		.2 it .
+		.2 \ldots .
+	}
+	\caption{Weekly tweets organization}
+	\label{fig:tweet-org-2}
+\end{figure}
+
+In this case, the syntax of the files showed in \autoref{fig:tweet-org-2} has a slightly different meaning. In particular, tweets are grouped into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-FIRST\_WEEK\_DAY.
 

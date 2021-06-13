@@ -28,20 +28,19 @@ The IDs in the dataset are either tweets
 	\end{itemize}
 \end{itemize}
 
-\section{Dataset structure}
-\label{sec:dataset-struct}
+\paragraph{Dataset structure}
 
-Tweet-IDs are organized in the following way inside of the dataset:
+Data is organized in the following way inside of the dataset:
 
 \begin{itemize}
 	\item at the top layer, the IDs are sorted into YEAR-MONTH folders
-	\item then, in each folder, tweet-IDs are grouped into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-DATE-HOUR
+	\item then, in each folder, Tweet-IDs are grouped into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-DAY-HOUR
 \end{itemize}
 
 
 \section{Analyzed period}
 \label{sec:period}
-COVID-19 was declared a Public Health Emergency of International Concern on 30 January 2020, and a pandemic on 11 March 2020. However, depending on the considered country, restrictive measures were applied on different dates and for different periods of time. 
+COVID-19 was declared a Public Health Emergency of International Concern on 30 January 2020, and a pandemic on 11 March 2020. However, depending on the considered country, restrictive measures were applied on different dates and for different time periods. 
 
 For this reason, we decided to analyze tweets from January 2020 to March 2021. In this way, we were able to
 
@@ -50,10 +49,7 @@ For this reason, we decided to analyze tweets from January 2020 to March 2021. I
 	\item better understand when people expressed more negative (or positive) emotions w.r.t the whole period
 \end{itemize}
 
-\subsection{Dataset statistics for the analyzed period}
-\label{subsec:dataset-stats}
-
-The following statistics were obtained considering the dataset structure expressed in \cref{sec:dataset-struct} and the period discussed in \cref{sec:period}
+Considering this time frame, I have processed and worked with:
 
 \begin{table}[H]
     \centering
@@ -107,21 +103,20 @@ The following statistics were obtained considering the dataset structure express
     \label{tab:dataset-language-stats}
 \end{table}
 
-\section{Terms of service}
-\label{sec:tos}
+\section{How to retrieve the data}
+\label{sec:retrieve-data}
 
-To comply with Twitter's Term of Service,\footnote{\url{https://developer.twitter.com/en/developer-terms/agreement-and-policy}} tweets cannot be released publicly: the repository is in fact a collection of Tweet-IDs. Moreover, data is released for non-commercial research use.
+To comply with Twitter's terms of service,\footnote{\url{https://developer.twitter.com/en/developer-terms/agreement-and-policy}} tweets cannot be released publicly: the repository is in fact a collection of Tweet-IDs.
 
-\subsection{How to retrieve the data}
-\label{subsec:retrieve-data}
-
-The original tweets can be retrieved, or hydrated, using the Python library Twarc with a Twitter developer account. In fact, to be able to use the Twitter API, it is mandatory to apply to Twitter Developer\footnote{\url{https://developer.twitter.com/en/apply-for-access}}. When the application has been accepted, the developer will be entitled to access the API using tokens. 
+The original tweets can be retrieved, or \textit{hydrated}, using the Python library Twarc with a Twitter Developer Account. In fact, to be able to use the Twitter API, it is mandatory to apply to Twitter Developer.\footnote{\url{https://developer.twitter.com/en/apply-for-access}} When the application has been accepted, the developer will be entitled to access the API using tokens. 
 
 Given the id of a tweet, Twarc uses the tokens of the associated developer account to contact the API, and returns the corresponding information as a json object. However, Twarc also tries to maximize the number of possible IDs per request and, at the same time, makes sure to be compliant with the API usage limits.
 
+In the case of this dataset, the data came along with a script to hydrate the tweets automatically to facilitate the procedure.
+
 \section{Tweets}
 \label{sec:tweets}
-The structure of the json object for the associated tweet depends on the version of the API used: for this project, we have used Standard v1.1 to hydrate the tweet. \footnote{\url{https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet}}
+The structure of the json object for the associated tweet depends on the version of the API used: for this project, we have used Standard v1.1 to hydrate the tweets.\footnote{\url{https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet}}
 
 In general, a tweet is described by the following fields:
 

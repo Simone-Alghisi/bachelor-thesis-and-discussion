@@ -19,9 +19,7 @@
 
 \addcontentsline{toc}{chapter}{Abstract} % da aggiungere comunque all'indice
 
-During this year, everyone daily life changed significantly and we had to adapt to restrictive measures in order to stop the disease: whether we liked it or not. 
-
-For this reason, I immediately thought that the research proposed by the Big Data Department of Eurecat - Centro Tecnológico de Catalunya, and supervised by \textit{Cristian Consonni} and \textit{David Laniado}, could be very interesting: the possibility to study, during my traineeship, how people perceived all of this situation, and better understand which measures were more welcomed than others, seemed really fascinating and, above all, may be useful in the case of some other unfortunate event. Moreover, I never had the chance to explore the field of Data Science, to use tools such as Lexicon to perform an analysis of the emotions based on the text, or worked with such an impressive amount of data to obtain valid results.
+This dissertation describes in detail the activity performed during my two-month traineeship at the Big Data Department of Eurecat - Centro Tecnológico de Catalunya, which was supervised by \textit{Cristian Consonni} and \textit{David Laniado}.
 
 The purpose of the project was to analyze the emotions emerging from Twitter messages during the pandemic, in order to understand how people felt over the whole period. Based on the result obtained from this research, it may be possible to determine which counter measures better handled the situation while offering the best possible trade off between people's satisfaction and reducing the spread of the disease.
 
@@ -62,7 +60,7 @@ To reduce the possible bias of particularly active users, we decided to follow o
 
 For the first sentiment analysis, tweets belonging to a certain language were analyzed over the whole period. In particular, we decided to normalize the obtained results using the z-score and to manually retrieve some peaks to study the most used words for that particular language.
 
-To understand how differently men and women perceived the pandemic, we decided to use m3inference, a deep learning system for demographic inference (gender, age, and person/organization) available on Python. Only those users that the system inferred with a confidence grater or equal to 0.95 were considered valid and used for the next sentiment analysis.
+To understand how differently men and women perceived the pandemic, we decided to use\\ m3inference, a deep learning system for demographic inference (gender, age, and person/organization) implemented on PyTorch. Only those users that the system inferred with a confidence grater or equal to 0.95 were considered valid and used for the next sentiment analysis.
 
 Finally, we used Twitter location field to analyze users from the same place. To overcome the absence of constraints to specify a location, we retrieved the position of the users using address geocoding, the process of taking a text-based description of a location and returning its geographic coordinates. In particular, we used Nominatim to access the data made available by OpenStreetMap(OSM).
 
