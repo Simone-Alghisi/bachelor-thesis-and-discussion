@@ -32,9 +32,8 @@
 
 %% Indispensables
 
-\usepackage{graphicx} 
-\usepackage[pdftex]{hyperref}
-\usepackage{cleveref}
+\usepackage{amsmath}
+\usepackage{graphicx}
 
 \usepackage{booktabs}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
@@ -78,6 +77,30 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 
-\tikzstyle{RectObject}=[rectangle,fill=white,draw,line width=0.5mm]
+\tikzstyle{RectObject}=[rectangle,fill=white,draw,line width=0.5mm,minimum width=3.5cm]
 \tikzstyle{line}=[draw]
 \tikzstyle{arrow}=[draw, -latex] 
+
+% Definition
+
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+% Last packages
+
+\usepackage[
+    % hidelinks,
+    % colorlinks=true,
+]{hyperref} % importare per ultimo
+
+\hypersetup{
+    colorlinks = true,
+    linkbordercolor = {white}, % rettangoli attorno ai link
+    linkcolor = {},     % toc. {} significa nero
+    urlcolor = {teal},  % link
+    citecolor = {teal}, % bibliografia
+}
+
+\usepackage[capitalize, nameinlink, noabbrev]{cleveref}

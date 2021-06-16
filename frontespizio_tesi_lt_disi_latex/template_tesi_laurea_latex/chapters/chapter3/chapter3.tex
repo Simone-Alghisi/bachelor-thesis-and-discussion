@@ -3,7 +3,7 @@
 \chapter{Methods}
 \label{cha:methods}
 
-This chapter aims to describe all the different methodologies used to analyze the data collected during the previous phase and explained in \autoref{cha:data}. 
+This chapter aims to describe all the different methodologies used to analyze the data collected during the previous phase and explained in \Cref{cha:data}. 
 
 The scope of the project is to understand and measure the emotions of the users through sentiment analysis. In particular, we would like to identify, given a certain set of tweets scattered across our considered period of time, when the users conveyed more feelings and which was the emotion expressed the most (e.g. from the Italian tweets it is possible to notice a peak of anger on 21st of February 2020).
 
@@ -16,6 +16,7 @@ Until now we have discussed that we would like to identify and quantify the emot
 
 The idea behind lexicons is quite simple: we take a particular word in our dictionary, and we assign zero or more emotions or sentiments to it.
 \begin{figure}[H]
+	\centering
 	\begin{tikzpicture}
 		\filldraw (-2,3) node[RectObject, inner xsep=1cm, dashed](pandemic){pandemic};
 		\draw (-2,5) node[RectObject, inner xsep=1cm, draw=gray](hospital){hospital};
@@ -34,7 +35,7 @@ The idea behind lexicons is quite simple: we take a particular word in our dicti
 	\label{fig:word-association}
 \end{figure}
 
-However, if we look at \autoref{fig:word-association}, we can notice that, while the word pandemic is associated with only negative emotions/sentiments, the word hospital is associated with fear and sadness but, at the same time, with trust. While this is technically correct, because our lexicon does not know in which context the word is used (i.e. it must consider all the possible meanings), it also introduces a bias.
+However, if we look at \Cref{fig:word-association}, we can notice that, while the word pandemic is associated with only negative emotions/sentiments, the word hospital is associated with fear and sadness but, at the same time, with trust. While this is technically correct, because our lexicon does not know in which context the word is used (i.e. it must consider all the possible meanings), it also introduces a bias.
 
 To simplify even more, even a negation can totally change the meaning of a particular quote:
 
@@ -63,7 +64,7 @@ Before performing emotion detection on our tweets, we decided to define a new da
 
 The idea behind this partition, aside from considering tweets of the same language, was to get rid of the per hour aggregation: for the purpose of the project, this kind of granularity is simply too much. Given that, we have preferred to aggregate in a single file the tweets posted on the same day.
 
-\autoref{fig:tweet-org-1} shows a visual representation of the new data organization: now it is possible to access directly to tweets of the same language posted on a particular date.
+\Cref{fig:tweet-org-1} shows a visual representation of the new data organization: now it is possible to access directly to tweets of the same language posted on a particular date.
 
 \begin{figure}[H]
 	\dirtree{%
@@ -105,12 +106,12 @@ However, this first data organization strategy led to very noisy results: this h
 	\label{fig:tweet-org-2}
 \end{figure}
 
-In this case, the syntax of the files showed in \autoref{fig:tweet-org-2} has a slightly different meaning. In particular, tweets are grouped into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-FIRST\_WEEK\_DAY.
+In this case, the syntax of the files showed in \Cref{fig:tweet-org-2} has a slightly different meaning. In particular, tweets are grouped into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-FIRST\_WEEK\_DAY.
 
-\section{Valid data}
-\label{sec:valid-data}
+\section{Data filtering}
+\label{sec:data-filtering}
 
-We have seen in \autoref{sec:period} that the number of retweets in our dataset is much greater than the number of tweets. This could be a problem because if we perform emotion detection with this data, we will end up with a lot of bias. 
+We have seen in \Cref{sec:period} that the number of retweets in our dataset is much greater than the number of tweets. This could be a problem because, if we perform emotion detection with this data, we may end up with biased results. 
 
 Let us suppose to have a particularly positive tweet, for example:
 
@@ -127,4 +128,98 @@ However, if John Doe is a celebrity, then the tweet will be surely retweeted tho
 
 To clarify, the fact that a person could retweet a post of a user is not a bad thing: maybe they liked what the original author had written. However, in the case of emotion detection, every words count: if a person agrees with someone's opinion, they will not necessarily use the same exact set of word. In practice, they could still agree with the author of the tweet, but at the same time not convey the same emotion.
 
-For the reasons explained above, we decided to avoid this bias by removing from our dataset all the retweets. As explained in \autoref{sec:tweets},this particular operation can be performed by checking the presence of the \texttt{retweet\_status} field. 
+For the reasons explained above, we decided to avoid this bias by removing from our dataset all the retweets. As explained in \Cref{sec:tweets}, this particular operation can be performed by checking the presence of the \texttt{retweet\_status} field. 
+
+\section{Emotion detection metrics}
+\label{sec:metrics}
+
+We know from \Cref{sec:twitter} that Twitter's constraint on the number of characters per tweet limits users. For this reason, users' emotions are also limited, because they cannot express themselves to the fullest, and, consequently, the emotion detection process could fail, because the small set of word used does not convey any emotion. 
+
+Fortunately, the effect produced from this problem can be minimized with a considerable amount of data. Obviously, with many tweets, the possibility of having meaningful data increases.
+
+However, we have not still defined how users' emotions should be considered: should we count the number of occurrences (i.e. words) for each emotion inside of a tweet? Should we consider independently each tweet posted by a user?
+
+Regarding this particular topic, we have decided to follow one of the approaches discussed by  by Aiello et al.~\cite{aiello2020epidemic}
+
+The idea that they have proposed is to consider
+	
+\begin{itemize}
+	\item emotions in a binary way (e.g. whether at given time the user expressed joy or not)
+	\item users over tweets (e.g. the number of unique users, instead of tweets, that expressed joy at a given time)
+\end{itemize}
+
+We can then formalize the metrics used for the project as follows:
+
+\begin{definition}
+\label{def:tweet-emotions}
+	A tweet \(t\) contains an emotion \(e\), if at least one of the tweet's words or stems \(w\) belongs to \(e\),
+	\begin{center}
+		\(t \in e \Leftrightarrow \exists w \in t\)  s.t. \(w \in e\)
+	\end{center}
+\end{definition}
+
+First of all, given that there are only 280 characters inside of a tweet, multiple emotions occurrences are rare. Secondly, they do not necessarily reflect the intensity of a tweet. 
+	
+\begin{definition}
+\label{def:user-emotions}
+	Given \(U_e(t)\), the number of distinct users that expressed emotion \(e\) at time \(t\) in a tweet, and \(U(t)\), the number of distinct users that tweeted at time \(t\),
+	\[f_e(t) = \frac{U_e(t)}{U(t)}\]
+	is the proportion of users that expressed emotion \(e\) at time \(t\).	
+\end{definition}
+
+Considering the number of unique users, instead of the number of total tweets, is a way to reduce the bias introduced by particularly active users (or bots), who could otherwise mask other important events.
+
+\section{Emotion detection over time - by language}
+\label{sec:emotion-by-language}
+
+For the first emotion detection, we have decided to analyze, over the whole period, the course of the users' emotions for a particular language. Specifically, our studies regarded four languages: Catalan, English, Italian and Spanish.
+
+\Cref{tab:tweet-languages} shows the total number of unique tweets and users over the considered period.
+
+\begin{table}[h]
+	\centering
+	\ra{1.2}
+	\begin{tabular}{lrrr}
+		\toprule
+		\textbf{language} & \textbf{tweets} & \textbf{tweets \%} & \textbf{users}
+		\\
+		\midrule
+		Catalan & 1 377 225 & 0.4\% & 379 193
+		\\
+		English & 195 645 826 & 60.4\% & 21 979 558 
+		\\
+		Italian & 5 256 748 & 1.6\% & 558 224
+		\\
+		Spanish & 35 533 886 & 10.9\% & 5 220 714
+		\\
+		\bottomrule
+	\end{tabular}
+	\caption{Number of tweets and users for Catalan, English, Italian and Spanish}
+	\label{tab:tweet-languages}
+\end{table}
+
+It is important to underline the following: given that, as explained in \Cref{sub:data-org}, we are considering tweets per week, \(f_e(t)\) will correspond to the proportion of users that expressed emotion \(e\) during the analyzed week. For this particular reason, we will keep track of the weekly users and, once the week is over, we will reset them and we will consider a new set of users. In practice, we will aggregate the emotions that a user conveyed only if they tweets multiple times in the same week. 
+
+\subsection{Data normalization}
+\label{subsec:normalization}
+
+The issue with the results obtained with this emotion detection, is the fact that the emotions course are not easily comparable. For example, we can notice which emotion was the one expressed more in a certain week considering \(f_e(t)\). However, it is more difficult to say, for example, whether users expressed in a certain week the most joy over the whole period.
+
+To solve this problem, we have decided to apply a data normalization, in particular the \textit{z-score}.
+
+\begin{definition}
+	Given \(f_e(t)\) and the period of time \([0,T]\),   
+	\[z_e(t) = \frac{f_e(t) - \mu_{[0,T]}(f_e)}{\sigma_{[0,T]}(f_e)}\] 
+	\[\text{where } \mu_{[0,T]}(f_e) = \frac{1}{\mid T \mid} \sum_{t =0}^{T} f_e(t) \text{, and } \sigma_{[0,T]}(f_e) = \sqrt{\frac{1}{\mid T \mid} \sum_{t = 0}^{T} \left( f_e(t) - \mu_{[0,T]}(f_e) \right)^2 }\] 
+\end{definition}
+
+The z-score is very useful in this particular case because, given the fact that \(f_e(t)\) is normalized w.r.t. its mean value over the whole period, it is easier to determine which weeks have the highest (or lowest) emotional impact. Moreover, this operation is applied to each considered emotion, so we are also able to compare the different courses and determine which emotion has the highest relevance in a certain week.
+
+\section{Emotion detection over time - by gender}
+\label{sec:emotion-by-gender}
+
+The second analysis of the data regarded the gender of the users. In particular, we were interested in finding and understanding the differences between the emotion expressed by men and women during the considered period of time.
+
+However, Twitter does not allow users to specify their gender explicitly. This means that there is no way to recover this information from a field.
+
+To solve this particular issue, we used m3inferece, a deep learning system for demographic inference (gender, age, and person/organization) implemented on PyTorch~\cite{wang2019demographic}.
