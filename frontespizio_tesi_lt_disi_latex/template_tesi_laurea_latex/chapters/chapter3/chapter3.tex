@@ -218,8 +218,83 @@ The z-score is very useful in this particular case because, given the fact that 
 \section{Emotion detection over time - by gender}
 \label{sec:emotion-by-gender}
 
-The second analysis of the data regarded the gender of the users. In particular, we were interested in finding and understanding the differences between the emotion expressed by men and women during the considered period of time.
+The second analysis of the data regarded the gender of the users. In particular, we were interested in finding, and understanding, the differences between the emotions expressed by men and women during the considered period of time.
 
-However, Twitter does not allow users to specify their gender explicitly. This means that there is no way to recover this information from a field.
+However, Twitter does not allow users to specify their gender explicitly. This means that there is no way to recover this information from a specific field. Besides, searching through the user's description is not a valid option because they may have not given that kind of information. 
 
-To solve this particular issue, we used m3inferece, a deep learning system for demographic inference (gender, age, and person/organization) implemented on PyTorch~\cite{wang2019demographic}.
+Fortunately, even if this information is not explicitly available, is possible to infer it. 
+
+\subsection{	Users inference}
+\label{subsec:m3inference}
+
+To solve this particular issue, we used m3inference, a deep learning system for demographic inference implemented on PyTorch~\cite{wang2019demographic}.
+
+Given the user's \texttt{name}, \texttt{screen\_name}, \texttt{description}, \texttt{default\_profile\_image}, and \\
+\texttt{profile\_image\_url\_https} fields, m3inference will predict, with a certain probability ([0, 1]), their gender, their age, and if the user's profile belongs to a person or organization.
+
+In particular, m3inference will detect the user's language and then examine their description. Moreover, it will also check if the user has a profile picture with the \texttt{default\_profile\_image} field. If that is the case, it will first download it using the \texttt{profile\_image\_url\_https}, and then it will resize it. Otherwise, it will use the Twitter's default profile image. 
+
+Given the fact that m3inference uses both text and images, operates in 32 major languages, and computes multiple output predictions, is classified respectively as a Multimodal, Multilingual, and Multi-attribute system (M3).
+
+The result of the prediction performed by m3inference is showed in the following example:
+
+\begin{lstlisting}[language=json, caption={Json object returned by m3inference}, captionpos=b, label={lst:m3inference-prediction}]
+{
+  "gender": {
+    "male": 0.8758, 
+    "female": 0.1242
+  }, 
+  "age": {
+    "<=18": 0.0053, 
+    "19-29": 0.0363, 
+    "30-39": 0.9239, 
+    ">=40": 0.0346
+  }, 
+  "org": {
+    "non-org": 0.9965, 
+    "is-org": 0.0035
+  }
+}
+\end{lstlisting}
+
+Given the fact that the inference process takes some time, it was decided to take into account only a subset of users for each considered language. In particular, we analyzed the users with at least \(n\) tweets over all the dataset. 
+
+Furthermore, for the emotion detection process, we assigned the users that respected \Cref{def:valid-users} to their corresponding category (male, female or org) .
+
+\begin{definition}
+\label{def:valid-users}
+	A user \(u\) belongs to the category \(c \in C\) iif their prediction confidence \(pc\) is greater or equal than 0.95, i.e.
+	\[u \in c \Longleftrightarrow pc(u) \geq 0.95\]
+\end{definition}
+	
+In particular, the following methodology was applied:
+	
+\begin{itemize}
+	\item first we check if the user's account belongs to an organization
+	\item then, if the user is male (or female)
+	\item finally, if none of the previous constraints were satisfied, we do not consider this user
+\end{itemize}
+
+Finally, from the previous considerations we obtained the following statistics:
+
+\begin{table}[h]
+	\centering
+	\ra{1.2}
+	\begin{tabular}{lrrrrrr}
+		\toprule
+		\textbf{language} & \textbf{\(n\) tweets} & \textbf{inferred users} & \textbf{valid users} & \textbf{males \%} & \textbf{females \%} & \textbf{orgs \%}
+		\\
+		\midrule
+		Catalan & 2 & 98 132 & 73 835 & 67.30 & 22.95 & 9.75
+		\\
+		English & 10 & 3 099 883 & 2 335 112 & 63.88 & 32.16 & 3.96 
+		\\
+		Italian & 2 & 217 340 & 167 093 & 67.21 & 27.96 & 4.83 
+		\\
+		Spanish & 5 & 2 555 941 & 2 029 765 & 63.88 & 33.23 & 2.89 
+		\\
+		\bottomrule
+	\end{tabular}
+	\caption{General users statistics for Catalan, English, Italian and Spanish tweets}
+	\label{tab:users-languages}
+\end{table}
