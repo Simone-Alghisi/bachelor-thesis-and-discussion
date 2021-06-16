@@ -1,3 +1,5 @@
+\graphicspath{{chapters/chapter3/img/}}
+
 \chapter{Methods}
 \label{cha:methods}
 
@@ -13,7 +15,7 @@ Given the heterogeneity of the tweets, we would also like to conduct a more in-d
 Until now we have discussed that we would like to identify and quantify the emotions expressed in the tweets, but we still lack a way to achieve this result. During the project I have used \textit{Lexicons} for this particular task.
 
 The idea behind lexicons is quite simple: we take a particular word in our dictionary, and we assign zero or more emotions or sentiments to it.
-\begin{figure}
+\begin{figure}[H]
 	\begin{tikzpicture}
 		\filldraw (-2,3) node[RectObject, inner xsep=1cm, dashed](pandemic){pandemic};
 		\draw (-2,5) node[RectObject, inner xsep=1cm, draw=gray](hospital){hospital};
@@ -34,7 +36,7 @@ The idea behind lexicons is quite simple: we take a particular word in our dicti
 
 However, if we look at \autoref{fig:word-association}, we can notice that, while the word pandemic is associated with only negative emotions/sentiments, the word hospital is associated with fear and sadness but, at the same time, with trust. While this is technically correct, because our lexicon does not know in which context the word is used (i.e. it must consider all the possible meanings), it also introduces a bias.
 
-To simplify even more, even a simple negation can totally change the meaning of a particular quote:
+To simplify even more, even a negation can totally change the meaning of a particular quote:
 
 \begin{center}
 	I am fine / I am \underline{not} fine
@@ -44,14 +46,14 @@ For this reason, results obtained should be checked and contextualized to get a 
 
 \paragraph{EmoLex}
 
-For the research, I have used the NRC Word-Emotion Association Lexicon (aka EmoLex) for sentiment analysis~\cite{ncrwebsite}. EmoLex is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive).
+For the research, I have used the NRC Word-Emotion Association Lexicon (aka EmoLex) for emotion detection~\cite{ncrwebsite}. EmoLex is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive).
 
 The peculiarity of this lexicon is the fact that, even if it has been designed for the analysis of English words, it has been translated in over one hundred languages using Google Translates. Given that, the number of different languages identified in the dataset is more than 60, this particular dictionary could perfectly fit our problem.
 
 \section{Data organization}
 \label{sub:data-org}
 
-Before performing sentiment analysis on our tweets, we decided to define a new data organization strategy. In particular,
+Before performing emotion detection on our tweets, we decided to define a new data organization strategy. In particular,
 
 \begin{itemize}
 	\item at the top layer, we sorted the tweets into LANGUAGE folders using the \texttt{lang} field of the json object
@@ -105,3 +107,24 @@ However, this first data organization strategy led to very noisy results: this h
 
 In this case, the syntax of the files showed in \autoref{fig:tweet-org-2} has a slightly different meaning. In particular, tweets are grouped into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-FIRST\_WEEK\_DAY.
 
+\section{Valid data}
+\label{sec:valid-data}
+
+We have seen in \autoref{sec:period} that the number of retweets in our dataset is much greater than the number of tweets. This could be a problem because if we perform emotion detection with this data, we will end up with a lot of bias. 
+
+Let us suppose to have a particularly positive tweet, for example:
+
+\begin{figure}[H]
+	\centering
+    	\includegraphics[scale=.29]{john_doe_tweet.png}
+    	\caption{An example of a particularly positive tweet.}
+    	\label{fig:tweet-example}
+\end{figure}
+
+If John Doe is the only happy person on the 14th of June 2021, then the emotional impact produced from this tweet will not be so significant. Maybe, during that day a lot of people complained on the social network that a streaming platform was not working properly. In this particular case, we will probably find a peak of anger.
+
+However, if John Doe is a celebrity, then the tweet will be surely retweeted thousands of times, and the emotional impact will be much grater. In practice, this means that the previous anger, associated to the malfunctioning of the streaming platform, could pass unnoticed.
+
+To clarify, the fact that a person could retweet a post of a user is not a bad thing: maybe they liked what the original author had written. However, in the case of emotion detection, every words count: if a person agrees with someone's opinion, they will not necessarily use the same exact set of word. In practice, they could still agree with the author of the tweet, but at the same time not convey the same emotion.
+
+For the reasons explained above, we decided to avoid this bias by removing from our dataset all the retweets. As explained in \autoref{sec:tweets},this particular operation can be performed by checking the presence of the \texttt{retweet\_status} field. 

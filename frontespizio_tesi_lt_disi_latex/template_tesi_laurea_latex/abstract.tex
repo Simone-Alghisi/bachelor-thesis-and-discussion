@@ -28,25 +28,17 @@ In general, my contribution to the research mostly regarded:
 \begin{itemize}
 	\item retrieving and organizing the data
 	\item processing the tweets to understand users' emotions
+	\item plotting graphics in order to visualize more clearly the results
+	\item normalizing the results obtained to compare different emotions or categories
 	\item inferring demographic information about the users
 	\item geocoding the location of the user
 \end{itemize}
 
-The dataset used for the project is the echen102/COVID-19-TweetIDs, a collection of over 1 billion tweet IDs available on GitHub. The selected tweets are either
-
-\begin{itemize}
-	\item related to specific accounts
-	\item sampled real-time from the Twitter API because they matched a defined set of keywords
-\end{itemize}
+The dataset used for the project is the echen102/COVID-19-TweetIDs, a collection of over 1 billion tweet IDs available on GitHub. The selected tweets are either related to specific accounts; or sampled real-time from the Twitter API because they matched a defined set of keywords.
 
 In order to start the analysis, I was asked to retrieve the tweets from January 2020 to March 2021 using Twarc. In fact, to comply with Twitter's term of service, the dataset contains only the ID of the original tweet; however, is possible to get the associated information using the Twitter's API and a Twitter Developer Account.
 
-After collecting the data, we decided to group the tweets 
-
-\begin{itemize}
-	\item first based on their language, to perform a targeted analysis on a restricted set (Catalan, English, Italian and Spanish)
-	\item secondly per week, for better data visualization and to average the results
-\end{itemize}
+After collecting the data, we decided to group the tweets first based on their language, to perform a targeted analysis on a restricted set (Catalan, English, Italian and Spanish); secondly per week, for better data visualization and to average the results.
 
 In order to understand which emotions were expressed in a single tweet, we decided to use the NRC Word-Emotion Association Lexicon (aka EmoLex). Emolex is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive).
 

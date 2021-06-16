@@ -2,31 +2,18 @@
 \label{cha:data}
 The dataset used for the project is the echen102/COVID-19-TweetIDs GitHub repository~\cite{chen2020tracking}. The repository contains an ongoing collection of tweet IDs starting on the 28th of January 2020.
 
-The IDs in the dataset are either tweets
+The IDs in the dataset are either tweets posted by a specific account, or sampled real-time from the Twitter API because the text contained specific keywords, such as Coronavirus, Epidemic, codiv-19, Social Distancing, panic buy, lockdown, \ldots 
+
+From the followed accounts list, it is worth mentioning the following ones:
 \begin{itemize}
-	\item from one of the following accounts
-	\begin{itemize}
-		\item PneumoniaWuhan
-		\item CoronaVirusInfo
-		\item V2019N
-		\item CDCemergency
-		\item CDCgov
-		\item WHO
-		\item HHSGov
-		\item NIAIDNews
-		\item drtedros
-	\end{itemize}
-	\item sampled real-time, because they mention specific keywords, such as
-	\begin{itemize}
-		\item Coronavirus
-		\item Epidemic
-		\item covid-19
-		\item Social Distancing
-		\item panic buy
-		\item lockdown
-		\item \ldots
-	\end{itemize}
+	\item CDCgov, CDC's official Twitter source for daily credible health \& safety updates from Centers for Disease Control \& Prevention
+	\item WHO, the United Nations health agency
+	\item HHSGov, News and information from the U.S. Department of Health \& Human Services (HHS)
+	\item NIAIDNews, National Institute of Allergy and Infectious Diseases (NIAID)
+	\item drtedros, Twitter's profile of Tedros Adhanom, the Director-General of the World Health Organization
 \end{itemize}
+
+The fact that these accounts are presents in the dataset is crucial point: given their relevance, we are sure that some tweets are not biased and the statements are valid. However, at the same time, it means that there may be a lot of retweets from various people. This is not necessarily a bad thing, it depends on which type of analysis we are interested in.
 
 \paragraph{Dataset structure}
 
@@ -42,12 +29,7 @@ Data is organized in the following way inside of the dataset:
 \label{sec:period}
 COVID-19 was declared a Public Health Emergency of International Concern on 30 January 2020, and a pandemic on 11 March 2020. However, depending on the considered country, restrictive measures were applied on different dates and for different time periods. 
 
-For this reason, we decided to analyze tweets from January 2020 to March 2021. In this way, we were able to
-
-\begin{itemize}
-	\item consider more countries
-	\item better understand when people expressed more negative (or positive) emotions w.r.t the whole period
-\end{itemize}
+For this reason, we decided to analyze tweets from January 2020 to March 2021. In this way, we were able to: a) consider more countries; b) better understand when people expressed more negative (or positive) emotions w.r.t the whole period.
 
 Considering this time frame, I have processed and worked with:
 
@@ -124,8 +106,11 @@ In general, a tweet is described by the following fields:
 	\item \texttt{id}, the integer representation of the unique identifier for this Tweet
 	\item \texttt{created\_at}, UTC time when this Tweet was created
 	\item \texttt{full\_text}, the actual UTF-8 text of the status update (not truncated)
+	\item \texttt{source}, utility used to post the Tweet, as an HTML-formatted string (e.g.  Twitter Web Client)
 	\item \texttt{user}, the user who posted this Tweet
 	\item \texttt{retweeted\_status}, the presence of this attribute distinguishes Retweets from typical Tweets
+	\item \texttt{reply\_count}, number of times this Tweet has been replied to
+	\item \texttt{retweet\_count}, 
 	\item \texttt{lang}, indicates a BCP 47 language identifier corresponding to the machine-detected language of the Tweet text, or und if no language could be detected
 \end{itemize}
 
