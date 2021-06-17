@@ -3,7 +3,7 @@
 \chapter{Methods}
 \label{cha:methods}
 
-This chapter aims to describe all the different methodologies used to analyze the data collected during the previous phase and explained in \Cref{cha:data}. 
+This chapter aims to describe all the different methodologies used to analyze the data collected during the previous phase, and explained in details in \Cref{cha:data}. 
 
 The scope of the project is to understand and measure the emotions of the users through sentiment analysis. In particular, we would like to identify, given a certain set of tweets scattered across our considered period of time, when the users conveyed more feelings and which was the emotion expressed the most (e.g. from the Italian tweets it is possible to notice a peak of anger on 21st of February 2020).
 
@@ -12,7 +12,7 @@ Given the heterogeneity of the tweets, we would also like to conduct a more in-d
 \section{Lexicons}
 \label{lexicons}
 
-Until now we have discussed that we would like to identify and quantify the emotions expressed in the tweets, but we still lack a way to achieve this result. During the project I have used \textit{Lexicons} for this particular task.
+Until now, we have discussed that we would like to identify and quantify the emotions expressed in the tweets, but we still lack a way to achieve this result. During the project I have used \textit{Lexicons} for this particular task.
 
 The idea behind lexicons is quite simple: we take a particular word in our dictionary, and we assign zero or more emotions or sentiments to it.
 \begin{figure}[H]
@@ -37,13 +37,23 @@ The idea behind lexicons is quite simple: we take a particular word in our dicti
 
 However, if we look at \Cref{fig:word-association}, we can notice that, while the word pandemic is associated with only negative emotions/sentiments, the word hospital is associated with fear and sadness but, at the same time, with trust. While this is technically correct, because our lexicon does not know in which context the word is used (i.e. it must consider all the possible meanings), it also introduces a bias.
 
-To simplify even more, even a negation can totally change the meaning of a particular quote:
+To simplify even more, even a negation can totally change the meaning of a particular phrase:
 
 \begin{center}
 	I am fine / I am \underline{not} fine
 \end{center}
 
-For this reason, results obtained should be checked and contextualized to get a clear understanding of the situation. 
+On the other hand, there are different schools of thought relatively at sentiment analysis: someone tries to understand the meaning of the phrase, while other ones focus on the emotions conveyed by a certain set of words (without caring about the meaning).
+
+Let us now consider the following example: 
+
+\begin{center}
+	This house is not an obscure prison
+\end{center}
+
+In this case, we are probably going to associate a negative feeling to the phrase because, even if there is a negation (not), the words “obscure” and “prison” convey fear or sadness. 
+
+In any case, the results obtained with lexicons should be checked and contextualized to get a clear understanding of the situation. 
 
 \paragraph{EmoLex}
 
@@ -62,7 +72,7 @@ Before performing emotion detection on our tweets, we decided to define a new da
 	\item finally, we grouped the tweets into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-DAY
 \end{itemize}
 
-The idea behind this partition, aside from considering tweets of the same language, was to get rid of the per hour aggregation: for the purpose of the project, this kind of granularity is simply too much. Given that, we have preferred to aggregate in a single file the tweets posted on the same day.
+The idea behind this partition, aside from considering tweets of the same language, was to get rid of the per hour aggregation: for the purpose of the project, this kind of granularity was simply too much. Given that, we have preferred to aggregate in a single file the tweets posted on the same day.
 
 \Cref{fig:tweet-org-1} shows a visual representation of the new data organization: now it is possible to access directly to tweets of the same language posted on a particular date.
 
@@ -88,7 +98,7 @@ The idea behind this partition, aside from considering tweets of the same langua
 	\label{fig:tweet-org-1}
 \end{figure}
 
-However, this first data organization strategy led to very noisy results: this happened because, depending on the language considered, the number of tweets can drastically change. To solve this problem, we thought about grouping together tweets of the same week: in this way, we were able to average the results more, get stabler data for languages with fewer tweets, and obtain a clearer visualization.
+However, this first data organization strategy led to very noisy results: this happened because, depending on the language considered, the number of tweets can drastically change. To solve this problem, we thought about grouping together tweets of the same week: in this way, we were able to average more the results, get stabler data for languages with fewer tweets, and obtain a clearer visualization.
 
 \begin{figure}[H]
 	\dirtree{%
@@ -111,7 +121,7 @@ In this case, the syntax of the files showed in \Cref{fig:tweet-org-2} has a sli
 \section{Data filtering}
 \label{sec:data-filtering}
 
-We have seen in \Cref{sec:period} that the number of retweets in our dataset is much greater than the number of tweets. This could be a problem because, if we perform emotion detection with this data, we may end up with biased results. 
+\Cref{sec:period} shows that the number of retweets in our dataset is much greater than the number of tweets. This could be a problem because, if we perform emotion detection with this data, we may end up with biased results. 
 
 Let us suppose to have a particularly positive tweet, for example:
 
@@ -133,7 +143,7 @@ For the reasons explained above, we decided to avoid this bias by removing from 
 \section{Emotion detection metrics}
 \label{sec:metrics}
 
-We know from \Cref{sec:twitter} that Twitter's constraint on the number of characters per tweet limits users. For this reason, users' emotions are also limited, because they cannot express themselves to the fullest, and, consequently, the emotion detection process could fail, because the small set of word used does not convey any emotion. 
+We know from \Cref{sec:twitter} that Twitter's constraint on the number of characters per tweet limits the users. For this reason, emotions are also limited because the users cannot express themselves to the fullest. As a consequence, the emotion detection process could fail because the small set of words used does not convey any emotion. 
 
 Fortunately, the effect produced from this problem can be minimized with a considerable amount of data. Obviously, with many tweets, the possibility of having meaningful data increases.
 
@@ -198,7 +208,7 @@ For the first emotion detection, we have decided to analyze, over the whole peri
 	\label{tab:tweet-languages}
 \end{table}
 
-It is important to underline the following: given that, as explained in \Cref{sub:data-org}, we are considering tweets per week, \(f_e(t)\) will correspond to the proportion of users that expressed emotion \(e\) during the analyzed week. For this particular reason, we will keep track of the weekly users and, once the week is over, we will reset them and we will consider a new set of users. In practice, we will aggregate the emotions that a user conveyed only if they tweets multiple times in the same week. 
+It is important to underline the following: given that, as explained in \Cref{sub:data-org}, we are considering tweets per week, \(f_e(t)\) will correspond to the proportion of users that expressed emotion \(e\) during the analyzed week. For this particular reason, we will keep track of the weekly users and, once the week is over, we will reset them and we will consider a new set of users. In practice, we will aggregate the emotions that a user conveyed only if they tweeted multiple times in the same week. 
 
 \subsection{Data normalization}
 \label{subsec:normalization}
@@ -224,7 +234,7 @@ However, Twitter does not allow users to specify their gender explicitly. This m
 
 Fortunately, even if this information is not explicitly available, is possible to infer it. 
 
-\subsection{	Users inference}
+\subsection{Users inference}
 \label{subsec:m3inference}
 
 To solve this particular issue, we used m3inference, a deep learning system for demographic inference implemented on PyTorch~\cite{wang2019demographic}.
@@ -320,7 +330,7 @@ To clarify, if \(v_{e, c}(t) = 0.20\), with \(e = \text{joy}\) and \(c = \text{f
 
 Finally, we decided to study the course of the emotions over the whole time frame, considering the users from the same location.
 
-Fortunately, Twitter allows users specify their location in the \texttt{location} field. However, it does not impose any constraint or predefined format. It follows that: a) not all the users specified their location; b) some locations could be fake or misspelled; c) the same location could be specified with a different syntax.
+Fortunately, Twitter allows users specify their location in the \texttt{location} field. However, it does not impose any constraint or predefined format. It follows that: a) not all the users specified their location; b) some locations could be fake or misspelled; c) the same location could be written in a different syntax.
 
 \subsection{Geocoding}
 \label{subsec:geocoding}
@@ -366,7 +376,7 @@ Finally, we used Geopy, a Python client for several geocoding web services, to c
 
 \paragraph{Link the users to a certain location}
 
-Given the fact that the geographical coordinates are too specific, we used instead the information contained in the \texttt{address} field. In particular, we obtained our final set of users in the following way
+Given the fact that the geographical coordinates are too specific, we used instead the information contained in the \texttt{address} field. In particular, we obtained our final set of users using the following method:
 
 \begin{enumerate}
 	\item we optionally specify a country (or a state) to focus on a restricted area
@@ -374,4 +384,4 @@ Given the fact that the geographical coordinates are too specific, we used inste
 	\item finally, we consider all the users that have a geocoded location coherent with the place specified in 1. and with enough information in the \texttt{address} field to satisfy 2.
 \end{enumerate}
 
-In practice, if we take \Cref{lst:nominatim-geocode} as example, and we decide to map all the users from Italy based on their county, all the users with “Milano, Lombardia” as their original location will be then assigned to “Milano”.
+In practice, if we take \Cref{lst:nominatim-geocode} as example, and we decide to map all the users from Italy based on their county, all the ones with “Milano, Lombardia” as their original location will then be assigned to “Milano”. Instead, all the users that have a country different from “Italy”, or they do not have a county, will be discarded.
