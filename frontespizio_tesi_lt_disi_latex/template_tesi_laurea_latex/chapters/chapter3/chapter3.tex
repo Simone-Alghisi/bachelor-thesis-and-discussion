@@ -275,7 +275,7 @@ In particular, the following methodology was applied:
 	\item finally, if none of the previous constraints were satisfied, we do not consider this user
 \end{itemize}
 
-Finally, from the previous considerations we obtained the following statistics:
+Finally, we obtained the following statistics from the previous considerations:
 
 \begin{table}[h]
 	\centering
@@ -298,3 +298,80 @@ Finally, from the previous considerations we obtained the following statistics:
 	\caption{General users statistics for Catalan, English, Italian and Spanish tweets}
 	\label{tab:users-languages}
 \end{table}
+
+\subsection{Data normalization}
+\label{subsec:normalization2}
+
+The results obtained from the inferred users analysis allowed us to check the emotions of men and women separately. However, we also wanted to study whether a certain category \(c \in C\) expressed at time \(t\) more (or less) emotion \(e\) (e.g. sadness, anger) w.r.t the mean value for emotion \(e\) in the period of time \([0, T]\), regardless of the category.
+
+For this reason, we have applied \Cref{def:categories-normalization} to our data:
+	
+\begin{definition}
+\label{def:categories-normalization}
+	Given \(f_{e, c}(t)\), i.e. the proportion of users belonging to category \(c \in C\) that expressed emotion \(e\) at time \(t\), and the period of time \([0,T]\),
+	\[v_{e, c}(t) = \frac{f_{e, c}(t) - \mu_{[0,T]}(f_e)}{\mu_{[0,T]}(f_e)}\]
+	\[\text{where } \mu_{[0,T]}(f_e) = \frac{1}{\mid T \mid} \sum_{t =0}^{T} f_e(t) = \frac{1}{\mid T \mid} \sum_{t =0}^{T} \sum_{c \in C} f_{e, c}(t)\] 
+\end{definition}
+
+To clarify, if \(v_{e, c}(t) = 0.20\), with \(e = \text{joy}\) and \(c = \text{female}\), then it means that females expressed \(20\%\) more joy at time \(t\) w.r.t. the mean joy value over the whole period.
+
+\section{Emotion detection over time - by location}
+\label{sec:emotion-by-location}
+
+Finally, we decided to study the course of the emotions over the whole time frame, considering the users from the same location.
+
+Fortunately, Twitter allows users specify their location in the \texttt{location} field. However, it does not impose any constraint or predefined format. It follows that: a) not all the users specified their location; b) some locations could be fake or misspelled; c) the same location could be specified with a different syntax.
+
+\subsection{Geocoding}
+\label{subsec:geocoding}
+
+To solve the issue introduced previously and link users to a specific place, we need to perform \textit{address geocoding}. Address geocoding is the process of taking a text-based description of a location and returning its geographic coordinates. In particular, different geocoding web services are available, such as Bing, GoogleV3, TomTom, \ldots
+
+For this project, we decided to use OpenStreetMap (OSM) and the data made available by this particular service~\cite{osm}. OpenStreetMap is a collaborative project to create a free editable map of the world~\cite{enwiki:1028995235}. Created by Steve Coast in the UK in 2004, it was inspired by the success of Wikipedia and the predominance of proprietary map data in the UK and elsewhere.
+
+However, OSM only provides the data: to perform address geocoding, Nominatim or similar tools are required. In practice, Nominatim is used to search OSM data by name and address. Furthermore, it allows developers to use the public API for various tasks, as long as they comply with the usage policy.\footnote{\url{https://operations.osmfoundation.org/policies/nominatim/}}
+
+To reduce the possible workload, we decided to perform address geocoding only for the most frequent locations. For this reason, we grouped together users that specified the same location, hoping to maximize the results. In particular, we removed additional spaces (e.g. white spaces, tabs, \ldots) from the string, and we made it lowercase.
+
+\begin{align*}
+	\texttt{Milano, Lombardia} &\rightarrow \texttt{milano,lombardia} \\
+	\texttt{Milano, lombardia} &\rightarrow \texttt{milano,lombardia} \\
+	\texttt{Milano, \;\;\;\; Lombardia} &\rightarrow \texttt{milano,lombardia}
+\end{align*}
+
+Finally, we used Geopy, a Python client for several geocoding web services, to contact Nominatim public API. The result of the address geocoding operation using Geopy with Nominatim is showed below: 
+
+\begin{lstlisting}[language=json, caption={Json object returned by Geopy given “Milano, Lombardia” as input}, captionpos=b, label={lst:nominatim-geocode}]
+{
+  "place_id": 317098601, 
+  "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+  "boundingbox": [
+    "45.3867381", 
+    "45.5358482", 
+    "9.0408867", 
+    "9.2781103"
+  ], 
+  "lat": "45.4668", 
+  "lon": "9.1905", 
+  "display_name": "Milano, Lombardia, Italia",
+  "address": {
+    "city": "Milano", 
+    "county": "Milano",
+    "state": "Lombardia", 
+    "country": "Italia", 
+    "country_code": "it"
+  }
+}
+\end{lstlisting}
+
+\paragraph{Link the users to a certain location}
+
+Given the fact that the geographical coordinates are too specific, we used instead the information contained in the \texttt{address} field. In particular, we obtained our final set of users in the following way
+
+\begin{enumerate}
+	\item we optionally specify a country (or a state) to focus on a restricted area
+	\item then, we choose a certain location type (e.g. country, state, county, city, \ldots)
+	\item finally, we consider all the users that have a geocoded location coherent with the place specified in 1. and with enough information in the \texttt{address} field to satisfy 2.
+\end{enumerate}
+
+In practice, if we take \Cref{lst:nominatim-geocode} as example, and we decide to map all the users from Italy based on their county, all the users with “Milano, Lombardia” as their original location will be then assigned to “Milano”.
