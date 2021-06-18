@@ -19,9 +19,9 @@
 
 \addcontentsline{toc}{chapter}{Abstract} % da aggiungere comunque all'indice
 
-This dissertation describes in detail the activity performed during my two-month traineeship at the Big Data Department of Eurecat - Centro Tecnológico de Catalunya, which was supervised by \textit{Cristian Consonni} and \textit{David Laniado}.
+This dissertation describes in detail the activity performed during my two-month traineeship at the Big Data Department of Eurecat - Centro Tecnológico de Catalunya, which was supervised by Cristian Consonni and David Laniado.
 
-The purpose of the project was to analyze the emotions emerging from Twitter messages during the pandemic, in order to understand how people felt over the whole period. Based on the result obtained from this research, it may be possible to determine which counter measures better handled the situation while offering the best possible trade off between people's satisfaction and reducing the spread of the disease.
+The purpose of the project was to analyze the emotions emerging from Twitter messages during the pandemic, in order to understand how people felt over the whole period. Based on the result obtained from this research, it may be possible to determine which countermeasures better handled the situation while offering the best possible trade-off between people's satisfaction and the reduction of the spread of the disease.
 
 In general, my contribution to the research mostly regarded:
 
@@ -34,7 +34,7 @@ In general, my contribution to the research mostly regarded:
 	\item geocoding the location of the user
 \end{itemize}
 
-The dataset used for the project is the echen102/COVID-19-TweetIDs, a collection of over 1 billion tweet IDs available on GitHub. The selected tweets are either related to specific accounts; or sampled real-time from the Twitter API because they matched a defined set of keywords.
+The dataset used for the project is the echen102/COVID-19-TweetIDs, a collection of over 1 billion tweet IDs available on GitHub. The selected tweets are either related to specific accounts, or sampled real-time from the Twitter API because they matched a defined set of keywords.
 
 In order to start the analysis, I was asked to retrieve the tweets from January 2020 to March 2021 using Twarc. In fact, to comply with Twitter's term of service, the dataset contains only the ID of the original tweet; however, is possible to get the associated information using the Twitter's API and a Twitter Developer Account.
 
@@ -49,19 +49,20 @@ To reduce the possible bias of particularly active users, we decided to follow o
 	\item users over tweets (e.g. the number of unique users, instead of tweets, that expressed joy in a week)
 \end{itemize}
 
-
-For the first sentiment analysis, tweets belonging to a certain language were analyzed over the whole period. In particular, we decided to normalize the obtained results using the z-score and to manually retrieve some peaks to study the most used words for that particular language.
+For the first sentiment analysis, tweets belonging to a given language were analyzed over the whole period. In particular, we decided to normalize the obtained results using the z-score and to manually retrieve some peaks to study the most used words for that particular language.
 
 To understand how differently men and women perceived the pandemic, we decided to use\\ m3inference, a deep learning system for demographic inference (gender, age, and person/organization) implemented on PyTorch. Only those users that the system inferred with a confidence grater or equal to 0.95 were considered valid and used for the next sentiment analysis.
 
-Finally, we used Twitter location field to analyze users from the same place. To overcome the absence of constraints to specify a location, we retrieved the position of the users using address geocoding, the process of taking a text-based description of a location and returning its geographic coordinates. In particular, we used Nominatim to access the data made available by OpenStreetMap(OSM).
+Finally, we used Twitter location field to analyze users from the same geographical area. To overcome the absence of constraints to specify a location, we retrieved the position of the users using address geocoding, the process of taking a text-based description of a location and returning its geographic coordinates. In particular, we used Nominatim to access the data made available by OpenStreetMap(OSM).
 
-%TODO go back and add more results
+The analysis of the data revealed some first interesting results:
 
-\textbf{Questa ultima sezione ha bisogno di essere rivista successivamente, una volta deciso se usare i risultati di LWIC o di Emolex}
+\begin{itemize}
+	\item first of all, there are cases when the course of the emotions seems to be the same. In particular, when one emotion increases, so do the others. This could happen because on some days users are simply more emotional and tend to use more words. Because of that, the probability of conveying more emotions increases. Furthermore, more emotions could be associated to a single word, so this also explains why some emotions are always more frequently expressed than the others.
+	\item secondly, if we consider the English tweets it seems that women tend to express joy more frequently in their tweets. The same goes for sadness and fear, but in this case the difference is less marked. Finally, anger seems to be slightly more expressed by men, but the lines tend to overlap for the majority of the considered period of time.
+	\item finally, we were able to understand the proportion of Italian users for each state. However, even if it is indeed possible to map manually certain emotional peaks to particular events that occurred around the same time, we still lack a way to perform this method in a more valid and reliable way.
+\end{itemize}
 
-The analysis of the English datatset revealed some first interesting results: it seems that females are more inclined to express joy and sadness; males instead, more anger.
-
-During the course of the project I had the possibility to personally contribute to m3inference improvement on GitHub, by opening a pull request to solve some issues while downloading images from Twitter.
+During the course of the project I had the possibility to personally contribute to the improvement of m3inference on GitHub, by opening a pull request to solve some issues while downloading images from Twitter.
 
 In the end, I was only able to scratch the surface of this research field, because the amount of data to analyze was really impressive. In any case, I hope that my contribution could be a good starting point for further studies and I would really like to continue researching about this topic in the future.

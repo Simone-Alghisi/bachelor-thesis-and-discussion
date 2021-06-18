@@ -2,9 +2,9 @@
 
 \chapter{Data collection}
 \label{cha:data}
-The dataset used for the project is the echen102/COVID-19-TweetIDs GitHub repository~\cite{chen2020tracking}. The repository contains an ongoing collection of tweet IDs starting on the 28th of January 2020.
+The dataset used for the project is the echen102/COVID-19-TweetIDs GitHub repository~\cite{chen2020tracking}. The repository contains an ongoing collection of tweet IDs starting on the January 28th, 2020.
 
-The IDs in the dataset are either tweets posted by a specific account, or sampled real-time from the Twitter API because the text contained specific keywords, such as Coronavirus, Epidemic, codiv-19, Social Distancing, panic buy, lockdown, \ldots 
+The IDs in the dataset are either tweets posted by a specific account, or sampled real-time from the Twitter API because the text contained specific keywords, such as Coronavirus, Epidemic, covid-19, Social Distancing, panic buy, lockdown, \ldots 
 
 From the followed accounts list, it is worth mentioning the following ones:
 \begin{itemize}
@@ -15,7 +15,7 @@ From the followed accounts list, it is worth mentioning the following ones:
 	\item drtedros, Twitter's profile of Tedros Adhanom, the Director-General of the World Health Organization
 \end{itemize}
 
-The fact that these accounts are presents in the dataset is crucial point: given their relevance, we are sure that some tweets are not biased and the statements are valid. However, at the same time, it means that there may be a lot of retweets from various people. This is not necessarily a bad thing, it depends on which type of analysis we are interested in.
+The fact that these accounts are presents in the dataset is a crucial point: given their relevance, we are sure that some tweets are not biased and the statements are valid. However, at the same time, it means that there may be a lot of retweets from various people. This is not necessarily a bad thing, it depends on which type of analysis we are interested in.
 
 \paragraph{Dataset structure}
 
@@ -23,7 +23,7 @@ Data is organized in the following way inside of the dataset:
 
 \begin{itemize}
 	\item at the top layer, the IDs are sorted into YEAR-MONTH folders
-	\item then, in each folder, Tweet-IDs are grouped into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-DAY-HOUR
+	\item then, in each folder, tweet-IDs are grouped into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-DAY-HOUR
 \end{itemize}
 
 
@@ -98,7 +98,7 @@ Considering this time frame, I have processed and worked with:
 \section{How to retrieve the data}
 \label{sec:retrieve-data}
 
-To comply with Twitter's terms of service,\footnote{\url{https://developer.twitter.com/en/developer-terms/agreement-and-policy}} tweets cannot be released publicly: the repository is in fact a collection of Tweet-IDs.
+To comply with Twitter's terms of service,\footnote{\url{https://developer.twitter.com/en/developer-terms/agreement-and-policy}} tweets cannot be released publicly: the repository is in fact a collection of tweet-IDs.
 
 The original tweets can be retrieved, or \textit{hydrated}, using the Python library Twarc with a Twitter Developer Account. In fact, to be able to use the Twitter API, it is mandatory to apply to Twitter Developer.\footnote{\url{https://developer.twitter.com/en/apply-for-access}} When the application has been accepted, the developer will be entitled to access the API using tokens. 
 
@@ -106,27 +106,27 @@ Given the id of a tweet, Twarc uses the tokens of the associated developer accou
 
 In the case of this dataset, the data came along with a script to hydrate the tweets automatically to facilitate the procedure.
 
-\section{Tweets}
+\section{tweets}
 \label{sec:tweets}
 The structure of the json object for the associated tweet depends on the version of the API used: for this project, we have used Standard v1.1 to hydrate the tweets.\footnote{\url{https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet}}
 
 In general, a tweet is characterized by a number of different fields. For the scope of the project, we decided to keep only the most relevant fields, such as:
 
 \begin{itemize}
-	\item \texttt{id}, the integer representation of the unique identifier for this Tweet
-	\item \texttt{created\_at}, UTC time when this Tweet was created
+	\item \texttt{id}, the integer representation of the unique identifier for this tweet
+	\item \texttt{created\_at}, UTC time when this tweet was created
 	\item \texttt{full\_text}, the actual UTF-8 text of the status update (not truncated)
-	\item \texttt{user}, the user who posted this Tweet
-	\item \texttt{retweeted\_status}, the presence of this attribute distinguishes Retweets from typical Tweets
-	\item \texttt{favorite\_count}, indicates approximately how many times this Tweet has been liked by Twitter users
-	\item \texttt{retweet\_count}, number of times this Tweet has been retweeted
-	\item \texttt{lang}, indicates a BCP 47 language identifier corresponding to the machine-detected language of the Tweet text, or und if no language could be detected
+	\item \texttt{user}, the user who posted this tweet
+	\item \texttt{retweeted\_status}, the presence of this attribute distinguishes retweets from typical tweets
+	\item \texttt{favorite\_count}, indicates approximately how many times this tweet has been liked by Twitter users
+	\item \texttt{retweet\_count}, number of times this tweet has been retweeted
+	\item \texttt{lang}, indicates a BCP 47 language identifier corresponding to the machine-detected language of the tweet text, or und if no language could be detected
 \end{itemize}
 
 Further information about the user that posted the tweet are available in the \texttt{user} field, such as:
 
 \begin{itemize}
-	\item \texttt{id}, the integer representation of the unique identifier for this User
+	\item \texttt{id}, the integer representation of the unique identifier for this user
 	\item \texttt{name}, the name of the user, as they have defined it
 	\item \texttt{screen\_name}, the screen name, handle, or alias that this user identifies themselves with
 	\item \texttt{location}, the user-defined location for this account's profile. Not necessarily a location, nor machine-parseable
@@ -134,12 +134,12 @@ Further information about the user that posted the tweet are available in the \t
 	\item \texttt{default\_profile\_image}, when true, indicates that the user has not uploaded their own profile image and a default image is used instead
 	\item \texttt{profile\_image\_url\_https}, a HTTPS-based URL pointing to the user's profile image
 	\item \texttt{followers\_count}, the number of followers this account currently has
-	\item \texttt{statuses\_count}, the number of Tweets (including retweets) issued by the user
+	\item \texttt{statuses\_count}, the number of tweets (including retweets) issued by the user
 \end{itemize}
 
 Given that, each json object associated with a tweet can be represented as follows:
 
-\begin{lstlisting}[language=json, caption={Final json object for a Tweet}, captionpos=b, label={lst:tweet_json}]
+\begin{lstlisting}[language=json, caption={Final json object for a tweet}, captionpos=b, label={lst:tweet_json}]
 {
   "id": 1307025659294674945,
   "full_text": "Here's an article that highlights the updates...",

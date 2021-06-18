@@ -98,7 +98,7 @@ The idea behind this partition, aside from considering tweets of the same langua
 	\label{fig:tweet-org-1}
 \end{figure}
 
-However, this first data organization strategy led to very noisy results: this happened because, depending on the language considered, the number of tweets can drastically change. To solve this problem, we thought about grouping together tweets of the same week: in this way, we were able to average more the results, get stabler data for languages with fewer tweets, and obtain a clearer visualization.
+However, this first data organization strategy led to very noisy results: this happened because, depending on the language considered, the number of tweets can drastically change. To solve this problem, we thought about grouping together tweets of the same week: in this way, we were able to obtain better averages over the results, get stabler data for languages with fewer tweets, and obtain a clearer visualization.
 
 \begin{figure}[H]
 	\dirtree{%
@@ -342,7 +342,6 @@ For this project, we decided to use OpenStreetMap (OSM) and the data made availa
 However, OSM only provides the data: to perform address geocoding, Nominatim or similar tools are required. In practice, Nominatim is used to search OSM data by name and address. Furthermore, it allows developers to use the public API for various tasks, as long as they comply with the usage policy.\footnote{\url{https://operations.osmfoundation.org/policies/nominatim/}}
 
 To reduce the possible workload, we decided to perform address geocoding only for the most frequent locations. For this reason, we grouped together users that specified the same location, hoping to maximize the results. In particular, we removed additional spaces (e.g. white spaces, tabs, \ldots) from the string, and we made it lowercase.
-
 \begin{align*}
 	\texttt{Milano, Lombardia} &\rightarrow \texttt{milano,lombardia} \\
 	\texttt{Milano, lombardia} &\rightarrow \texttt{milano,lombardia} \\
@@ -377,11 +376,10 @@ Finally, we used Geopy, a Python client for several geocoding web services, to c
 \paragraph{Link the users to a certain location}
 
 Given the fact that the geographical coordinates are too specific, we used instead the information contained in the \texttt{address} field. In particular, we obtained our final set of users using the following method:
-
-\begin{enumerate}
+\begin{itemize}
 	\item we optionally specify a country (or a state) to focus on a restricted area
 	\item then, we choose a certain location type (e.g. country, state, county, city, \ldots)
 	\item finally, we consider all the users that have a geocoded location coherent with the place specified in 1. and with enough information in the \texttt{address} field to satisfy 2.
-\end{enumerate}
+\end{itemize}
 
 In practice, if we take \Cref{lst:nominatim-geocode} as example, and we decide to map all the users from Italy based on their county, all the ones with “Milano, Lombardia” as their original location will then be assigned to “Milano”. Instead, all the users that have a country different from “Italy”, or they do not have a county, will be discarded.
