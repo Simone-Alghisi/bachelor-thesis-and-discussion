@@ -274,7 +274,7 @@ Furthermore, for the emotion detection process, we assigned the users that respe
 \begin{definition}
 \label{def:valid-users}
 	A user \(u\) belongs to the category \(c \in C\) iif their prediction confidence \(pc\) is greater or equal than 0.95, i.e.
-	\[u \in c \Longleftrightarrow pc(u) \geq 0.95\]
+	\[u \in c \Longleftrightarrow pc(u, c) \geq 0.95\]
 \end{definition}
 	
 In particular, the following methodology was applied:
@@ -305,7 +305,7 @@ Finally, we obtained the following statistics from the previous considerations:
 		\\
 		\bottomrule
 	\end{tabular}
-	\caption{General users statistics for Catalan, English, Italian and Spanish tweets}
+	\caption{General users statistics for Catalan, English, Italian and Spanish tweets (gender)}
 	\label{tab:users-languages}
 \end{table}
 
@@ -324,6 +324,49 @@ For this reason, we have applied \Cref{def:categories-normalization} to our data
 \end{definition}
 
 To clarify, if \(v_{e, c}(t) = 0.20\), with \(e = \text{joy}\) and \(c = \text{female}\), then it means that females expressed \(20\%\) more joy at time \(t\) w.r.t. the mean joy value over the whole period.
+
+\section{Emotion detection over time - by age}
+\label{sec:emotion-by-age}
+
+Given the fact that the information produced by m3inference (see \Cref{subsec:m3inference} for further details) not only regards the gender of a user, we also thought about considering the emotions expressed by a particular age bracket.
+
+\begin{definition}
+\label{def:valid-users-age}
+	A user \(u\) belongs to the age bracket \(a \in A\) iif their prediction confidence \(pc\) is greater or equal than 0.95, i.e.
+	\[u \in a \Longleftrightarrow pc(u, a) \geq 0.95\]
+\end{definition}
+
+m3inference outputs a prediction confidence for 4 different age brackets: \texttt{<=18}, \texttt{19-29}, \texttt{30-39}, and \texttt{>=40}. However, we noticed that it could be more effective to consider a binary separation. In particular, we reduced the possible age brackets to \texttt{<40} and \texttt{>=40}.
+
+To consider only the users that comply with \Cref{def:valid-users-age}, we applied the following methodology:
+
+\begin{itemize}
+	\item first we check if \(pc(u, \texttt{>=40}) \geq 0.95\)
+	\item then, if \(1 - pc(u, \texttt{>=40}) \geq 0.95\) (i.e. if they have less than forty years)
+	\item finally, if none of the previous constraints were satisfied, we do not consider this user
+\end{itemize}
+
+\begin{table}[h]
+	\centering
+	\ra{1.2}
+	\begin{tabular}{lrrrr}
+		\toprule
+		\textbf{language} & \textbf{inferred users} & \textbf{valid users} & \(\geq \textbf{40 \%}\) & \(< \textbf{40 \%}\) 
+		\\
+		\midrule
+		Catalan & 98 132 & 42 383 & 57.83 & 42.17
+		\\
+		English & 3 099 883 & 1 717 733 & 68.84 & 33.16 
+		\\
+		Italian & 217 340 & 122 271 & 64.54 & 35.46 
+		\\
+		Spanish & 2 555 941 & 1 542 935 & 84.82 & 15.18
+		\\
+		\bottomrule
+	\end{tabular}
+	\caption{General users statistics for Catalan, English, Italian and Spanish tweets (age)}
+	\label{tab:users-age}
+\end{table}
 
 \section{Emotion detection over time - by location}
 \label{sec:emotion-by-location}
