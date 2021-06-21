@@ -56,7 +56,7 @@ From the comparison of the course of the emotions we have selected some peaks (i
 
 Here, we can see that some words, such as “virus”, are only related to a sentiment and not to any other emotion. On the other hand, “epidemic” is associated to almost the totality of the emotions.
 
-It is also very interesting that the word “virus” was present in 10\% of the tweets. Moreover, we can also see that this particular graphics validates the previous hypothesis: indeed, there are lot of words that convey both sadness and fear. In particular, we can notice that it is the case for “case”, “death”, “pandemic”, “epidemic”, “die”, and “disease”.
+It is also very interesting that the word “virus” was present in 10\% of the tweets. Moreover, we can also see that this particular graphics validates the previous hypothesis: indeed, there are lot of words that convey both sadness and fear. In particular, we can notice that it is the case for “case”, “death”, “pandemic”, “epidemic”, and “disease”.
 
 \begin{figure}[H]
 	\centering
@@ -86,6 +86,24 @@ We can also see that women tend to write a lot more tweets that convey joy in mo
 \end{figure}
 
 \Cref{fig:en-4-emotions-per-category-course-mean-1} is a variation of \Cref{fig:en-4-emotions-per-category-course-subplot-1}, where the gray dotted line indicates the average value of a particular emotion expressed by all the users (i.e. independently from the category) over the whole period. Instead, the proportion reported by the other lines represents how much a certain gender expressed a particular emotion in a given week w.r.t. the mean value among the users. For example, both males and females expressed 10\% more anger during the week starting on 2020/02/24.
+
+\begin{figure}[H]
+	\centering
+    	\includegraphics[scale=.35]{en_4_emotions_per_age_subplot_1.svg}
+    	\caption{Proportion of weekly users per age expressing a particular emotion in the English tweets}
+    	\label{fig:en-4-emotions-per-age-subplot-1}
+\end{figure}
+
+From the inference process, we also got information about age brackets. \Cref{fig:en-4-emotions-per-age-subplot-1} shows the course of the emotions per age for the considered period. The results obtained are very intriguing because there is always a noticeable gap between users with less than forty years and those with at least forty years. In particular, it seems that the ones belonging to the second age bracket are more inclined to convey their feelings.
+
+\begin{figure}[H]
+	\centering
+    	\includegraphics[scale=.35]{en_number_of_emotions_per_age.svg}
+    	\caption{Proportion of users per age expressing zero or more emotions/sentiments}
+    	\label{fig:en-4-emotions-per-age-per-number}
+\end{figure}
+
+\Cref{fig:en-4-emotions-per-age-per-number} shows the proportion of users that, in a given week, expressed a certain number of emotions/sentiments. As we can see, \(14 \%\) of the users with less than forty years did not express any emotion. This result is very interesting and could be caused by different reasons. For example, it may be possible that younger users like to write shorter tweets. In fact, with a very restricted set of words, it is likely to not express feelings at all. Besides, they could use different methods to convey their emotions, such through emoticons or slang: neither of them are in fact recognized by EmoLex. Finally, it could also be the case that they are apathetic. In any case, the fact that a great number of users with less than forty years did not express any emotion explains why there is such a large gap between the course of the emotions in \Cref{fig:en-4-emotions-per-age-subplot-1}.
 
 \begin{figure}[H]
 	\centering

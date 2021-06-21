@@ -53,6 +53,8 @@ For the first sentiment analysis, tweets belonging to a given language were anal
 
 To understand how differently men and women perceived the pandemic, we decided to use\\ m3inference, a deep learning system for demographic inference (gender, age, and person/organization) implemented on PyTorch. Only those users that the system inferred with a confidence grater or equal to 0.95 were considered valid and used for the next sentiment analysis.
 
+Given the fact that m3inference also outputs a prediction for the users' age, we decided to analyze the emotions of people belonging to different age brackets. In particular, we considered only users with less than forty years and with at least forty years. As before, we took into account only those users that the system predicted with a confidence of at least 0.95. 
+
 Finally, we used Twitter location field to analyze users from the same geographical area. To overcome the absence of constraints to specify a location, we retrieved the position of the users using address geocoding, the process of taking a text-based description of a location and returning its geographic coordinates. In particular, we used Nominatim to access the data made available by OpenStreetMap(OSM).
 
 The analysis of the data revealed some first interesting results:
@@ -60,6 +62,7 @@ The analysis of the data revealed some first interesting results:
 \begin{itemize}
 	\item first of all, there are cases when the course of the emotions seems to be the same. In particular, when one emotion increases, so do the others. This could happen because on some days users are simply more emotional and tend to use more words. Because of that, the probability of conveying more emotions increases. Furthermore, more emotions could be associated to a single word, so this also explains why some emotions are always more frequently expressed than the others.
 	\item secondly, if we consider the English tweets it seems that women tend to express joy more frequently in their tweets. The same goes for sadness and fear, but in this case the difference is less marked. Finally, anger seems to be slightly more expressed by men, but the lines tend to overlap for the majority of the considered period of time.
+	\item then, always from the analysis of the English tweets, we noticed that users with less than forty years tend to express fewer emotions w.r.t. users with at least forty years. This could be due to the fact that younger users prefer to write shorter tweets, use a lot of emoticons or slang, or they are simply more inexpressive.
 	\item finally, we were able to understand the proportion of Italian users for each state. However, even if it is indeed possible to map manually certain emotional peaks to particular events that occurred around the same time, we still lack a way to perform this method in a more valid and reliable way.
 \end{itemize}
 
