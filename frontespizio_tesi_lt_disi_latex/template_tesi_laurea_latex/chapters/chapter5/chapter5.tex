@@ -3,3 +3,29 @@
 \chapter{Conclusions}
 \label{cha:conclusions}
 
+\paragraph{Contributions}
+
+In general, my contribution to the research mostly regarded:
+
+\begin{itemize}
+	\item retrieving and organizing the data
+	\item processing the tweets to understand users' emotions
+	\item plotting graphics in order to visualize more clearly the results
+	\item normalizing the results obtained to compare different emotions or categories
+	\item inferring demographic information about the users
+	\item geocoding the location of the user
+\end{itemize}
+
+Furthermore, I am particularly proud of my personal contribution to improve m3inference. In practice, I opened a pull request on GitHub to solve some issues while downloading images from Twitter.
+
+In any case, I hope that the effort that I put into the project could be a good starting point for further studies.
+
+\paragraph{Further developments}
+
+Unfortunately, I was only able to scratch the surface of this research field, because the amount of data to analyze was really impressive. For this particular reason, some methodologies could be changed to improve the results.
+
+First of all, the data were analyzed using EmoLex in the majority of the cases. However, a problem related to Lexicons is the fact that they do not care about the context of the words. In fact, words such as hospital tend to have both negative and positive impact, which introduces a bias in our results. NLP algorithms (e.g. opinion mining algorithms) could be used to consider the context of a specific word in a phrase to reduce the valid subset of emotions and minimize the false positives.
+
+Secondly, because of time restrictions, LIWC results were considered only partially. However, given the fact that LIWC is widely used, it should be taken more into account. For example, the range of categories for each language is far more complex w.r.t. the emotions made available from EmoLex. Furthermore, we know for sure that EmoLex is only reliable for the analysis of English sentences. On the other hand, LIWC was designed and validated for different languages. In practice, this means that the analysis is only possible on a subset of languages, but the possible bias due to wrong translations is minimum.
+
+Finally, the purpose of the project is to understand which restrictive measures were more welcomed than others, in order to handle in a better way the situation in the case of some other unfortunate event. However, to associate a certain emotional reaction on a given week to a specific event, it is necessary to have a reliable events database. For this particular reason, we are currently looking for the best methodology, through the analysis of related work, to obtain valid data. 

@@ -18,12 +18,12 @@ The idea behind lexicons is quite simple: we take a particular word in our dicti
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}
-		\filldraw (-2,3) node[RectObject, inner xsep=1cm, dashed](pandemic){pandemic};
-		\draw (-2,5) node[RectObject, inner xsep=1cm, draw=gray](hospital){hospital};
+		\filldraw (-2,2) node[RectObject, inner xsep=1cm, dashed](pandemic){pandemic};
+		\draw (-2,3) node[RectObject, inner xsep=1cm, draw=gray](hospital){hospital};
 		\filldraw (8,1) node[RectObject, inner xsep=1cm, line width=0.3mm](negative){negative};
-	\filldraw (8,3) node[RectObject, inner xsep=1cm, draw=purple, line width=0.3mm](fear){fear};
-		\filldraw (8,5) node[RectObject, inner xsep=1cm, draw=blue, line width=0.3mm](sadness){sadness};
-		\filldraw (8,7) node[RectObject, inner xsep=1cm, draw=green, line width=0.3mm](trust){trust};
+	\filldraw (8,2) node[RectObject, inner xsep=1cm, draw=purple, line width=0.3mm](fear){fear};
+		\filldraw (8,3) node[RectObject, inner xsep=1cm, draw=blue, line width=0.3mm](sadness){sadness};
+		\filldraw (8,4) node[RectObject, inner xsep=1cm, draw=green, line width=0.3mm](trust){trust};
 		\draw[arrow, dashed] (pandemic.east)--(negative.west);
 		\draw[arrow, dashed] (pandemic.east)--(fear.west);
 		\draw[arrow, dashed] (pandemic.east)--(sadness.west);
@@ -60,6 +60,17 @@ In any case, the results obtained with lexicons should be checked and contextual
 For the research, I have used the NRC Word-Emotion Association Lexicon (aka EmoLex) for emotion detection~\cite{ncrwebsite}. EmoLex is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive).
 
 The peculiarity of this lexicon is the fact that, even if it has been designed for the analysis of English words, it has been translated in over one hundred languages using Google Translates. Given that, the number of different languages identified in the dataset is more than 60, this particular dictionary could perfectly fit our problem.
+
+\section{LIWC}
+\label{sec:liwc}
+
+In order to validate the results of the Lexicon analysis, we decided to compare them with the one obtained using LIWC.
+
+Developed by James W. Pennebaker and colleagues, the Linguistic Inquiry and Word Count (LIWC; pronounced "Luke") is a computerized text analysis program that outputs the percentage of words in a given text that falls into one or more linguistic (e.g., first-person singular pronouns, conjunctions), psychological (e.g., anger, achievement), and topical (e.g., leisure, money) categories~\cite{enwiki:1023542720}.
+
+The use of LIWC is widespread and it is commonly employed to examine how different groups of people communicate or write.
+
+Depending on the language considered, LIWC categories could differ. For this particular project, we have taken into account, given their possible similarity with the emotions of EmoLex, the following ones: Anger, Sad, Swear, Death, Posemo (i.e. positive emotions), and Negemo (i.e. negative emotions).
 
 \section{Data organization}
 \label{sub:data-org}

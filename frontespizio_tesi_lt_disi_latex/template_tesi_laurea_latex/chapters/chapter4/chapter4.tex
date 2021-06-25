@@ -69,6 +69,24 @@ Instead, \Cref{fig:en-most-used-word-subplot-2020-02-24} shows the 15 most used 
 
 \begin{figure}[H]
 	\centering
+    	\includegraphics[scale=.35]{en_liwc_categories.svg}
+    	\caption{Proportion of weekly users per LIWC category in the English tweets}
+    	\label{fig:en-liwc-category}
+\end{figure}
+
+As discussed in \Cref{sec:liwc}, we decided to use LIWC in order to validate the results obtained from EmoLex. \Cref{fig:en-liwc-category} shows the proportion of users that expressed a certain LIWC category (selected from the possible categories identified).
+
+\begin{figure}[H]
+	\centering
+    	\includegraphics[scale=.35]{en_emotions_and_liwc_categories_comparison.svg}
+    	\caption{Comparison between the z-score of the emotions and the z-score of the LIWC categories}
+    	\label{fig:en-emotions-liwc-comparison}
+\end{figure}
+
+In particular, in order to compare the results, we decided to use the z-score of the data obtained from the analysis of both EmoLex and LIWC. We can see from \Cref{fig:en-emotions-liwc-comparison}, how the course of the emotion/category pairs look similar. Moreover, on several occasions the two lines overlap and, even if there is a gap, generally they tend to increase or decrease simultaneously. Instead, the differences are probably related to a different word/emotion (or category) association in the two dictionaries. 
+
+\begin{figure}[H]
+	\centering
     	\includegraphics[scale=.35]{en_4_emotions_per_category_with_course_subplot_1.svg}
     	\caption{Proportion of weekly men/women expressing a particular emotion in the English tweets}
     	\label{fig:en-4-emotions-per-category-course-subplot-1}
