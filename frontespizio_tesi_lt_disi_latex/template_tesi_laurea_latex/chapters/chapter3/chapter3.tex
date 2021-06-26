@@ -18,8 +18,8 @@ The idea behind lexicons is quite simple: we take a particular word in our dicti
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}
-		\filldraw (-2,2) node[RectObject, inner xsep=1cm, dashed](pandemic){pandemic};
-		\draw (-2,3) node[RectObject, inner xsep=1cm, draw=gray](hospital){hospital};
+		\filldraw (-2,1.5) node[RectObject, inner xsep=1cm, dashed](pandemic){pandemic};
+		\draw (-2,3.5) node[RectObject, inner xsep=1cm, draw=gray](hospital){hospital};
 		\filldraw (8,1) node[RectObject, inner xsep=1cm, line width=0.3mm](negative){negative};
 	\filldraw (8,2) node[RectObject, inner xsep=1cm, draw=purple, line width=0.3mm](fear){fear};
 		\filldraw (8,3) node[RectObject, inner xsep=1cm, draw=blue, line width=0.3mm](sadness){sadness};
@@ -229,6 +229,7 @@ The issue with the results obtained with this emotion detection, is the fact tha
 To solve this problem, we have decided to apply a data normalization, in particular the \textit{z-score}.
 
 \begin{definition}
+\label{def:z-score}
 	Given \(f_e(t)\) and the period of time \([0,T]\),   
 	\[z_e(t) = \frac{f_e(t) - \mu_{[0,T]}(f_e)}{\sigma_{[0,T]}(f_e)}\] 
 	\[\text{where } \mu_{[0,T]}(f_e) = \frac{1}{\mid T \mid} \sum_{t =0}^{T} f_e(t) \text{, and } \sigma_{[0,T]}(f_e) = \sqrt{\frac{1}{\mid T \mid} \sum_{t = 0}^{T} \left( f_e(t) - \mu_{[0,T]}(f_e) \right)^2 }\] 

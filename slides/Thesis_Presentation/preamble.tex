@@ -10,20 +10,17 @@
 \usepackage{pifont}
 \usepackage{adfbullets}
 \usepackage{enumitem}
-\usepackage{amsmath}   
 \usepackage{tikz}
 \usepackage{lipsum}
 \usepackage{amssymb}
 \usepackage{amsfonts}
-\usepackage{mathrsfs}   
-\usepackage{graphicx}
+\usepackage{mathrsfs}
 \usepackage{adjustbox}
 \usepackage{varioref}
 \usepackage{probsoln}
 \usepackage{attachfile2}
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
-\usepackage[]{hyperref} 
 \graphicspath{{Graphics/}}
 \usepackage{multirow,array}
 \usepackage{colortbl}
@@ -37,25 +34,19 @@
     }
 }
 
-\usepackage{cleveref}
+%% Indispensables
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\usepackage{booktabs}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+\usepackage{tabularx}
 
 %% bibliography
 \usepackage[backend=bibtex,style=verbose-trad2]{biblatex}
 \bibliography{bibliography.bib}
-
-%% tables
-\usepackage{tabularx}
-
-\newcolumntype{b}{>{\hsize=.78\hsize}X}
-\newcolumntype{s}{>{\hsize=.5\hsize}X}
-\newcolumntype{m}{>{\hsize=.25\hsize}X}
-\newcolumntype{h}{>{\hsize=.6\hsize}X}
-
-\setlength\lightrulewidth{0.1pt}
-\providecommand\lightrule{%
-	\arrayrulecolor{black!30}%
-	\midrule[\lightrulewidth]%
-	\arrayrulecolor{black}}
 
 %% listings
 \usepackage{listings}
@@ -120,3 +111,18 @@
 \newcommand\reshist{}
 \def\reshist(#1)#2(#3)#4(#5)%
 {\draw (axis cs:#1) rectangle (axis cs:#3) node [midway] {#5};}
+
+\usepackage[
+    % hidelinks,
+    % colorlinks=true,
+]{hyperref} % importare per ultimo
+
+\hypersetup{
+    colorlinks = true,
+    linkbordercolor = {white}, % rettangoli attorno ai link
+    linkcolor = {},     % toc. {} significa nero
+    urlcolor = {teal},  % link
+    citecolor = {teal}, % bibliografia
+}
+
+\usepackage[capitalize, nameinlink, noabbrev]{cleveref}

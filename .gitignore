@@ -8,3 +8,9 @@
 *.blg
 *.tdo
 *.toc
+*-blx.bib
+*.atfi
+*.nav
+*.xml
+*.vrb
+*.snm
