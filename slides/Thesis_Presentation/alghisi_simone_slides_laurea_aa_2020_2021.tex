@@ -36,9 +36,9 @@
     
     \begin{figure}[H]
     	\centering
-        	\includegraphics[scale=.35]{assets/img/john_doe_tweet.png}
-        	\caption{An example of a tweet.}
-        	\label{fig:tweet-example}
+    	\includegraphics[scale=.35]{assets/img/john_doe_tweet.png}
+    	\caption{An example of a tweet.}
+    	\label{fig:tweet-example}
     \end{figure}
     
     This could allow us to contrast the emotional reaction with the evolution of contagions and deaths, and with the different lockdown and de-escalation stages, in different areas.
@@ -47,14 +47,31 @@
 
 \begin{frame}{Emotion detection}
 
-Also called emotion recognition, is the \textbf{process of identifying human emotions}~\autocite{enwiki:1023798177}. To solve this task, it is possible to use lexicon-based techniques, where each word is assigned to a set of zero or more emotions/sentiments.
+    Also called emotion recognition, is the \textbf{process of identifying human emotions}~\autocite{enwiki:1023798177}. To solve this task, it is possible to use lexicon-based techniques, where each word is assigned to a set of zero or more emotions/sentiments.
 
-\begin{figure}[H]
+    \begin{figure}[H]
     	\centering
-        	\includegraphics[scale=.45,trim= 0 700 0 30, clip]{assets/img/emotion_detection_example.pdf}
-        	\caption{Emotion detection for a particular sentence.}
-        	\label{fig:emotion-detection-example}
+    	\includegraphics[scale=.45,trim= 0 700 0 30, clip]{assets/img/emotion_detection_example.pdf}
+    	\caption{Emotion detection for a particular sentence.}
+    	\label{fig:emotion-detection-example}
     \end{figure}
+
+\end{frame}
+
+\begin{frame}{Contributions}
+
+    In general, my contribution to the research mostly regarded:
+    
+    \begin{itemize}
+    	\item retrieving and organizing the data
+    	\item processing the tweets to understand users' emotions
+    	\item plotting graphics in order to visualize more clearly the results
+    	\item normalizing the results obtained to compare different emotions or categories
+    	\item inferring demographic information about the users
+    	\item geocoding the location of the user
+    \end{itemize}
+    
+    Furthermore, I am particularly proud of my personal contribution to improve m3inference. In practice, I opened a pull request on GitHub to solve some issues while downloading images from Twitter.
 
 \end{frame}
 
@@ -229,22 +246,74 @@ Also called emotion recognition, is the \textbf{process of identifying human emo
 
 \section{Results and discussion}
 
-\begin{frame}{TODO}
+\begin{frame}{Emotions in the English tweets}
+
+    \begin{figure}[H]
+    	\centering
+    	\includegraphics[scale=.25]{assets/img/en_4_emotions.svg.pdf}
+    	\caption{Proportion of weekly users per emotion in the English tweets}
+    	\label{fig:en-4-emotions}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}{Normalized emotions in the English tweets}
+
+    \begin{figure}[H]
+    	\centering
+    	\includegraphics[scale=.25]{assets/img/en_4_emotions_standardized.svg.pdf}
+    	\caption{Z-score of weekly users per emotion in the English tweets}
+    	\label{fig:en-4-emotions-std}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}{Emotions expressed by men/women in the English tweets}
+
+    The dotted gray line represents the proportion of users that, independently from the category they belong to, expressed a certain emotion on a given week.
+
+    \begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=.22]{assets/img/en_4_emotions_per_category_over_mean_subplot_1.svg.pdf}
+    	\caption{Men/Women expressing the weekly proportion of a particular emotion w.r.t. the average value among all users}
+    	\label{fig:en-4-emotions-per-category-course-mean-1}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}{Emotions expressed per age in the English tweets}
+
+    \begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=.25]{assets/img/en_4_emotions_per_age_subplot_1.svg.pdf}
+    	\caption{Proportion of weekly users per age expressing a particular emotion in the English tweets}
+    	\label{fig:en-4-emotions-per-age-subplot-1}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}{Emotions expressed per state in the English tweets}
+
+    \begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=.25]{assets/img/it_anger_4_states.svg.pdf}
+    	\caption{Proportion of weekly users that expressed anger in Lombardia, Lazio, Emilia Romagna and Campania}
+    	\label{fig:it-anger-4-states}
+    \end{figure}
     
 \end{frame}
 
 \section{Conclusions}
 
-\begin{frame}{Final comments}
+\begin{frame}{Next steps}
     
-    During the project we were able to understand users' emotion in different ways:
+    Unfortunately, I was only able to scratch the surface of this research field. To improve some of the results, it would be possible to
     
     \begin{itemize}
-        \item \textbf{categories analysis} showed that women in Italian tweets seems to express more joy through the whole period, and this make sense if we consider the fact that men expressed more negative emotions (e.g. anger, sadness)
-        \item \textbf{locations analysis} was very useful to link certain emotional peaks to real world events
+        \item take into account the context of the words in a sentence using NLP algorithms to avoid opposite emotions bias
+        \item use LIWC for more than validation
+        \item build a dataset to link the emotional peaks to real events
     \end{itemize}
-    
-    I was only able to scratch the surface of this research field and this impressive amount of data from Twitter, but I hope that my contribution could be a good starting point for further studies. 
     
 \end{frame}
 
@@ -260,6 +329,18 @@ Also called emotion recognition, is the \textbf{process of identifying human emo
         \frametitle{References}
         \printbibliography
 \end{frame}
+
+
+
+
+
+
+%% Additional Slides for questions
+
+
+
+
+
 
 \begin{frame}[plain,noframenumbering]{Tools and Libraries used}
 
@@ -451,9 +532,75 @@ Also called emotion recognition, is the \textbf{process of identifying human emo
 	
 \end{frame}
 
+\begin{frame}[plain,noframenumbering]{Comparison between EmoLex and LIWC}
+
+    \begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=.25]{assets/img/en_emotions_and_liwc_categories_comparison.svg.pdf}
+    	\caption{Comparison between the z-score of the emotions and the z-score of the LIWC categories}
+    	\label{fig:en-emotions-liwc-comparison}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]{Emotion in the English tweets (subplots)}
+
+    \begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=.25]{assets/img/en_4_emotions_subplot_1.svg.pdf}
+    	\caption{Proportion of weekly users expressing a particular emotion in the English tweets}
+    	\label{fig:en-4-emotions-subplot-1}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]{Most used words on 2020/02/24 in the English tweets}
+
+    \begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=.25]{assets/img/en_most_used_words_2020_02_24.svg.pdf}
+    	\caption{Proportion of most used words on 2020/02/24 that express emotion/sentiment in the English tweets}
+    	\label{fig:en-most-used-word-2020-02-24}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]{Most used words per emotions on 2020/02/24 in the English tweets}
+
+    \begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=.25]{assets/img/en_most_used_words_4_emotions_2020_02_24_subplot.svg.pdf}
+    	\caption{Proportion of 15 most used words on 2020/02/24 per emotion in the English tweets}
+    	\label{fig:en-most-used-word-subplot-2020-02-24}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]{Number of emotions per age for a given week in the English tweets}
+
+    \begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=.25]{assets/img/en_number_of_emotions_per_age.svg.pdf}
+    	\caption{Proportion of users per age expressing zero or more emotions/sentiments}
+    	\label{fig:en-4-emotions-per-age-per-number}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]{Users per state in the Italian tweets}
+    
+    \begin{figure}[H]
+	\centering
+    	\includegraphics[scale=.25]{assets/img/it_users_per_state.svg.pdf}
+    	\caption{Proportion of users per state in Italy}
+    	\label{fig:it-users-state}
+\end{figure}
+    
+\end{frame}
+
 \begin{frame}[plain,noframenumbering]{Tweets from Campania expressing anger per week}
     
-    \begin{figure}
+    \begin{figure}[H]
         \centering
         \includegraphics[scale=0.3]{assets/img/it_Campania_anger_with_events.png}
         \caption{Italian tweets from Campania expressing anger per week}
@@ -464,7 +611,7 @@ Also called emotion recognition, is the \textbf{process of identifying human emo
 
 \begin{frame}[plain,noframenumbering]{Tweets from Campania expressing joy per week}
     
-    \begin{figure}
+    \begin{figure}[H]
         \centering
         \includegraphics[scale=0.3]{assets/img/it_Campania_joy_with_events.png}
         \caption{Italian tweets from Campania expressing joy per week}
