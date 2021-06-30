@@ -23,18 +23,17 @@ This dissertation describes in detail the activity performed during my two-month
 
 The purpose of the project was to analyze the emotions emerging from Twitter messages during the pandemic, in order to understand how people felt over the whole period. Based on the result obtained from this research, it may be possible to determine which countermeasures better handled the situation while offering the best possible trade-off between people's satisfaction and the reduction of the spread of the disease.
 
-In general, my contribution to the research mostly regarded:
+For this project I have
+    
+    \begin{itemize}
+    	\item retrieved over 6TB of data from Twitter
+    	\item analyzed users' emotions using state-of-the-art libraries (EmoLex, LIWC)
+    	\item studied which emotions were expressed by a large group of users in 4 languages (ca, en, es, it)
+    	\item studied how the emotions expressed by users can vary based on their demographic characteristic, including inferred age and gender
+    	\item studied how the emotions expressed by users can vary based on their geographical provenance (at national and regional level)
+    \end{itemize}
 
-\begin{itemize}
-	\item retrieving and organizing the data
-	\item processing the tweets to understand users' emotions
-	\item plotting graphics in order to visualize more clearly the results
-	\item normalizing the results obtained to compare different emotions or categories
-	\item inferring demographic information about the users
-	\item geocoding the location of the user
-\end{itemize}
-
-The dataset used for the project is the echen102/COVID-19-TweetIDs, a collection of over 1 billion tweet IDs available on GitHub. The selected tweets are either related to specific accounts, or sampled real-time from the Twitter API because they matched a defined set of keywords.
+The dataset used for the project is the echen102/COVID-19-TweetIDs, an ongoing collection of over 1 billion tweet IDs available on GitHub. The selected tweets are either related to specific accounts, or sampled real-time from the Twitter API because they matched a defined set of keywords.
 
 In order to start the analysis, I was asked to retrieve the tweets from January 2020 to March 2021 using Twarc. In fact, to comply with Twitter's term of service, the dataset contains only the ID of the original tweet; however, is possible to get the associated information using the Twitter's API and a Twitter Developer Account.
 
