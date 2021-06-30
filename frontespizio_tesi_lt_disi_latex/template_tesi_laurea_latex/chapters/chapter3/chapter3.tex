@@ -10,7 +10,7 @@ The scope of the project is to understand and measure the emotions of the users 
 Given the heterogeneity of the tweets, we would also like to conduct a more in-dept analysis, by considering the users, over the whole time frame, based on their gender and also on their location.
 
 \section{Lexicons}
-\label{lexicons}
+\label{sec:lexicons}
 
 Until now, we have discussed that we would like to identify and quantify the emotions expressed in the tweets, but we still lack a way to achieve this result. During the project I have used \textit{Lexicons} for this particular task.
 
@@ -64,13 +64,15 @@ The peculiarity of this lexicon is the fact that, even if it has been designed f
 \section{LIWC}
 \label{sec:liwc}
 
-In order to validate the results of the Lexicon analysis, we decided to compare them with the one obtained using LIWC.
+In order to obtain more reliable results, we have also used LIWC.
 
-Developed by James W. Pennebaker and colleagues, the Linguistic Inquiry and Word Count (LIWC; pronounced "Luke") is a computerized text analysis program that outputs the percentage of words in a given text that falls into one or more linguistic (e.g., first-person singular pronouns, conjunctions), psychological (e.g., anger, achievement), and topical (e.g., leisure, money) categories~\cite{enwiki:1023542720}.
+Developed by James W. Pennebaker and colleagues, the Linguistic Inquiry and Word Count (LIWC; pronounced "Luke") is a computerized text analysis program that outputs the percentage of words in a given text that falls into one or more linguistic (e.g., first-person singular pronouns, conjunctions), psychological (e.g., anger, achievement), and topical (e.g., leisure, money) categories~\cite{liwcwebsite}.
 
-The use of LIWC is widespread and it is commonly employed to examine how different groups of people communicate or write.
+LIWC does not solve all the issues discussed in \Cref{sec:lexicons}. However, its use is widespread and it is commonly employed to examine how different groups of people communicate or write.
 
-Depending on the language considered, LIWC categories could differ. For this particular project, we have taken into account, given their possible similarity with the emotions of EmoLex, the following ones: Anger, Sad, Swear, Death, Posemo (i.e. positive emotions), and Negemo (i.e. negative emotions).
+Depending on the language considered, LIWC categories could differ. For this particular project, we have taken into account, given their possible similarity with the emotions of EmoLex, the following ones: Anger, Sad, Anx (i.e. anxiety), Posemo (i.e. positive emotions), and Negemo (i.e. negative emotions). Given that, we can also underline the fact that, while negative emotions are divided into more specialized categories, positive emotions are only grouped into a single one.
+
+A small drawback comes from the fact that, despite providing more reliable results, the languages available on LIWC are limited. For this reason, the analysis of the Catalan tweets could only be performed using EmoLex.
 
 \section{Data organization}
 \label{sub:data-org}

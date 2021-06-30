@@ -5,85 +5,103 @@
 
 This chapter is meant to show and discuss the results obtained from the application of the methods introduced in \Cref{cha:methods}.
 
+\section{LIWC and EmoLex comparison}
+\label{sec:comparison}
+
+Before going into the details, it is worth showing the comparison between the results obtained using Emolex and the ones with LIWC. In particular, we decided to use the z-score of the data obtained from the analysis of both of them.
+
 \begin{figure}[H]
 	\centering
-    	\includegraphics[scale=.35]{en_4_emotions_abs.svg}
+    	\includegraphics[scale=.35]{en_emotions_and_liwc_categories_comparison.svg}
+    	\caption{Comparison between the z-score of the emotions and the z-score of the LIWC categories in the English tweets}
+    	\label{fig:en-emotions-liwc-comparison}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    	\includegraphics[scale=.35]{it_emotions_and_liwc_categories_comparison.svg}
+    	\caption{Comparison between the z-score of the emotions and the z-score of the LIWC categories in the Italian tweets}
+    	\label{fig:it-emotions-liwc-comparison}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    	\includegraphics[scale=.35]{es_emotions_and_liwc_categories_comparison.svg}
+    	\caption{Comparison between the z-score of the emotions and the z-score of the LIWC categories in the Spanish tweets}
+    	\label{fig:es-emotions-liwc-comparison}
+\end{figure}
+
+\Cref{fig:en-emotions-liwc-comparison}, \Cref{fig:it-emotions-liwc-comparison}, and \Cref{fig:es-emotions-liwc-comparison} show how the course of the emotion/category pairs looks similar. Moreover, on several occasions the two lines overlap and, even if there is a gap, they generally tend to increase or decrease simultaneously. Instead, the differences are probably related to a different word/emotion (or word/category) association in the two dictionaries. Furthermore, they use a different set of words: for example, “pandemic”, “virus”, and “vaccine” are not present in LIWC, making it more general than EmoLex.
+
+In any case, the results obtained from the comparison are particularly good for those languages, such as Catalan, where it is not possible to use LIWC due to the lack of appropriate dictionaries.
+
+\section{Emotion detection over time - by language}
+\label{sec:emotion-by-language-results}
+
+\begin{figure}[H]
+	\centering
+    	\includegraphics[scale=.35]{en_5_liwc_categories_abs.svg}
     	\caption{Number of weekly users per emotion in the English tweets}
-    	\label{fig:en-4-emotions-abs}
+    	\label{fig:en-5-liwc-categories-abs}
 \end{figure}
 
-\Cref{fig:en-4-emotions-abs} displays the number of users that expressed a particular emotion in a given week, considering the English tweets. Instead, the gray dashed line indicates the number of users that posted at least one tweet during a week. The fact that the data collection migrated to AWS around June 2020, explains why the number of tweets almost doubled from 2020/06/01 to 2020/06/08.
+\Cref{fig:en-5-liwc-categories-abs} displays the number of users that expressed a particular emotion in a given week, considering the English tweets. Instead, the gray dashed line indicates the number of users that posted at least one tweet during a week. The fact that the data collection migrated to AWS around June 2020, explains why the number of tweets almost doubled from 2020/06/01 to 2020/06/08.
 
 \begin{figure}[H]
 	\centering
-    	\includegraphics[scale=.35]{en_4_emotions.svg}
+    	\includegraphics[scale=.35]{en_5_liwc_categories.svg}
     	\caption{Proportion of weekly users per emotion in the English tweets}
-    	\label{fig:en-4-emotions}
+    	\label{fig:en-5-liwc-categories}
 \end{figure}
 
-\Cref{fig:en-4-emotions} instead shows the proportion of users that expressed a particular emotion in a given week, considering the English tweets. Here we can notice some interesting results: first of all, there are some cases where all the emotions seem to have the same course. We would have expected that, if negative emotions increased, positive emotions would decrease (and vice versa). Instead, during the week starting on 2020/02/24, the proportion of users that expressed anger, joy, fear, and sadness raised. This probably happened because users during that time were particularly emotional and used several more words within a tweet. However, that is not always the case: for example, during 2020/07/13 the joy decreased, while fear, and sadness increased.
+\Cref{fig:en-5-liwc-categories} instead shows the proportion of users that expressed a particular emotion in a given week, considering the English tweets. Here we can notice some interesting results: first of all, we can see how the Negemo course seems to be similar to the  Anger one: especially if we consider the peaks. However, this is not always the case: in fact, further analysis proved that Negemo can be seen as the combination of Anger, Sad, and Anx. Given its redundancy, we removed Negemo from the other graphics to achieve even better data visualization.
 
-Secondly, it is also possible to observe how time frames of greater joy alternate with periods of greater anger. However, that is not the case for fear and sadness. This probably happens because there are a lot of words that convey both these emotions at the same time. In practice, when one increases, so does the other.
+Secondly, there are some cases where all the emotions seem to have the same course. For the most, we can notice how, when negative emotions increase, positive emotions decrease (and vice versa). However, during the week starting on 2020/02/24, the proportion of users that expressed Anger, Sad, Anx, Posemo, and Negemo raised. This probably happened because users during that time were particularly emotional and used several more words within a tweet.
 
 \begin{figure}[H]
 	\centering
-    	\includegraphics[scale=.35]{en_4_emotions_subplot_1.svg}
+    	\includegraphics[scale=.35]{en_4_liwc_categories_subplots.svg}
     	\caption{Proportion of weekly users expressing a particular emotion in the English tweets}
-    	\label{fig:en-4-emotions-subplot-1}
+    	\label{fig:en-4-liwc-categories-subplots}
 \end{figure}
 
-Before approaching the data normalization, we have also tried to divide the different emotions courses into subplots. If we take a look at \Cref{fig:en-4-emotions-subplot-1}, both global (and local) maxima and minima are visible to the naked eye. However, the comparison between different emotions becomes really difficult.
+Before approaching the data normalization, we have also tried to divide the different emotions courses into subplots. If we take a look at \Cref{fig:en-4-liwc-categories-subplots}, both global (and local) maxima and minima are visible to the naked eye. However, the comparison between different emotions becomes really difficult.
 
 \begin{figure}[H]
 	\centering
-    	\includegraphics[scale=.35]{en_4_emotions_standardized.svg}
+    	\includegraphics[scale=.35]{en_4_liwc_categories_standardized.svg}
     	\caption{Z-score of weekly users per emotion in the English tweets}
-    	\label{fig:en-4-emotions-std}
+    	\label{fig:en-4-liwc-categories-std}
 \end{figure}
 
-The z-score instead proved to be a very useful data normalization. As we can see from \Cref{fig:en-4-emotions-std}, not only peaks are noticeable even if we are considering the emotions altogether, but we can also understand which time frames are characterized by a greater (or lower) emotion value w.r.t. the mean value of that particular emotion. For example, it is possible to see that, starting on 2020/03/16, the proportion of users that expressed joy w.r.t. the mean value of joy over the whole period, surpassed all the other emotions w.r.t. their mean value over the whole period.
+The z-score instead proved to be a very useful data normalization. As we can see from \Cref{fig:en-4-liwc-categories-std}, not only peaks are noticeable even if we are considering the emotions altogether, but we can also understand which time frames are characterized by a greater (or lower) emotion value w.r.t. the mean value of that particular emotion. For example, it is possible to see that, starting on 2020/03/16, the proportion of users that expressed a positive emotion w.r.t. the mean value of positive emotion over the whole period, surpassed all the other emotions w.r.t. their mean value over the whole period. For the same reason, we can see that the week starting on 2020/02/24 was characterized by a greater value of Anx, even if in \Cref{fig:en-5-liwc-categories} the proportion of users that expressed a positive emotion is always higher.
 
-From the comparison of the course of the emotions we have selected some peaks (i.e. week) manually to understand which words were the most used. 
+From the comparison of the course of the emotions, we have manually selected some peaks (i.e. week) to understand which words were used the most. 
+
+\begin{figure}[H]
+	\centering
+    	\includegraphics[scale=.35]{en_most_used_liwc_words_2020_02_24.svg}
+    	\caption{Proportion of most used words on 2020/02/24 that express an emotion in the English tweets}
+    	\label{fig:en-most-used-liwc-words-2020-02-24}
+\end{figure}
+
+\Cref{fig:en-most-used-liwc-words-2020-02-24} shows which are the 50 most used words in the English tweets during the week starting on 2020/02/24.
+
+From the graphic we can that the majority of the words expressing a negative emotion are also associated with Anger, Sad, or Anx. This explains the choice to remove Negemo from the other figures.
 
 \begin{figure}[H]
 	\centering
     	\includegraphics[scale=.35]{en_most_used_words_2020_02_24.svg}
     	\caption{Proportion of most used words on 2020/02/24 that express emotion/sentiment in the English tweets}
-    	\label{fig:en-most-used-word-2020-02-24}
+    	\label{fig:en-most-used-words-2020-02-24}
 \end{figure}
 
-\Cref{fig:en-most-used-word-2020-02-24} shows which are the 50 most used words in the English tweets during the week starting on 2020/02/24.
+Instead, \Cref{fig:en-most-used-words-2020-02-24} shows the results obtained from EmoLex for the same week.
 
-Here, we can see that some words, such as “virus”, are only related to a sentiment and not to any other emotion. On the other hand, “epidemic” is associated to almost the totality of the emotions.
+Here, we can see that some words, such as “virus”, are only related to a sentiment and not to any other emotion. On the other hand, “epidemic” is associated with almost the totality of the emotions. This is particularly problematic, because the course of the emotions tends to be all the same.
 
-It is also very interesting that the word “virus” was present in 10\% of the tweets. Moreover, we can also see that this particular graphics validates the previous hypothesis: indeed, there are lot of words that convey both sadness and fear. In particular, we can notice that it is the case for “case”, “death”, “pandemic”, “epidemic”, and “disease”.
-
-\begin{figure}[H]
-	\centering
-    	\includegraphics[scale=.35]{en_most_used_words_4_emotions_2020_02_24_subplot.svg}
-    	\caption{Proportion of 15 most used words on 2020/02/24 per emotion in the English tweets}
-    	\label{fig:en-most-used-word-subplot-2020-02-24}
-\end{figure}
-
-Instead, \Cref{fig:en-most-used-word-subplot-2020-02-24} shows the 15 most used words for anger, fear, joy, and sadness. if we look at the subplots of fear and sadness, we can clearly see that the tweets contain more words expressing fear than sadness. This explains once again the course of the emotions in \Cref{fig:en-4-emotions}.
-
-\begin{figure}[H]
-	\centering
-    	\includegraphics[scale=.35]{en_liwc_categories.svg}
-    	\caption{Proportion of weekly users per LIWC category in the English tweets}
-    	\label{fig:en-liwc-category}
-\end{figure}
-
-As discussed in \Cref{sec:liwc}, we decided to use LIWC in order to validate the results obtained from EmoLex. \Cref{fig:en-liwc-category} shows the proportion of users that expressed a certain LIWC category (selected from the possible categories identified).
-
-\begin{figure}[H]
-	\centering
-    	\includegraphics[scale=.35]{en_emotions_and_liwc_categories_comparison.svg}
-    	\caption{Comparison between the z-score of the emotions and the z-score of the LIWC categories}
-    	\label{fig:en-emotions-liwc-comparison}
-\end{figure}
-
-In particular, in order to compare the results, we decided to use the z-score of the data obtained from the analysis of both EmoLex and LIWC. We can see from \Cref{fig:en-emotions-liwc-comparison}, how the course of the emotion/category pairs look similar. Moreover, on several occasions the two lines overlap and, even if there is a gap, generally they tend to increase or decrease simultaneously. Instead, the differences are probably related to a different word/emotion (or category) association in the two dictionaries. 
+\section{Emotion detection over time - by gender}
+\label{sec:emotion-by-gender-results}
 
 \begin{figure}[H]
 	\centering
@@ -91,6 +109,7 @@ In particular, in order to compare the results, we decided to use the z-score of
     	\caption{Proportion of weekly men/women expressing a particular emotion in the English tweets}
     	\label{fig:en-4-emotions-per-category-course-subplot-1}
 \end{figure}
+
 
 \Cref{fig:en-4-emotions-per-category-course-subplot-1} introduces the results of the analysis of the emotions expressed by females and males in the English tweets during the whole period. In this case, the dotted gray line represents the proportion of users that, independently from the category they belong to, expressed a certain emotion on a given week. However, this line differs from the results obtained in \Cref{fig:en-4-emotions-subplot-1}, because we are now considering only the users with a certain number of tweets (see \Cref{subsec:m3inference} for further details).
 
