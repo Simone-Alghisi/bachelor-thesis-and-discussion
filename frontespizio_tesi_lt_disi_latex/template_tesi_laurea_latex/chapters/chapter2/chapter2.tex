@@ -15,7 +15,7 @@ From the followed accounts list, it is worth mentioning the following ones:
 	\item drtedros, Twitter's profile of Tedros Adhanom, the Director-General of the World Health Organization
 \end{itemize}
 
-The fact that these accounts are presents in the dataset is a crucial point: given their relevance, we are sure that some tweets are not biased and the statements are valid. However, at the same time, it means that there may be a lot of retweets from various people. This is not necessarily a bad thing, it depends on which type of analysis we are interested in.
+The fact that these accounts are presents in the dataset is a crucial aspect: given their relevance, we are sure that some tweets are not biased and the statements are valid. However, at the same time, it means that there may be a lot of retweets from various people. This is not necessarily a bad thing, it depends on which type of analysis we are interested in.
 
 \paragraph{Dataset structure}
 
@@ -33,7 +33,7 @@ COVID-19 was declared a Public Health Emergency of International Concern on 30 J
 
 For this reason, we decided to analyze tweets from January 2020 to March 2021. In this way, we were able to: a) consider more countries; b) better understand when people expressed more negative (or positive) emotions w.r.t the whole period.
 
-Considering this time frame, I have processed and worked with:
+Considering this time frame, we have processed and worked with:
 
 \begin{table}[H]
     \centering
@@ -90,7 +90,7 @@ Considering this time frame, I have processed and worked with:
 
 \begin{figure}[H]
 	\centering
-    	\includegraphics[scale=.4]{tweets_per_language_over_time}
+    	\includegraphics[scale=.4]{tweets_per_language_over_time.svg}
     	\caption{Number of tweets in logarithmic scale over time for the top 10 languages}
     	\label{fig:tweets-language-over-time}
 \end{figure}
@@ -100,15 +100,15 @@ Considering this time frame, I have processed and worked with:
 
 To comply with Twitter's terms of service,\footnote{\url{https://developer.twitter.com/en/developer-terms/agreement-and-policy}} tweets cannot be released publicly: the repository is in fact a collection of tweet-IDs.
 
-The original tweets can be retrieved, or \textit{hydrated}, using the Python library Twarc with a Twitter Developer Account. In fact, to be able to use the Twitter API, it is mandatory to apply to Twitter Developer.\footnote{\url{https://developer.twitter.com/en/apply-for-access}} When the application has been accepted, the developer will be entitled to access the API using tokens. 
+The original tweets can be retrieved, or \textit{hydrated}, using the Python library Twarc with a Twitter Developer Account. In fact, to be able to use the Twitter API, it is mandatory to apply for a Twitter Developer account.\footnote{\url{https://developer.twitter.com/en/apply-for-access}} When the application has been accepted, the developer will be entitled to access the API using tokens. 
 
 Given the id of a tweet, Twarc uses the tokens of the associated developer account to contact the API, and returns the corresponding information as a json object. However, Twarc also tries to maximize the number of possible IDs per request and, at the same time, makes sure to be compliant with the API usage limits.
 
-In the case of this dataset, the data came along with a script to hydrate the tweets automatically to facilitate the procedure.
+In the case of this dataset, the data came along with a script to hydrate the tweets automatically.
 
 \section{Tweets}
 \label{sec:tweets}
-The structure of the json object for the associated tweet depends on the version of the API used: for this project, we have used Standard v1.1 to hydrate the tweets.\footnote{\url{https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet}}
+The structure of the Json object for the associated tweet depends on the version of the API used: for this project, we have used Standard v1.1 to hydrate the tweets.\footnote{\url{https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet}}
 
 In general, a tweet is characterized by a number of different fields. For the scope of the project, we decided to keep only the most relevant fields, such as:
 
@@ -137,9 +137,9 @@ Further information about the user that posted the tweet are available in the \t
 	\item \texttt{statuses\_count}, the number of tweets (including retweets) issued by the user
 \end{itemize}
 
-Given that, each json object associated with a tweet can be represented as follows:
+Given that, each Json object associated with a tweet can be represented as follows:
 
-\begin{lstlisting}[language=json, caption={Final json object for a tweet}, captionpos=b, label={lst:tweet_json}]
+\begin{lstlisting}[language=Json, caption={Final Json object for a tweet}, captionpos=b, label={lst:tweet_Json}]
 {
   "id": 1307025659294674945,
   "full_text": "Here's an article that highlights the updates...",

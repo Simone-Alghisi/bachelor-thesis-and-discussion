@@ -3,16 +3,16 @@
 \chapter{Methods}
 \label{cha:methods}
 
-This chapter aims to describe all the different methodologies used to analyze the data collected during the previous phase, and explained in details in \Cref{cha:data}. 
+This chapter describes all the different methodologies used to analyze the data collected during the previous phase, and explained in details in \Cref{cha:data}. 
 
 The scope of the project is to understand and measure the emotions of the users through sentiment analysis. In particular, we would like to identify, given a certain set of tweets scattered across our considered period of time, when the users conveyed more feelings and which was the emotion expressed the most (e.g. from the Italian tweets it is possible to notice a peak of anger on 21st of February 2020).
 
-Given the heterogeneity of the tweets, we would also like to conduct a more in-dept analysis, by considering the users, over the whole time frame, based on their gender and also on their location.
+Given the heterogeneity of the tweets, we would also like to conduct a more in-depth analysis, by considering the users, over the whole time frame, based on their gender and also on their location.
 
 \section{Lexicons}
 \label{sec:lexicons}
 
-Until now, we have discussed that we would like to identify and quantify the emotions expressed in the tweets, but we still lack a way to achieve this result. During the project I have used \textit{Lexicons} for this particular task.
+Until now, we have claimed that our goal is to identify and quantify the emotions expressed in the tweets, but we still lack a way to achieve this result. During the project we have used \textit{Lexicons} for this particular task.
 
 The idea behind lexicons is quite simple: we take a particular word in our dictionary, and we assign zero or more emotions or sentiments to it.
 \begin{figure}[H]
@@ -43,7 +43,7 @@ To simplify even more, even a negation can totally change the meaning of a parti
 	I am fine / I am \underline{not} fine
 \end{center}
 
-On the other hand, there are different schools of thought relatively at sentiment analysis: someone tries to understand the meaning of the phrase, while other ones focus on the emotions conveyed by a certain set of words (without caring about the meaning).
+On the other hand, there are different schools of thought relatively at sentiment analysis: one possible approach is to understand the meaning of the phrase, while other approaches focus on the emotions conveyed by a certain set of words (without caring about the meaning).
 
 Let us now consider the following example: 
 
@@ -61,8 +61,7 @@ For the research, I have used the NRC Word-Emotion Association Lexicon (aka EmoL
 
 The peculiarity of this lexicon is the fact that, even if it has been designed for the analysis of English words, it has been translated in over one hundred languages using Google Translates. Given that, the number of different languages identified in the dataset is more than 60, this particular dictionary could perfectly fit our problem.
 
-\section{LIWC}
-\label{sec:liwc}
+\paragraph{LIWC}
 
 In order to obtain more reliable results, we have also used LIWC.
 
@@ -85,7 +84,7 @@ Before performing emotion detection on our tweets, we decided to define a new da
 	\item finally, we grouped the tweets into files with a prefix “coronavirus-tweet-id-” followed by YEAR-MONTH-DAY
 \end{itemize}
 
-The idea behind this partition, aside from considering tweets of the same language, was to get rid of the per hour aggregation: for the purpose of the project, this kind of granularity was simply too much. Given that, we have preferred to aggregate in a single file the tweets posted on the same day.
+The idea behind this partition, aside from considering tweets of the same language, was to get rid of the per-hour aggregation: for the purpose of the project, this kind of granularity was simply too much. Given that, we have preferred to aggregate in a single file the tweets posted on the same day.
 
 \Cref{fig:tweet-org-1} shows a visual representation of the new data organization: now it is possible to access directly to tweets of the same language posted on a particular date.
 
@@ -248,7 +247,7 @@ However, Twitter does not allow users to specify their gender explicitly. This m
 
 Fortunately, even if this information is not explicitly available, is possible to infer it. 
 
-\subsection{Users inference}
+\subsection{Users demographics inference}
 \label{subsec:m3inference}
 
 To solve this particular issue, we used m3inference, a deep learning system for demographic inference implemented on PyTorch~\cite{wang2019demographic}.
@@ -342,7 +341,7 @@ To clarify, if \(v_{e, c}(t) = 0.20\), with \(e = \text{joy}\) and \(c = \text{f
 \section{Emotion detection over time - by age}
 \label{sec:emotion-by-age}
 
-Given the fact that the information produced by m3inference (see \Cref{subsec:m3inference} for further details) not only regards the gender of a user, we also thought about considering the emotions expressed by a particular age bracket.
+Given that the emotional impact could also vary depending on the users' age, we also thought about considering the emotions expressed by a particular age bracket using m3inference information. 
 
 \begin{definition}
 \label{def:valid-users-age}
@@ -439,4 +438,4 @@ Given the fact that the geographical coordinates are too specific, we used inste
 	\item finally, we consider all the users that have a geocoded location coherent with the place specified in 1. and with enough information in the \texttt{address} field to satisfy 2.
 \end{itemize}
 
-In practice, if we take \Cref{lst:nominatim-geocode} as example, and we decide to map all the users from Italy based on their county, all the ones with “Milano, Lombardia” as their original location will then be assigned to “Milano”. Instead, all the users that have a country different from “Italy”, or they do not have a county, will be discarded.
+In practice, if we take \Cref{lst:nominatim-geocode} as example, and we decide to map all the users from Italy based on their county, all the ones with “Milano, Lombardia” as their original location will then be assigned to “Milano”. Instead, users that a) do not have a country; b) have a country different from “Italy”; c) do not have a county, will be discarded. 

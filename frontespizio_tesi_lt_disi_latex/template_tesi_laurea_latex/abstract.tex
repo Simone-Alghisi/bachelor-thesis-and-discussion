@@ -15,31 +15,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter*{Abstract} % senza numerazione
-\label{abstract}  
+\label{abstract}
 
 \addcontentsline{toc}{chapter}{Abstract} % da aggiungere comunque all'indice
 
-This dissertation describes in detail the activity performed during my two-month traineeship at the Big Data Department of Eurecat - Centro Tecnológico de Catalunya, which was supervised by Cristian Consonni and David Laniado.
+This dissertation describes in detail the activity performed during my two-month traineeship at the Big Data \& Data Science Department of Eurecat - Centro Tecnológico de Catalunya, which was supervised by Cristian Consonni and David Laniado.
 
 The purpose of the project was to analyze the emotions emerging from Twitter messages during the pandemic, in order to understand how people felt over the whole period. Based on the result obtained from this research, it may be possible to determine which countermeasures better handled the situation while offering the best possible trade-off between people's satisfaction and the reduction of the spread of the disease.
 
-For this project I have
+I have contributed to the project by
     
-    \begin{itemize}
-    	\item retrieved over 6TB of data from Twitter
-    	\item analyzed users' emotions using state-of-the-art libraries (EmoLex, LIWC)
-    	\item studied which emotions were expressed by a large group of users in 4 languages (ca, en, es, it)
-    	\item studied how the emotions expressed by users can vary based on their demographic characteristic, including inferred age and gender
-    	\item studied how the emotions expressed by users can vary based on their geographical provenance (at national and regional level)
-    \end{itemize}
+\begin{itemize}
+    	\item retrieving over 6TB of data from Twitter
+    	\item analyzing users' emotions using state-of-the-art libraries (EmoLex, LIWC)
+    	\item studying which emotions were expressed by a large group of users in 4 languages (ca, en, es, it)
+    	\item studying how the emotions expressed by users can vary based on their demographic characteristic, including inferred age and gender
+    	\item studying how the emotions expressed by users can vary based on their geographical provenance (at national and regional level)
+\end{itemize}
 
 The dataset used for the project is the echen102/COVID-19-TweetIDs, an ongoing collection of over 1 billion tweet IDs available on GitHub. The selected tweets are either related to specific accounts, or sampled real-time from the Twitter API because they matched a defined set of keywords.
 
-In order to start the analysis, I was asked to retrieve the tweets from January 2020 to March 2021 using Twarc. In fact, to comply with Twitter's term of service, the dataset contains only the ID of the original tweet; however, is possible to get the associated information using the Twitter's API and a Twitter Developer Account.
+In order to start the analysis, I retrieved the tweets from January 2020 to March 2021 using Twarc. In fact, to comply with Twitter's term of service, the dataset contains only the ID of the original tweet; however, is possible to get the associated information using the Twitter's API and a Twitter Developer Account.
 
 After collecting the data, we decided to group the tweets first based on their language, to perform a targeted analysis on a restricted set (Catalan, English, Italian and Spanish); secondly per week, for better data visualization and to average the results.
 
-In order to understand which emotions were expressed in a single tweet, we decided to use the NRC Word-Emotion Association Lexicon (aka EmoLex). Emolex is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive). Furthermore, we decided to validate the results obtained from EmoLex with LIWC, a widely used computerized text analysis program that outputs the percentage of words in a given text that falls into one or more categories.
+In order to understand which emotions were expressed in a single tweet, we decided to use EmoLex and LIWC: two state-of-the-art libraries used in sentiment analysis. The NRC Word-Emotion Association Lexicon (aka EmoLex) is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive). Instead, LIWC is a widely used computerized text analysis program that outputs the percentage of words in a given text that falls into one or more categories.
 
 To reduce the possible bias of particularly active users, we decided to follow one of the approaches discussed by Aiello et al., in particular we have considered
 	
@@ -52,17 +52,18 @@ For the first sentiment analysis, tweets belonging to a given language were anal
 
 To understand how differently men and women perceived the pandemic, we decided to use\\ m3inference, a deep learning system for demographic inference (gender, age, and person/organization) implemented on PyTorch. Only those users that the system inferred with a confidence grater or equal to 0.95 were considered valid and used for the next sentiment analysis.
 
-Given the fact that m3inference also outputs a prediction for the users' age, we decided to analyze the emotions of people belonging to different age brackets. In particular, we considered only users with less than forty years and with at least forty years. As before, we took into account only those users that the system predicted with a confidence of at least 0.95. 
+Given that the emotional impact could also vary depending on the users' age, we have studied the emotions of people belonging to different age brackets. In particular, we have used m3inference predictions about users' age and we considered only those users below forty years old and at least forty years old. As before, we took into account only those users that the system predicted with a confidence of at least 0.95. 
 
-Finally, we used Twitter location field to analyze users from the same geographical area. To overcome the absence of constraints to specify a location, we retrieved the position of the users using address geocoding, the process of taking a text-based description of a location and returning its geographic coordinates. In particular, we used Nominatim to access the data made available by OpenStreetMap(OSM).
+Finally, we used Twitter location field to analyze users from the same geographical area. To overcome the absence of constraints to specify a location, we retrieved the position of the users using address geocoding, the process of taking a text-based description of a location and returning its geographic coordinates. In particular, we used Nominatim to access the data made available by OpenStreetMap (OSM).
 
 The analysis of the data revealed some first interesting results:
 
 \begin{itemize}
-	\item first of all, there are cases when the course of the emotions seems to be the same. In particular, when one emotion increases, so do the others. This could happen because on some days users are simply more emotional and tend to use more words. Because of that, the probability of conveying more emotions increases. Furthermore, more emotions could be associated to a single word, so this also explains why some emotions are always more frequently expressed than the others.
-	\item secondly, if we consider the English tweets it seems that women tend to express joy more frequently in their tweets. The same goes for sadness and fear, but in this case the difference is less marked. Finally, anger seems to be slightly more expressed by men, but the lines tend to overlap for the majority of the considered period of time.
-	\item then, always from the analysis of the English tweets, we noticed that users with less than forty years tend to express fewer emotions w.r.t. users with at least forty years. This could be due to the fact that younger users prefer to write shorter tweets, use a lot of emoticons or slang, or they are simply more inexpressive.
-	\item finally, we were able to understand the proportion of Italian users for each state. However, even if it is indeed possible to map manually certain emotional peaks to particular events that occurred around the same time, we still lack a way to perform this method in a more valid and reliable way.
+	\item from the comparison of the results obtained from LIWC and EmoLex we noticed that on several occasions the two lines overlap. Moreover, even if there is a gap, they generally tend to increase or decrease simultaneously, meaning that EmoLex could be used for those languages where LIWC is not available.
+	\item there are cases when the course of the emotions seems to be the same. In particular, when one emotion increases, so do the others. This probably happens because on some days users are simply more emotional and tend to use more words. Because of that, the probability of conveying more emotions increases. This particular behavior mostly regarded EmoLex, where even opposite emotions could be associated with a single word.
+	\item if we consider the English tweets, women tend to write more tweets conveying sadness. This seems to be also the case for anxiety and positive emotions. However, the gap becomes less and less significant. Instead, men seem to express slightly more anger over the considered period, but the two lines overlap on more than one occasion.
+	\item again from the analysis of the English tweets, we noticed that users below forty years old seem to be slightly more aggressive. Instead, those at least forty years old express more sadness, anxiety, and positive emotions with a noticeable gap. The fact that users below forty years old express fewer emotions could be because they prefer to write shorter tweets, use many emoticons or slang, or are simply more inexpressive.
+	\item finally, we were able to analyze the course of the emotions expressed by users belonging to each Italian region. Moreover, we were able to notice how, after the discovery of the first case, people's anxiety dropped. This probably happened because news and various decrees helped to calm people down.
 \end{itemize}
 
 During the course of the project I had the possibility to personally contribute to the improvement of m3inference on GitHub, by opening a pull request to solve some issues while downloading images from Twitter.
