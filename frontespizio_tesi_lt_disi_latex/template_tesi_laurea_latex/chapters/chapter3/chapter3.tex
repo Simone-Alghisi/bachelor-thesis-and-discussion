@@ -7,7 +7,7 @@ This chapter describes all the different methodologies used to analyze the data 
 
 The scope of the project is to understand and measure the emotions of the users through sentiment analysis. In particular, we would like to identify, given a certain set of tweets scattered across our considered period of time, when the users conveyed more feelings and which was the emotion expressed the most (e.g. from the Italian tweets it is possible to notice a peak of anger on 21st of February 2020).
 
-Given the heterogeneity of the tweets, we would also like to conduct a more in-depth analysis, by considering the users, over the whole time frame, based on their gender and also on their location.
+Given the heterogeneity of the tweets, we would also like to conduct a more in-depth analysis, by considering the users, over the whole time frame, based on their gender, their age, and also their location.
 
 \section{Lexicons}
 \label{sec:lexicons}
@@ -59,7 +59,7 @@ In any case, the results obtained with lexicons should be checked and contextual
 
 For the research, I have used the NRC Word-Emotion Association Lexicon (aka EmoLex) for emotion detection~\cite{ncrwebsite}. EmoLex is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive).
 
-The peculiarity of this lexicon is the fact that, even if it has been designed for the analysis of English words, it has been translated in over one hundred languages using Google Translates. Given that, the number of different languages identified in the dataset is more than 60, this particular dictionary could perfectly fit our problem.
+The peculiarity of this lexicon is the fact that, even if it has been designed for the analysis of English words, it has been translated in over one hundred languages using Google Translates. Given that the number of different languages identified in the dataset is more than 60, this particular dictionary could perfectly fit our problem.
 
 \paragraph{LIWC}
 
@@ -159,7 +159,7 @@ We know from \Cref{sec:twitter} that Twitter's constraint on the number of chara
 
 Fortunately, the effect produced from this problem can be minimized with a considerable amount of data. Obviously, with many tweets, the possibility of having meaningful data increases.
 
-However, we have not still defined how users' emotions should be considered: should we count the number of occurrences (i.e. words) for each emotion inside of a tweet? Should we consider independently each tweet posted by a user?
+However, we have still not defined how users' emotions should be considered: should we count the number of occurrences (i.e. words) for each emotion inside of a tweet? Should we consider independently each tweet posted by a user?
 
 Regarding this particular topic, we have decided to follow one of the approaches discussed by  by Aiello et al.~\cite{aiello2020epidemic}
 
@@ -174,7 +174,7 @@ We can then formalize the metrics used for the project as follows:
 
 \begin{definition}
 \label{def:tweet-emotions}
-	A tweet \(t\) contains an emotion \(e\), if at least one of the tweet's words or stems \(w\) belongs to \(e\),
+	A tweet \(t\) contains an emotion \(e\), if at least one of the tweet words or stems \(w\) belongs to \(e\),
 	\begin{center}
 		\(t \in e \Leftrightarrow \exists w \in t\)  s.t. \(w \in e\)
 	\end{center}
@@ -225,7 +225,7 @@ It is important to underline the following: given that, as explained in \Cref{su
 \subsection{Data normalization}
 \label{subsec:normalization}
 
-The issue with the results obtained with this emotion detection, is the fact that the emotions course are not easily comparable. For example, we can notice which emotion was the one expressed more in a certain week considering \(f_e(t)\). However, it is more difficult to say, for example, whether users expressed in a certain week the most joy over the whole period.
+The issue with the results obtained with this emotion detection is the fact that the emotions course are not easily comparable. For example, we can notice which emotion was the one expressed more in a certain week considering \(f_e(t)\). However, it is more difficult to say, for example, whether users expressed in a certain week the most joy over the whole period.
 
 To solve this problem, we have decided to apply a data normalization, in particular the \textit{z-score}.
 
@@ -386,7 +386,7 @@ To consider only the users that comply with \Cref{def:valid-users-age}, we appli
 
 Finally, we decided to study the course of the emotions over the whole time frame, considering the users from the same location.
 
-Fortunately, Twitter allows users specify their location in the \texttt{location} field. However, it does not impose any constraint or predefined format. It follows that: a) not all the users specified their location; b) some locations could be fake or misspelled; c) the same location could be written in a different syntax.
+Fortunately, Twitter allows users to specify their location in the \texttt{location} field. However, it does not impose any constraint or predefined format. It follows that: a) not all the users specified their location; b) some locations could be fake or misspelled; c) the same location could be written in a different syntax.
 
 \subsection{Geocoding}
 \label{subsec:geocoding}

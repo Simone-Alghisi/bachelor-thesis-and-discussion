@@ -4,7 +4,7 @@
 \label{cha:data}
 Chen, Lerman, and Ferrara have built a dataset composed of an ongoing collection of tweet IDs starting on January 28th, 2020\footnote{echen102/COVID-19-TweetIDs: \url{https://github.com/echen102/COVID-19-TweetIDs}}~\cite{chen2020tracking}.
 
-The IDs in the dataset are either tweets posted by a specific account, or sampled real-time from the Twitter API because the text contained specific keywords, such as Coronavirus, Epidemic, covid-19, Social Distancing, panic buy, lockdown, \ldots 
+The IDs in the dataset are either tweets posted by a specific account, or sampled real-time from the Twitter API because the text contains specific keywords, such as Coronavirus, Epidemic, covid-19, Social Distancing, panic buy, lockdown, \ldots 
 
 From the followed accounts list, it is worth mentioning the following ones:
 \begin{itemize}
@@ -15,7 +15,7 @@ From the followed accounts list, it is worth mentioning the following ones:
 	\item drtedros, Twitter's profile of Tedros Adhanom, the Director-General of the World Health Organization
 \end{itemize}
 
-The fact that these accounts are presents in the dataset is a crucial aspect: given their relevance, we are sure that some tweets are not biased and the statements are valid. However, at the same time, it means that there may be a lot of retweets from various people. This is not necessarily a bad thing, it depends on which type of analysis we are interested in.
+The fact that these accounts are present in the dataset is a crucial aspect: given their relevance, we are sure that some tweets are not biased and the statements are valid. However, at the same time, it means that there may be a lot of retweets from various people. This is not necessarily a bad thing, it depends on which type of analysis we are interested in.
 
 \paragraph{Dataset structure}
 
@@ -102,7 +102,7 @@ To comply with Twitter's terms of service,\footnote{\url{https://developer.twitt
 
 The original tweets can be retrieved, or \textit{hydrated}, using the Python library Twarc with a Twitter Developer Account. In fact, to be able to use the Twitter API, it is mandatory to apply for a Twitter Developer account.\footnote{\url{https://developer.twitter.com/en/apply-for-access}} When the application has been accepted, the developer will be entitled to access the API using tokens. 
 
-Given the id of a tweet, Twarc uses the tokens of the associated developer account to contact the API, and returns the corresponding information as a json object. However, Twarc also tries to maximize the number of possible IDs per request and, at the same time, makes sure to be compliant with the API usage limits.
+Given the id of a tweet, Twarc uses the tokens of the associated developer account to contact the API, and returns the corresponding information as a Json object. However, Twarc also tries to maximize the number of possible IDs per request and, at the same time, makes sure to be compliant with the API usage limits.
 
 In the case of this dataset, the data came along with a script to hydrate the tweets automatically.
 

@@ -35,7 +35,7 @@ I have contributed to the project by
 
 The dataset used for the project is the echen102/COVID-19-TweetIDs, an ongoing collection of over 1 billion tweet IDs available on GitHub. The selected tweets are either related to specific accounts, or sampled real-time from the Twitter API because they matched a defined set of keywords.
 
-In order to start the analysis, I retrieved the tweets from January 2020 to March 2021 using Twarc. In fact, to comply with Twitter's term of service, the dataset contains only the ID of the original tweet; however, is possible to get the associated information using the Twitter's API and a Twitter Developer Account.
+In order to start the analysis, I retrieved the tweets from January 2020 to March 2021 using Twarc. In fact, to comply with Twitter's term of service, the dataset contains only the ID of the original tweet; however, is possible to get the associated information using the Twitter API and a Twitter Developer Account.
 
 After collecting the data, we decided to group the tweets first based on their language, to perform a targeted analysis on a restricted set (Catalan, English, Italian and Spanish); secondly per week, for better data visualization and to average the results.
 
@@ -54,7 +54,7 @@ To understand how differently men and women perceived the pandemic, we decided t
 
 Given that the emotional impact could also vary depending on the users' age, we have studied the emotions of people belonging to different age brackets. In particular, we have used m3inference predictions about users' age and we considered only those users below forty years old and at least forty years old. As before, we took into account only those users that the system predicted with a confidence of at least 0.95. 
 
-Finally, we used Twitter location field to analyze users from the same geographical area. To overcome the absence of constraints to specify a location, we retrieved the position of the users using address geocoding, the process of taking a text-based description of a location and returning its geographic coordinates. In particular, we used Nominatim to access the data made available by OpenStreetMap (OSM).
+Finally, we used Twitter's location field to analyze users from the same geographical area. To overcome the absence of constraints to specify a location, we retrieved the position of the users using address geocoding, the process of taking a text-based description of a location and returning its geographic coordinates. In particular, we used Nominatim to access the data made available by OpenStreetMap (OSM).
 
 The analysis of the data revealed some first interesting results:
 
