@@ -19,11 +19,6 @@
 
 \setcounter{tocdepth}{1}
 
-\begin{frame}[plain,noframenumbering]
-    \frametitle{Contents}
-    \tableofcontents
-\end{frame}
-
 \setlength{\abovedisplayskip}{0pt}
 \setlength{\belowdisplayskip}{0pt}
 \setlength{\abovedisplayshortskip}{0pt}
@@ -36,9 +31,9 @@
     
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.35]{assets/img/john_doe_tweet.png}
-    	\caption{An example of a tweet.}
-    	\label{fig:tweet-example}
+    	\includegraphics[scale=.35]{assets/img/biden-tweet.jpg}
+    	\caption{President Biden's tweet - June 24, 2021.}
+    	\label{fig:biden-tweet}
     \end{figure}
     
     This could allow us to contrast the emotional reaction with the evolution of contagions and deaths, and with the different lockdown and de-escalation stages, in different areas.
@@ -47,31 +42,32 @@
 
 \begin{frame}{Emotion detection}
 
-    Also called emotion recognition, is the \textbf{process of identifying human emotions}~\autocite{enwiki:1023798177}. To solve this task, it is possible to use lexicon-based techniques, where each word is assigned to a set of zero or more emotions/sentiments.
+    Emotion detection, also called emotion recognition, is the \textbf{process of identifying human emotions}~\autocite{enwiki:1023798177}. To solve this task, it is possible to use lexicon-based techniques, where each word is assigned to a set of zero or more emotions/sentiments.
 
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.45,trim= 0 700 0 30, clip]{assets/img/emotion_detection_example.pdf}
+    	\includegraphics[scale=.35,trim= 0 400 0 10, clip]{assets/img/emotion_detection_example.pdf}
     	\caption{Emotion detection for a particular sentence.}
     	\label{fig:emotion-detection-example}
     \end{figure}
+    
+    Only the highlighted words, which convey at least one emotion, are considered in the process.
 
 \end{frame}
 
 \begin{frame}{Contributions}
 
-    In general, my contribution to the research mostly regarded:
+    I have contributed to the project by
     
     \begin{itemize}
-    	\item retrieving and organizing the data
-    	\item processing the tweets to understand users' emotions
-    	\item plotting graphics in order to visualize more clearly the results
-    	\item normalizing the results obtained to compare different emotions or categories
-    	\item inferring demographic information about the users
-    	\item geocoding the location of the user
+    	\item retrieving over 6TB of data from Twitter
+    	\item analyzing users' emotions using state-of-the-art libraries (EmoLex, LIWC)
+    	\item studying which emotions were expressed by a large group of users in 4 languages (ca, en, es, it)
+    	\item studying how the emotions expressed by users can vary based on their demographic characteristic, including inferred age and gender
+    	\item studying how the emotions expressed by users can vary based on their geographical provenance (at national and regional level)
     \end{itemize}
     
-    Furthermore, I am particularly proud of my personal contribution to improve m3inference. In practice, I opened a pull request on GitHub to solve some issues while downloading images from Twitter.
+    Furthermore, I had the chance to contribute to m3inference, an open source, state-of-the-art library used to analyze tweets.
 
 \end{frame}
 
@@ -79,7 +75,7 @@
 
 \begin{frame}{Dataset description and stats}
 
-	The \textbf{echen102/COVID-19-TweetIDs} GitHub repository contains an ongoing collection of tweet IDs starting on January 28th, 2020~\autocite{chen2020tracking}.
+	Chen, Lerman, and Ferrara have built an ongoing collection of tweet IDs starting on January 28th, 2020\footnote{echen102/COVID-19-TweetIDs: \url{https://github.com/echen102/COVID-19-TweetIDs}}\textsuperscript{,}~\autocite{chen2020tracking}\text{.}
 	
 	\begin{table}[H]
         \centering
@@ -140,7 +136,7 @@
     
     \begin{itemize}
         \item \textbf{EmoLex}, a list of English words and their associations with \textbf{eight basic emotions} (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and \textbf{two sentiments} (negative and positive)~\autocite{ncrwebsite}, to detect the emotions
-        \item \textbf{LIWC}, a widely used computerized text analysis program that outputs the percentage of words in a given text that falls into one or more \textbf{linguistic, psychological, and topical categories}~\autocite{enwiki:1023542720}, to validate the results
+        \item \textbf{LIWC}, a widely used computerized text analysis program that outputs the percentage of words in a given text that falls into one or more \textbf{linguistic, psychological, and topical categories}~\autocite{liwcwebsite}, to validate the results
     \end{itemize}
 
 \end{frame}
@@ -150,8 +146,8 @@
     To correctly \textbf{detect the users' emotions}, we decided to follow one of the approaches discussed by Aiello et al.~\autocite{aiello2020epidemic}
 	
 	\begin{itemize}
-    	\item emotions in a binary way (e.g. whether at given time the user expressed joy or not)
-    	\item users over tweets (e.g. the number of unique users, instead of tweets, that expressed joy at a given time)
+    	\item categorizing emotions in a binary way (e.g. whether at given time the user expressed joy or not)
+    	\item counting users over tweets (e.g. the number of unique users, instead of tweets, that expressed joy at a given time)
     \end{itemize}
 	
     \begin{definition}
@@ -170,10 +166,10 @@
     We decided to analyze for the whole time frame the emotions of different set of users. In particular we grouped them
     
     \begin{itemize}
-        \item by \textbf{language} (e.g. Catalan, Italian, English, Spanish, \ldots)
+        \item by \textbf{language} (e.g. Catalan, English, Italian, Spanish)
         \item by \textbf{gender} (male or female)
-        \item by \textbf{age} (\(\geq 40\) or \(< 40\))
-        \item by \textbf{location} (e.g. per state, country, county, \ldots)
+        \item by \textbf{age} (\(< 40\) or \(\geq 40\))
+        \item by \textbf{location} (e.g. per state, region, county, \ldots)
     \end{itemize}
 
 \end{frame}
@@ -193,7 +189,7 @@
 
 \end{frame}
 
-\begin{frame}[fragile]{Users inference}
+\begin{frame}[fragile]{Users demographics inference}
 
 	To infer data about the users, we used m3inference, a \textbf{deep learning system for demographic inference} (gender, age, and person/organization) available on Python~\autocite{wang2019demographic}.
 	
@@ -250,9 +246,9 @@
 
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.25]{assets/img/en_4_emotions.svg.pdf}
+    	\includegraphics[scale=.25]{assets/img/en_5_liwc_categories.svg.pdf}
     	\caption{Proportion of weekly users per emotion in the English tweets}
-    	\label{fig:en-4-emotions}
+    	\label{fig:en-5-liwc-categories}
     \end{figure}
     
 \end{frame}
@@ -261,9 +257,9 @@
 
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.25]{assets/img/en_4_emotions_standardized.svg.pdf}
+    	\includegraphics[scale=.25]{assets/img/en_4_liwc_categories_standardized.svg.pdf}
     	\caption{Z-score of weekly users per emotion in the English tweets}
-    	\label{fig:en-4-emotions-std}
+    	\label{fig:en-4-liwc-categories-std}
     \end{figure}
     
 \end{frame}
@@ -274,9 +270,9 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.22]{assets/img/en_4_emotions_per_category_over_mean_subplot_1.svg.pdf}
+    	\includegraphics[scale=.22]{assets/img/en_4_categories_per_gender_over_mean_subplot.svg.pdf}
     	\caption{Men/Women expressing the weekly proportion of a particular emotion w.r.t. the average value among all users}
-    	\label{fig:en-4-emotions-per-category-course-mean-1}
+    	\label{fig:en-4-categories-per-gender-over-mean}
     \end{figure}
     
 \end{frame}
@@ -285,34 +281,48 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.25]{assets/img/en_4_emotions_per_age_subplot_1.svg.pdf}
-    	\caption{Proportion of weekly users per age expressing a particular emotion in the English tweets}
-    	\label{fig:en-4-emotions-per-age-subplot-1}
+    	\includegraphics[scale=.25]{assets/img/en_4_categories_per_age_over_mean_subplot.svg.pdf}
+    	\caption{Users per age expressing the weekly proportion of a particular emotion w.r.t. the average value among all users}
+    	\label{fig:en-4-categories-per-age-over-mean}
     \end{figure}
     
 \end{frame}
 
-\begin{frame}{Emotions expressed per state in the English tweets}
-
-    \begin{figure}[H]
-	    \centering
-    	\includegraphics[scale=.25]{assets/img/it_anger_4_states.svg.pdf}
-    	\caption{Proportion of weekly users that expressed anger in Lombardia, Lazio, Emilia Romagna and Campania}
-    	\label{fig:it-anger-4-states}
-    \end{figure}
+\begin{frame}{Emotions expressed in Lombardia from the Italian tweets with events}
     
+    \begin{figure}[H]
+    	\centering
+    	\includegraphics[scale=.34]{assets/img/it_4_categories_lombardia_events.svg.pdf}
+    	\vspace*{-.75cm}
+    	\caption{Z-score of weekly users per emotion in Lombardia with possible associated events}
+    	\label{fig:it-4-categories-lombardia-std}
+    \end{figure}
+
 \end{frame}
 
 \section{Conclusions}
 
+\begin{frame}{Conclusions}
+    
+    The analysis of the data revealed some first interesting results:
+
+    \begin{itemize}
+    	\item sometimes the course of the emotions seems to be the same. This happens because on some days users are simply more emotional and tend to use more words.
+    	\item women tend to write more tweets conveying sadness. The difference is less marked for anxiety and positive emotions, while anger seems to be slightly more expressed by men.
+    	\item users below forty years old seem to be slightly more aggressive. Instead, those at least forty years old express more sadness, anxiety, and positive emotions with a significant gap
+    	\item finally, we were able to notice how, after the discovery of the first coronavirus case, people's anxiety dropped. This probably happened because news and various decrees helped to calm people down.
+    \end{itemize}
+    
+\end{frame}
+
 \begin{frame}{Next steps}
     
-    Unfortunately, I was only able to scratch the surface of this research field. To improve some of the results, it would be possible to
+    Aside from the results obtained, it must be underlined that there is always some space left for improvement that could bring even more value to this research. It could be possible to
     
     \begin{itemize}
-        \item take into account the context of the words in a sentence using NLP algorithms to avoid opposite emotions bias
-        \item use LIWC for more than validation
-        \item build a dataset to link the emotional peaks to real events
+        \item take into account the context of the words in a sentence using NLP algorithms to avoid biases and misclassification
+        \item take into account the whole sentence instead of single words
+        \item link the emotional peaks to real events (e. g. lockdowns, public health restrictions, etc.)
     \end{itemize}
     
 \end{frame}
@@ -547,14 +557,26 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.25]{assets/img/en_4_emotions_subplot_1.svg.pdf}
+    	\includegraphics[scale=.25]{assets/img/en_4_liwc_categories_subplots.svg.pdf}
     	\caption{Proportion of weekly users expressing a particular emotion in the English tweets}
-    	\label{fig:en-4-emotions-subplot-1}
+    	\label{fig:en-4-liwc-categories-subplots}
+    \end{figure}
+
+    
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]{Most used words on 2020/02/24 in the English tweets (LIWC)}
+
+    \begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=.25]{assets/img/en_most_used_liwc_words_2020_02_24.svg.pdf}
+    	\caption{Proportion of most used words on 2020/02/24 that express an emotion in the English tweets}
+    	\label{fig:en-most-used-liwc-words-2020-02-24}
     \end{figure}
     
 \end{frame}
 
-\begin{frame}[plain,noframenumbering]{Most used words on 2020/02/24 in the English tweets}
+\begin{frame}[plain,noframenumbering]{Most used words on 2020/02/24 in the English tweets (Emolex)}
 
     \begin{figure}[H]
 	    \centering
@@ -576,17 +598,6 @@
     
 \end{frame}
 
-\begin{frame}[plain,noframenumbering]{Number of emotions per age for a given week in the English tweets}
-
-    \begin{figure}[H]
-	    \centering
-    	\includegraphics[scale=.25]{assets/img/en_number_of_emotions_per_age.svg.pdf}
-    	\caption{Proportion of users per age expressing zero or more emotions/sentiments}
-    	\label{fig:en-4-emotions-per-age-per-number}
-    \end{figure}
-    
-\end{frame}
-
 \begin{frame}[plain,noframenumbering]{Users per state in the Italian tweets}
     
     \begin{figure}[H]
@@ -598,26 +609,26 @@
     
 \end{frame}
 
-\begin{frame}[plain,noframenumbering]{Tweets from Campania expressing anger per week}
-    
+\begin{frame}[plain,noframenumbering]{Emotions expressed per region in the Italian tweets}
+
     \begin{figure}[H]
-        \centering
-        \includegraphics[scale=0.3]{assets/img/it_Campania_anger_with_events.png}
-        \caption{Italian tweets from Campania expressing anger per week}
-        \label{fig:it_Campania_anger}
+	    \centering
+    	\includegraphics[scale=.25]{assets/img/it_anger_4_states.svg.pdf}
+    	\caption{Proportion of weekly users that expressed anger in Lombardia, Lazio, Emilia Romagna and Campania}
+    	\label{fig:it-anger-4-states}
     \end{figure}
     
 \end{frame}
 
-\begin{frame}[plain,noframenumbering]{Tweets from Campania expressing joy per week}
+\begin{frame}[plain,noframenumbering]{Emotions expressed in Lombardia from the Italian tweets}
     
     \begin{figure}[H]
-        \centering
-        \includegraphics[scale=0.3]{assets/img/it_Campania_joy_with_events.png}
-        \caption{Italian tweets from Campania expressing joy per week}
-        \label{fig:it_Campania_joy}
+    	\centering
+    	\includegraphics[scale=.25]{assets/img/it_4_categories_lombardia_standardized.svg.pdf}
+    	\caption{Z-score of weekly users per emotion in Lombardia}
+    	\label{fig:it-4-categories-lombardia-std}
     \end{figure}
-    
+
 \end{frame}
 
 \end{document}
