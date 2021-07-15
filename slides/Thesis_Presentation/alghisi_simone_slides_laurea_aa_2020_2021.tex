@@ -1,6 +1,6 @@
 % !TeX spellcheck = en_B
 % !TeX encoding = UTF-8 %%%These comments just make you look like you know what you're doing
-\documentclass[8pt]{beamer}  %%% Specifies the class, with 8pt font size
+\documentclass[9pt,aspectratio=1610]{beamer}  %%% Specifies the class, with 8pt font size
 
 \input{preamble} %%%adds the general preamble
 
@@ -31,7 +31,7 @@
     
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.35]{assets/img/biden-tweet.jpg}
+    	\includegraphics[scale=.43]{assets/img/biden-tweet.jpg}
     	\caption{President Biden's tweet - June 24, 2021.}
     	\label{fig:biden-tweet}
     \end{figure}
@@ -42,11 +42,11 @@
 
 \begin{frame}{Emotion detection}
 
-    Emotion detection, also called emotion recognition, is the \textbf{process of identifying human emotions}~\autocite{enwiki:1023798177}. To solve this task, it is possible to use lexicon-based techniques, where each word is assigned to a set of zero or more emotions/sentiments.
+    Emotion detection, also called emotion recognition, is the \textbf{process of identifying human emotions}~\autocite{enwiki:1023798177}. To solve this task, it is possible to use lexicon-based techniques, where each word is assigned to a set of zero or more emotions/sentiments. In particular, we have used two state-of-the-art libraries: \textbf{LIWC} and \textbf{EmoLex}. 
 
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.35,trim= 0 400 0 10, clip]{assets/img/emotion_detection_example.pdf}
+    	\includegraphics[scale=.43,trim= 0 400 0 10, clip]{assets/img/emotion_detection_example.pdf}
     	\caption{Emotion detection for a particular sentence.}
     	\label{fig:emotion-detection-example}
     \end{figure}
@@ -63,8 +63,8 @@
     	\item retrieving over 6TB of data from Twitter
     	\item analyzing users' emotions using state-of-the-art libraries (EmoLex, LIWC)
     	\item studying which emotions were expressed by a large group of users in 4 languages (ca, en, es, it)
-    	\item studying how the emotions expressed by users can vary based on their demographic characteristic, including inferred age and gender
-    	\item studying how the emotions expressed by users can vary based on their geographical provenance (at national and regional level)
+    	\item studying emotional expression by demographic characteristic (inferred age and gender)
+    	\item studying emotional expression by geographical provenance (at national and regional level)
     \end{itemize}
     
     Furthermore, I had the chance to contribute to m3inference, an open source, state-of-the-art library used to analyze tweets.
@@ -75,7 +75,7 @@
 
 \begin{frame}{Dataset description and stats}
 
-	Chen, Lerman, and Ferrara have built an ongoing collection of tweet IDs starting on January 28th, 2020\footnote{echen102/COVID-19-TweetIDs: \url{https://github.com/echen102/COVID-19-TweetIDs}}\textsuperscript{,}~\autocite{chen2020tracking}\text{.}
+	Chen, Lerman, and Ferrara (2020) have built an ongoing collection of tweet IDs starting on January 28th, 2020\footnote{echen102/COVID-19-TweetIDs: \url{https://github.com/echen102/COVID-19-TweetIDs}}\textsuperscript{,}~\autocite{chen2020tracking}\text{.} In particular, we analyzed the tweets \textbf{from January 2020 to March 2021}.
 	
 	\begin{table}[H]
         \centering
@@ -83,15 +83,20 @@
         \begin{tabular}{lr}
             Number of files & 10 402
             \\
-            Number of identified languages & 65
+            \midrule
+            Number of identified languages & \textbf{65}
             \\
-            Number of tweets & 1 055 843 481
+            \midrule
+            Number of tweets & \textbf{1 055 843 481}
             \\
+            \midrule
             Number of unique tweets (no retweets) & 323 504 667
             \\
+            \midrule
             Dataset compressed size & 865 GB
             \\
-            Dataset estimated uncompressed size & 6.252 TB
+            \midrule
+            Dataset estimated uncompressed size & \textbf{6.252 TB}
         \end{tabular}
         \caption{Dataset general statistics}
         \label{tab:dataset-stats}
@@ -99,58 +104,18 @@
 
 \end{frame}
 
-\begin{frame}[fragile]{Tweet Structure}
-
-    We decided to analyze the tweets \textbf{from January 2020 to March 2021}, keeping only the most relevant information.
-	
-    \begin{lstlisting}[language=json, caption={Final json object for a tweet}, captionpos=b, label={lst:tweet_json}]
-{
-  "id": 1307025659294674945,
-  "full_text": "Here's an article that highlights the updates...",
-  "lang": "en",
-  "created_at": "Fri Sep 18 18:36:15 +0000 2020",
-  "retweet_count": 11,
-  "favorite_count": 70,
-  "user": {
-    "id": 2244994945,
-    "id_str": "2244994945",
-    "screen_name": "TwitterDev",
-    "name": "Twitter Dev",
-    "description": "The voice of the #TwitterDev team and your official...",
-    "location": "127.0.0.1",
-    "followers_count": 513958,
-    "statuses_count": 3635,
-    "default_profile_image": false,
-    "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/1283786620521652229\/lEODkLTh_normal.jpg"
-  }
-}
-    \end{lstlisting}
-	
-\end{frame}
-
 \section{Methods}
-
-\begin{frame}{EmoLex \& LIWC}
-
-    We used
-    
-    \begin{itemize}
-        \item \textbf{EmoLex}, a list of English words and their associations with \textbf{eight basic emotions} (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and \textbf{two sentiments} (negative and positive)~\autocite{ncrwebsite}, to detect the emotions
-        \item \textbf{LIWC}, a widely used computerized text analysis program that outputs the percentage of words in a given text that falls into one or more \textbf{linguistic, psychological, and topical categories}~\autocite{liwcwebsite}, to validate the results
-    \end{itemize}
-
-\end{frame}
 
 \begin{frame}{Emotion detection metrics}
 
-    To correctly \textbf{detect the users' emotions}, we decided to follow one of the approaches discussed by Aiello et al.~\autocite{aiello2020epidemic}
+    To correctly \textbf{detect the users' emotions}, we decided to follow one of the approaches discussed by Aiello et al. (2020)~\autocite{aiello2020epidemic}
 	
 	\begin{itemize}
     	\item categorizing emotions in a binary way (e.g. whether at given time the user expressed joy or not)
     	\item counting users over tweets (e.g. the number of unique users, instead of tweets, that expressed joy at a given time)
     \end{itemize}
 	
-    \begin{definition}
+    \begin{definition}[1]
     \label{def:user-emotions}
     	Given \(U_e(t)\), the number of distinct users that expressed emotion \(e\) at time \(t\) in a tweet, and \(U(t)\), the number of distinct users that tweeted at time \(t\),
     	
@@ -158,6 +123,8 @@
     	
     	is the proportion of users that expressed emotion \(e\) at time \(t\).	
     \end{definition}
+    
+    To compare the emotions course all together we normalized the data using \textbf{z-score}.
 
 \end{frame}
 
@@ -171,73 +138,11 @@
         \item by \textbf{age} (\(< 40\) or \(\geq 40\))
         \item by \textbf{location} (e.g. per state, region, county, \ldots)
     \end{itemize}
-
-\end{frame}
-
-\begin{frame}{Data Normalization}
-
-    The issue is that the \textbf{emotions course are not easily comparable}. For this reason, it was decided to normalize the data using the \textit{z-score}.
-	
-    \begin{definition}
-    \label{def:z-score}
-    	Given \(f_e(t)\) and the period of time \([0,T]\),
-    	
-    	\[z_e(t) = \frac{f_e(t) - \mu_{[0,T]}(f_e)}{\sigma_{[0,T]}(f_e)}\]
-    	
-    	\[\text{where } \mu_{[0,T]}(f_e) = \frac{1}{\mid T \mid} \sum_{t =0}^{T} f_e(t) \text{, and } \sigma_{[0,T]}(f_e) = \sqrt{\frac{1}{\mid T \mid} \sum_{t = 0}^{T} \left( f_e(t) - \mu_{[0,T]}(f_e) \right)^2 }\] 
-    \end{definition}
-
-\end{frame}
-
-\begin{frame}[fragile]{Users demographics inference}
-
-	To infer data about the users, we used m3inference, a \textbf{deep learning system for demographic inference} (gender, age, and person/organization) available on Python~\autocite{wang2019demographic}.
-	
-\begin{lstlisting}[language=json, caption={Json object returned by m3inference}, captionpos=b, label={lst:m3inference-prediction}]
-{
-  "gender": {
-    "male": 0.8758, 
-    "female": 0.1242
-  }, 
-  "age": {
-    "<=18": 0.0053, 
-    "19-29": 0.0363, 
-    "30-39": 0.9239, 
-    ">=40": 0.0346
-  }, 
-  "org": {
-    "non-org": 0.9965, 
-    "is-org": 0.0035
-  }
-}
-\end{lstlisting}
-	
-\end{frame}
-
-\begin{frame}[fragile]{Geocoding}
     
-    To link users to a specific place, we need to perform \textbf{address geocoding}, the process of taking a text-based description of a location and returning its geographic coordinates.
+    To infer data about the users, we used \textbf{m3inference}, a deep learning system for demographic inference\autocite{wang2019demographic}.
     
-    For this project, we decided to use \textbf{OpenStreetMap (OSM)} and the data made available by this particular service~\autocite{osm}.
-    
-\begin{lstlisting}[language=json, caption={Json object returned by Geopy given “Milano, Lombardia” as input}, captionpos=b, label={lst:nominatim-geocode}]
-{
-  "place_id": 317098601, 
-  "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
-  "boundingbox": ["45.3867381", "45.5358482", "9.0408867", "9.2781103"], 
-  "lat": "45.4668", 
-  "lon": "9.1905", 
-  "display_name": "Milano, Lombardia, Italia",
-  "address": {
-    "city": "Milano", 
-    "county": "Milano",
-    "state": "Lombardia", 
-    "country": "Italia", 
-    "country_code": "it"
-  }
-}
-\end{lstlisting}
-    
+    Instead, geocoding was performed using the data made available by \textbf{OpenStreetMap (OSM)}~\autocite{osm}.
+
 \end{frame}
 
 \section{Results and discussion}
@@ -246,7 +151,7 @@
 
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.25]{assets/img/en_5_liwc_categories.svg.pdf}
+    	\includegraphics[scale=.30]{assets/img/en_5_liwc_categories.svg.pdf}
     	\caption{Proportion of weekly users per emotion in the English tweets}
     	\label{fig:en-5-liwc-categories}
     \end{figure}
@@ -254,10 +159,12 @@
 \end{frame}
 
 \begin{frame}{Normalized emotions in the English tweets}
+    
+    The z-score is the number of standard deviations by which a datapoint is above (or below) the mean value. 
 
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.25]{assets/img/en_4_liwc_categories_standardized.svg.pdf}
+    	\includegraphics[scale=.28]{assets/img/en_4_liwc_categories_standardized.svg.pdf}
     	\caption{Z-score of weekly users per emotion in the English tweets}
     	\label{fig:en-4-liwc-categories-std}
     \end{figure}
@@ -270,7 +177,7 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.22]{assets/img/en_4_categories_per_gender_over_mean_subplot.svg.pdf}
+    	\includegraphics[scale=.27]{assets/img/en_4_categories_per_gender_over_mean_subplot.svg.pdf}
     	\caption{Men/Women expressing the weekly proportion of a particular emotion w.r.t. the average value among all users}
     	\label{fig:en-4-categories-per-gender-over-mean}
     \end{figure}
@@ -281,7 +188,7 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.25]{assets/img/en_4_categories_per_age_over_mean_subplot.svg.pdf}
+    	\includegraphics[scale=.30]{assets/img/en_4_categories_per_age_over_mean_subplot.svg.pdf}
     	\caption{Users per age expressing the weekly proportion of a particular emotion w.r.t. the average value among all users}
     	\label{fig:en-4-categories-per-age-over-mean}
     \end{figure}
@@ -292,7 +199,7 @@
     
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.34]{assets/img/it_4_categories_lombardia_events.svg.pdf}
+    	\includegraphics[scale=.38]{assets/img/it_4_categories_lombardia_events.svg.pdf}
     	\vspace*{-.75cm}
     	\caption{Z-score of weekly users per emotion in Lombardia with possible associated events}
     	\label{fig:it-4-categories-lombardia-std}
@@ -310,19 +217,19 @@
     	\item sometimes the course of the emotions seems to be the same. This happens because on some days users are simply more emotional and tend to use more words.
     	\item women tend to write more tweets conveying sadness. The difference is less marked for anxiety and positive emotions, while anger seems to be slightly more expressed by men.
     	\item users below forty years old seem to be slightly more aggressive. Instead, those at least forty years old express more sadness, anxiety, and positive emotions with a significant gap
-    	\item finally, we were able to notice how, after the discovery of the first coronavirus case, people's anxiety dropped. This probably happened because news and various decrees helped to calm people down.
+    	\item finally, we were able to notice how, after the discovery of the first coronavirus case, people's anxiety dropped. This may be due to the spread of news and the release of various decrees which helped to calm people down.
     \end{itemize}
     
 \end{frame}
 
 \begin{frame}{Next steps}
     
-    Aside from the results obtained, it must be underlined that there is always some space left for improvement that could bring even more value to this research. It could be possible to
+    Possible improvement for this work:
     
     \begin{itemize}
         \item take into account the context of the words in a sentence using NLP algorithms to avoid biases and misclassification
         \item take into account the whole sentence instead of single words
-        \item link the emotional peaks to real events (e. g. lockdowns, public health restrictions, etc.)
+        \item link the emotional peaks to real events (e.g. lockdowns, public health restrictions, etc.)
     \end{itemize}
     
 \end{frame}
@@ -371,7 +278,7 @@
     \begin{table}[H]
         \centering
         \ra{1.2}
-        \begin{tabularx}{\columnwidth}{@{}llrrrr@{}}
+        \begin{tabular}{llrrrr}
         		\bottomrule
         		\textbf{language} & \textbf{ISO} & \textbf{unique tweets} & \textbf{retweets} & \textbf{total} & \textbf{percentage} \\
         		\midrule
@@ -396,7 +303,7 @@
     		Thai & th & 350 268 & 9 028 730 & 9 378 998 & 0.89\%
     		\\
     		\bottomrule
-        \end{tabularx}
+        \end{tabular}
         \caption{Top 10 languages with the most tweets}
         \label{tab:dataset-language-stats}
     \end{table}
@@ -407,7 +314,7 @@
 
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.25]{assets/img/tweets_per_language_over_time}
+    	\includegraphics[scale=.30]{assets/img/tweets_per_language_over_time}
     	\caption{Number of tweets in logarithmic scale over time for the top 10 languages}
     	\label{fig:tweets-language-over-time}
     \end{figure}
@@ -428,13 +335,117 @@
 
 \end{frame}
 
+\begin{frame}[fragile,plain,noframenumbering]{Tweet Structure}
+	
+    \begin{lstlisting}[language=json, caption={Final json object for a tweet}, captionpos=b, label={lst:tweet_json}]
+{
+  "id": 1307025659294674945,
+  "full_text": "Here's an article that highlights the updates...",
+  "lang": "en",
+  "created_at": "Fri Sep 18 18:36:15 +0000 2020",
+  "retweet_count": 11,
+  "favorite_count": 70,
+  "user": {
+    "id": 2244994945,
+    "id_str": "2244994945",
+    "screen_name": "TwitterDev",
+    "name": "Twitter Dev",
+    "description": "The voice of the #TwitterDev team and your official...",
+    "location": "127.0.0.1",
+    "followers_count": 513958,
+    "statuses_count": 3635,
+    "default_profile_image": false,
+    "profile_image_url_https": "https:\/\/pbs.twimg.com\/profile_images\/1283786620521652229\/lEODkLTh_normal.jpg"
+  }
+}
+    \end{lstlisting}
+	
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]{EmoLex \& LIWC}
+
+    We used
+    
+    \begin{itemize}
+        \item \textbf{EmoLex}, a list of English words and their associations with \textbf{eight basic emotions} (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and \textbf{two sentiments} (negative and positive)~\autocite{ncrwebsite}, to detect the emotions
+        \item \textbf{LIWC}, a widely used computerized text analysis program that outputs the percentage of words in a given text that falls into one or more \textbf{linguistic, psychological, and topical categories}~\autocite{liwcwebsite}, to validate the results
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]{Data Normalization}
+
+    The issue is that the \textbf{emotions course are not easily comparable}. For this reason, it was decided to normalize the data using the \textit{z-score}.
+	
+    \begin{definition}[2]
+    \label{def:z-score}
+    	Given \(f_e(t)\) and the period of time \([0,T]\),
+    	
+    	\[z_e(t) = \frac{f_e(t) - \mu_{[0,T]}(f_e)}{\sigma_{[0,T]}(f_e)}\]
+    	
+    	\[\text{where } \mu_{[0,T]}(f_e) = \frac{1}{\mid T \mid} \sum_{t =0}^{T} f_e(t) \text{, and } \sigma_{[0,T]}(f_e) = \sqrt{\frac{1}{\mid T \mid} \sum_{t = 0}^{T} \left( f_e(t) - \mu_{[0,T]}(f_e) \right)^2 }\] 
+    \end{definition}
+
+\end{frame}
+
+\begin{frame}[fragile,plain,noframenumbering]{Users demographics inference}
+
+	To infer data about the users, we used m3inference, a \textbf{deep learning system for demographic inference} (gender, age, and person/organization) available on Python.
+	
+\begin{lstlisting}[language=json, caption={Json object returned by m3inference}, captionpos=b, label={lst:m3inference-prediction}]
+{
+  "gender": {
+    "male": 0.8758, 
+    "female": 0.1242
+  }, 
+  "age": {
+    "<=18": 0.0053, 
+    "19-29": 0.0363, 
+    "30-39": 0.9239, 
+    ">=40": 0.0346
+  }, 
+  "org": {
+    "non-org": 0.9965, 
+    "is-org": 0.0035
+  }
+}
+\end{lstlisting}
+	
+\end{frame}
+
+\begin{frame}[fragile,plain,noframenumbering]{Geocoding}
+    
+    To link users to a specific place, we need to perform \textbf{address geocoding}, the process of taking a text-based description of a location and returning its geographic coordinates.
+    
+    For this project, we decided to use \textbf{OpenStreetMap (OSM)} and the data made available by this particular service.
+    
+\begin{lstlisting}[language=json, caption={Json object returned by Geopy given “Milano, Lombardia” as input}, captionpos=b, label={lst:nominatim-geocode}]
+{
+  "place_id": 317098601, 
+  "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+  "boundingbox": ["45.3867381", "45.5358482", "9.0408867", "9.2781103"], 
+  "lat": "45.4668", 
+  "lon": "9.1905", 
+  "display_name": "Milano, Lombardia, Italia",
+  "address": {
+    "city": "Milano", 
+    "county": "Milano",
+    "state": "Lombardia", 
+    "country": "Italia", 
+    "country_code": "it"
+  }
+}
+\end{lstlisting}
+    
+\end{frame}
+
 \begin{frame}[plain,noframenumbering]{Personal contribution to m3inference}
 
 	During the project I encountered several errors while using m3inference, for this reason I decided to open a Pull Request on GitHub\footnote{Pull request: \href{https://github.com/euagendas/m3inference/pull/20}{fix urllib errors while trying to fetch a profile image from twitter \#20}} to contribute to the project.
 	
 	\begin{figure}
 	    \centering
-	    \includegraphics[scale=0.165]{assets/img/pull_request.png}
+	    \includegraphics[scale=0.195]{assets/img/pull_request.png}
 	\end{figure}
 	
 	The version of m3inference on the packet manager was updated when the same issue was notified by another user\footnote{issue: \href{https://github.com/euagendas/m3inference/issues/21}{Error fetching images will fail the infer method \#21}}.
@@ -443,7 +454,7 @@
 
 \begin{frame}[plain,noframenumbering]{Valid users - gender}
 
-    \begin{definition}
+    \begin{definition}[3]
     \label{def:valid-users}
     	A user \(u\) belongs to the category \(c \in C\) iif their prediction confidence \(pc\) is greater or equal than 0.95, i.e.
     	\[u \in c \Longleftrightarrow pc(u, c) \geq 0.95\]
@@ -461,7 +472,7 @@
 
 \begin{frame}[plain,noframenumbering]{Valid users - age}
 
-    \begin{definition}
+    \begin{definition}[4]
     \label{def:valid-users-age}
     	A user \(u\) belongs to the age bracket \(a \in A\) iif their prediction confidence \(pc\) is greater or equal than 0.95, i.e.
     	\[u \in a \Longleftrightarrow pc(u, a) \geq 0.95\]
@@ -531,7 +542,7 @@
 
     For this reason, we applied \Cref{def:categories-normalization} to our data:
     	
-    \begin{definition}
+    \begin{definition}[5]
     \label{def:categories-normalization}
     	Given \(f_{e, c}(t)\), i.e. the proportion of users belonging to category \(c \in C\) that expressed emotion \(e\) at time \(t\), and the period of time \([0,T]\),
     	
@@ -546,7 +557,7 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.25]{assets/img/en_emotions_and_liwc_categories_comparison.svg.pdf}
+    	\includegraphics[scale=.30]{assets/img/en_emotions_and_liwc_categories_comparison.svg.pdf}
     	\caption{Comparison between the z-score of the emotions and the z-score of the LIWC categories}
     	\label{fig:en-emotions-liwc-comparison}
     \end{figure}
@@ -557,7 +568,7 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.25]{assets/img/en_4_liwc_categories_subplots.svg.pdf}
+    	\includegraphics[scale=.30]{assets/img/en_4_liwc_categories_subplots.svg.pdf}
     	\caption{Proportion of weekly users expressing a particular emotion in the English tweets}
     	\label{fig:en-4-liwc-categories-subplots}
     \end{figure}
@@ -569,7 +580,7 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.25]{assets/img/en_most_used_liwc_words_2020_02_24.svg.pdf}
+    	\includegraphics[scale=.30]{assets/img/en_most_used_liwc_words_2020_02_24.svg.pdf}
     	\caption{Proportion of most used words on 2020/02/24 that express an emotion in the English tweets}
     	\label{fig:en-most-used-liwc-words-2020-02-24}
     \end{figure}
@@ -580,7 +591,7 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.25]{assets/img/en_most_used_words_2020_02_24.svg.pdf}
+    	\includegraphics[scale=.30]{assets/img/en_most_used_words_2020_02_24.svg.pdf}
     	\caption{Proportion of most used words on 2020/02/24 that express emotion/sentiment in the English tweets}
     	\label{fig:en-most-used-word-2020-02-24}
     \end{figure}
@@ -591,7 +602,7 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.25]{assets/img/en_most_used_words_4_emotions_2020_02_24_subplot.svg.pdf}
+    	\includegraphics[scale=.30]{assets/img/en_most_used_words_4_emotions_2020_02_24_subplot.svg.pdf}
     	\caption{Proportion of 15 most used words on 2020/02/24 per emotion in the English tweets}
     	\label{fig:en-most-used-word-subplot-2020-02-24}
     \end{figure}
@@ -602,7 +613,7 @@
     
     \begin{figure}[H]
 	\centering
-    	\includegraphics[scale=.25]{assets/img/it_users_per_state.svg.pdf}
+    	\includegraphics[scale=.30]{assets/img/it_users_per_state.svg.pdf}
     	\caption{Proportion of users per state in Italy}
     	\label{fig:it-users-state}
 \end{figure}
@@ -613,9 +624,9 @@
 
     \begin{figure}[H]
 	    \centering
-    	\includegraphics[scale=.25]{assets/img/it_anger_4_states.svg.pdf}
-    	\caption{Proportion of weekly users that expressed anger in Lombardia, Lazio, Emilia Romagna and Campania}
-    	\label{fig:it-anger-4-states}
+    	\includegraphics[scale=.30]{assets/img/it_ansia_4_states.svg.pdf}
+    	\caption{Proportion of weekly users that expressed anxiety in Lombardia, Lazio, Emilia Romagna and Campania}
+    	\label{fig:it-anxiety-4-states}
     \end{figure}
     
 \end{frame}
@@ -624,7 +635,7 @@
     
     \begin{figure}[H]
     	\centering
-    	\includegraphics[scale=.25]{assets/img/it_4_categories_lombardia_standardized.svg.pdf}
+    	\includegraphics[scale=.30]{assets/img/it_4_categories_lombardia_standardized.svg.pdf}
     	\caption{Z-score of weekly users per emotion in Lombardia}
     	\label{fig:it-4-categories-lombardia-std}
     \end{figure}
