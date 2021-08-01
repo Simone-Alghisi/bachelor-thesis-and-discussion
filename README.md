@@ -8,6 +8,6 @@ This dissertation describes in detail the activity performed during my two-month
 
 ## Special Thanks 
 
-I would like to thank first of all Prof. Montresor, who gave me the possibility to carry out my traineeship with Eurecat - Centro Tecnol´ogico de Catalunya. Secondly, both Cristian Consonni and David Laniado, who supervised my work at the Big Data & Data Science Department, and always helped me during my traineeship to get the best possible experience. Finally, my family, who always supported me during these years in every way possible, and my friends, both in the university and in my hometown: even though I am aware that I complain a lot, you have really made these three years more enjoyable.
+I would like to thank first of all Prof. Montresor, who gave me the possibility to carry out my traineeship with Eurecat - Centro Tecnológico de Catalunya. Secondly, both Cristian Consonni and David Laniado, who supervised my work at the Big Data & Data Science Department, and always helped me during my traineeship to get the best possible experience. Finally, my family, who always supported me during these years in every way possible, and my friends, both in the university and in my hometown: even though I am aware that I complain a lot, you have really made these three years more enjoyable.
 
 Once again, thanks for believing in me.
