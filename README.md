@@ -4,7 +4,7 @@ Repository containing both the thesis and slides for my bachelor's degree in Com
 
 ## Traineeship project
 
-This dissertation describes in detail the activity performed during my two-month traineeship at the Big Data & Data Science Department of Eurecat - Centro Tecnológico de Catalunya, which was supervised by Cristian Consonni and David Laniado. The purpose of the project was to analyze the emotions emerging from Twitter messages during the pandemic, in order to understand how people felt over the whole period. Based on the result obtained from this research, it may be possible to determine which countermeasures better handled the situation while offering the best possible trade-off between people’s satisfaction and the reduction of the spread of the disease.
+This thesis describes in detail the activity performed during my two-month traineeship at the Big Data & Data Science Department of Eurecat - Centro Tecnológico de Catalunya, which was supervised by Cristian Consonni and David Laniado. The purpose of the project was to analyse the emotions emerging from Twitter messages during the pandemic, in order to understand how people felt over the whole period. Based on the result obtained from this research, it may be possible to determine which countermeasures better handled the situation while offering the best possible trade-off between people’s satisfaction and the reduction of the spread of the disease.
 
 ## Special Thanks 
 
