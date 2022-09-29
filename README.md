@@ -1,6 +1,6 @@
 # The emotional impact of the Covid-19
 
-This repository contains both the final dissertation and the slides for the presentation for my bachelor's degree in Computer Science at the University of Trento.
+Repository containing both the thesis and slides for my bachelor's degree in Computer Science at the University of Trento.
 
 ## Traineeship project
 
